@@ -1,0 +1,16 @@
+E:\Repository\IST\IST.Services\bin\Debug\IST.Services.dll
+E:\Repository\IST\IST.Services\bin\Debug\IST.Services.pdb
+E:\Repository\IST\IST.Services\bin\Debug\IST.Common.dll
+E:\Repository\IST\IST.Services\bin\Debug\IST.Entities.dll
+E:\Repository\IST\IST.Services\bin\Debug\IST.Repository.dll
+E:\Repository\IST\IST.Services\bin\Debug\EntityFramework.dll
+E:\Repository\IST\IST.Services\bin\Debug\IST.Common.pdb
+E:\Repository\IST\IST.Services\bin\Debug\IST.Entities.pdb
+E:\Repository\IST\IST.Services\bin\Debug\IST.Repository.pdb
+E:\Repository\IST\IST.Services\bin\Debug\IST.Repository.dll.config
+E:\Repository\IST\IST.Services\bin\Debug\EntityFramework.xml
+E:\Repository\IST\IST.Services\obj\Debug\IST.Services.csprojAssemblyReference.cache
+E:\Repository\IST\IST.Services\obj\Debug\IST.Services.csproj.CoreCompileInputs.cache
+E:\Repository\IST\IST.Services\obj\Debug\IST.Services.csproj.CopyComplete
+E:\Repository\IST\IST.Services\obj\Debug\IST.Services.dll
+E:\Repository\IST\IST.Services\obj\Debug\IST.Services.pdb
