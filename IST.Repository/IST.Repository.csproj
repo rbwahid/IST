@@ -4,7 +4,7 @@
   <PropertyGroup>
     <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
     <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
-    <ProjectGuid>{0C313A21-399F-405A-A46D-31AC7F306583}</ProjectGuid>
+    <ProjectGuid>{EEA40EF9-7521-4B1F-BE52-EAE7F046F013}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
     <RootNamespace>IST.Repository</RootNamespace>
@@ -40,7 +40,6 @@
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Core" />
-    <Reference Include="System.Web" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -53,9 +52,9 @@
     <Compile Include="IRepository.cs" />
     <Compile Include="ISTDbContext.cs" />
     <Compile Include="LoginRecordRepository.cs" />
-    <Compile Include="Migrations\201907250908151_user.cs" />
-    <Compile Include="Migrations\201907250908151_user.Designer.cs">
-      <DependentUpon>201907250908151_user.cs</DependentUpon>
+    <Compile Include="Migrations\201907270639388_Initial.cs" />
+    <Compile Include="Migrations\201907270639388_Initial.Designer.cs">
+      <DependentUpon>201907270639388_Initial.cs</DependentUpon>
     </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -66,22 +65,22 @@
     <Compile Include="UserUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\IST.Common\IST.Common.csproj">
-      <Project>{539a057d-1647-4fd9-8254-345285e5a62f}</Project>
-      <Name>IST.Common</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\IST.Entities\IST.Entities.csproj">
-      <Project>{F8F1D5DD-20D2-4DFD-9376-362DA637624E}</Project>
-      <Name>IST.Entities</Name>
-    </ProjectReference>
-  </ItemGroup>
-  <ItemGroup>
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Migrations\201907250908151_user.resx">
-      <DependentUpon>201907250908151_user.cs</DependentUpon>
+    <ProjectReference Include="..\IST.Common\IST.Common.csproj">
+      <Project>{88C4A5C7-2381-4C53-9D84-72662D475000}</Project>
+      <Name>IST.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\IST.Entities\IST.Entities.csproj">
+      <Project>{ed65fac4-d3b5-4e3c-bc97-bf0fce48f7c1}</Project>
+      <Name>IST.Entities</Name>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Migrations\201907270639388_Initial.resx">
+      <DependentUpon>201907270639388_Initial.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

@@ -1,5 +1,10 @@
-E:\Repository\IST\IST.Common\bin\Debug\IST.Common.dll
-E:\Repository\IST\IST.Common\bin\Debug\IST.Common.pdb
-E:\Repository\IST\IST.Common\obj\Debug\IST.Common.csproj.CoreCompileInputs.cache
-E:\Repository\IST\IST.Common\obj\Debug\IST.Common.dll
-E:\Repository\IST\IST.Common\obj\Debug\IST.Common.pdb
+F:\IST.Common\bin\Debug\IST.Common.dll
+F:\IST.Common\bin\Debug\IST.Common.pdb
+F:\IST.Common\obj\Debug\IST.Common.csproj.CoreCompileInputs.cache
+F:\IST.Common\obj\Debug\IST.Common.dll
+F:\IST.Common\obj\Debug\IST.Common.pdb
+F:\IST\IST.Common\bin\Debug\IST.Common.dll
+F:\IST\IST.Common\bin\Debug\IST.Common.pdb
+F:\IST\IST.Common\obj\Debug\IST.Common.csproj.CoreCompileInputs.cache
+F:\IST\IST.Common\obj\Debug\IST.Common.dll
+F:\IST\IST.Common\obj\Debug\IST.Common.pdb
