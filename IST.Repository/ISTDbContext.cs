@@ -25,6 +25,11 @@ namespace IST.Repository
         public DbSet<User> Users { get; set; }
         public DbSet<UserRole> UserRoles { get; set; }
         public DbSet<UserRolePermission> UserRolePermissions { get; set; }
+        public DbSet<Company> Companies  { get; set; }
+        public DbSet<CompanyProject> CompanyProjects   { get; set; }
+        public DbSet<AttachmentFile> AttachmentFiles    { get; set; }
+        public DbSet<Ticket> Tickets    { get; set; }
+        public DbSet<TicketAssign> TicketAssigns  { get; set; }
 
         public int SaveChanges(string occurrenceUserId)
         {

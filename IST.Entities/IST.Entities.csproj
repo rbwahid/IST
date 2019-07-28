@@ -48,11 +48,16 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachmentFile.cs" />
     <Compile Include="AuditableEntity.cs" />
     <Compile Include="AuditLog.cs" />
+    <Compile Include="Company.cs" />
+    <Compile Include="CompanyProject.cs" />
     <Compile Include="Entity.cs" />
     <Compile Include="LoginRecord.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Ticket.cs" />
+    <Compile Include="TicketAssign.cs" />
     <Compile Include="User.cs" />
     <Compile Include="UserRole.cs" />
     <Compile Include="UserRolePermission.cs" />
