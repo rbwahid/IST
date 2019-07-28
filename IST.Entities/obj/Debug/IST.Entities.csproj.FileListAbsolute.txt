@@ -21,3 +21,15 @@ F:\IST\IST.Entities\obj\Debug\IST.Entities.csproj.CoreCompileInputs.cache
 F:\IST\IST.Entities\obj\Debug\IST.Entities.csproj.CopyComplete
 F:\IST\IST.Entities\obj\Debug\IST.Entities.dll
 F:\IST\IST.Entities\obj\Debug\IST.Entities.pdb
+E:\Repository\IST\IST.Entities\bin\Debug\IST.Entities.dll.config
+E:\Repository\IST\IST.Entities\bin\Debug\IST.Entities.dll
+E:\Repository\IST\IST.Entities\bin\Debug\IST.Entities.pdb
+E:\Repository\IST\IST.Entities\bin\Debug\EntityFramework.dll
+E:\Repository\IST\IST.Entities\bin\Debug\EntityFramework.SqlServer.dll
+E:\Repository\IST\IST.Entities\bin\Debug\EntityFramework.xml
+E:\Repository\IST\IST.Entities\bin\Debug\EntityFramework.SqlServer.xml
+E:\Repository\IST\IST.Entities\obj\Debug\IST.Entities.csprojAssemblyReference.cache
+E:\Repository\IST\IST.Entities\obj\Debug\IST.Entities.csproj.CoreCompileInputs.cache
+E:\Repository\IST\IST.Entities\obj\Debug\IST.Entities.csproj.CopyComplete
+E:\Repository\IST\IST.Entities\obj\Debug\IST.Entities.dll
+E:\Repository\IST\IST.Entities\obj\Debug\IST.Entities.pdb
