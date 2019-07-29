@@ -1,0 +1,66 @@
+﻿@model  IST.Web.Models.CompanyModel
+
+@{
+    ViewBag.Title = "Company";
+}
+@using (Html.BeginForm("Add", "Company", FormMethod.Post, new { @class = "form-horizontal", @id = "CompanyCreateForm" }))
+{
+    @Html.AntiForgeryToken()
+    <div class="card">
+        <div class="card-header">
+            <h5 class="card-title">Add Or Edit</h5>
+        </div>
+        <hr class="hr-mar-reduce" />
+        <div class="card-body">
+            @Html.ValidationSummary(true)
+            @Html.HiddenFor(model => model.Id, new { @id = "CompanyId" })
+            @*@Html.Hidden("InitialTypeName", "undefined")*@
+            @Html.Hidden("InitialName", "undefined")
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Name, new { @class = "col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Name)
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Address, new { @class = "col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.Address, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Address)
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(model => model.Phone, new { @class = "col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.Phone, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Phone)
+                </div>
+            </div><div class="form-group row">
+                @Html.LabelFor(model => model.Email, new { @class = "col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.Email, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.Email)
+                </div>
+            </div><div class="form-group row">
+                @Html.LabelFor(model => model.FaxNo, new { @class = "col-sm-4" })
+                <div class="col-sm-8">
+                    @Html.TextBoxFor(model => model.FaxNo, new { @class = "form-control input-sm" })
+                    @Html.ValidationMessageFor(model => model.FaxNo)
+                </div>
+            </div>
+            
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("Index","Company")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                    <button type="submit" class="btn  bg-teal btn-custom ml-3" id="submitButton"><i class="fa fa-save"></i> Save</button>
+                </div>
+            </div>
+        </div>
+        }
+
+
+
+
+
