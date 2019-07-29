@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CompanyProjectController.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UserController.cs" />
@@ -168,6 +169,7 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\AuthenticatedUser.cs" />
+    <Compile Include="Models\CompanyProjectModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
     <Compile Include="Models\ExceptionLogger.cs" />
     <Compile Include="Models\IdentityModels.cs" />
@@ -2685,6 +2687,8 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Company\_CompanyAddOrEdit.cshtml" />
+    <Content Include="Views\CompanyProject\_CompanyProjectAddOrEdit.cshtml" />
+    <Content Include="Views\CompanyProject\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
