@@ -16,6 +16,9 @@ function ajaxCall(url, paramData, callback, method, obj) {
             }
             else if (callback == 'renderResetPassword') {
                 renderResetPassword(response);
+            }
+            else if (callback == 'renderCompanyEntryLoad') {
+                renderCompanyEntryLoad(response);
             }  
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

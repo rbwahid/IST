@@ -49,6 +49,8 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AuditLogRepository.cs" />
+    <Compile Include="CompanyRepository.cs" />
+    <Compile Include="CompanyUnitOfWork.cs" />
     <Compile Include="IRepository.cs" />
     <Compile Include="ISTDbContext.cs" />
     <Compile Include="LoginRecordRepository.cs" />
