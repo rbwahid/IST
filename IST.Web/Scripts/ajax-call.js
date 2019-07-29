@@ -19,6 +19,9 @@ function ajaxCall(url, paramData, callback, method, obj) {
             }
             else if (callback == 'renderCompanyEntryLoad') {
                 renderCompanyEntryLoad(response);
+            }
+            else if (callback == 'renderCompanyProjectEntryLoad') {
+                renderCompanyProjectEntryLoad(response);
             }  
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

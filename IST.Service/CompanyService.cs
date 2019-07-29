@@ -43,7 +43,10 @@ namespace IST.Service
                 Email = company.Email,
                 FaxNo = company.FaxNo,
 
-                CreatedBy = company.CreatedBy
+                CreatedBy = company.CreatedBy,
+                CreatedAt = company.CreatedAt,
+                IsDeleted = company.IsDeleted
+
             };
 
             _companyUnitOfWork.CompanyRepository.Add(newCompany);
