@@ -14,3 +14,8 @@ E:\Repository\IST\IST.Common\obj\Debug\IST.Common.csprojAssemblyReference.cache
 E:\Repository\IST\IST.Common\obj\Debug\IST.Common.csproj.CoreCompileInputs.cache
 E:\Repository\IST\IST.Common\obj\Debug\IST.Common.dll
 E:\Repository\IST\IST.Common\obj\Debug\IST.Common.pdb
+F:\Repository\IST\IST.Common\bin\Debug\IST.Common.dll
+F:\Repository\IST\IST.Common\bin\Debug\IST.Common.pdb
+F:\Repository\IST\IST.Common\obj\Debug\IST.Common.csproj.CoreCompileInputs.cache
+F:\Repository\IST\IST.Common\obj\Debug\IST.Common.dll
+F:\Repository\IST\IST.Common\obj\Debug\IST.Common.pdb

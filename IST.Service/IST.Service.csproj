@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="AttachmentFileService.cs" />
+    <Compile Include="TicketService.cs" />
     <Compile Include="CompanyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="UserRoleService.cs" />

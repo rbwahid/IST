@@ -1,0 +1,99 @@
+﻿@model IST.Web.Models.TicketModel
+
+@{
+    ViewBag.Title = "Ticket";
+}
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h3 class="card-title"><strong>Ticket</strong></h3>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        @using (Html.BeginForm("Add", "Ticket", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ticketCreateForm", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true);
+            @Html.Hidden("InitialName", "undefined")
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.CompanyProjectId)</label>
+                            <div class="col-lg-6">
+                                @{
+                                    var projectList = new List<SelectListItem>();
+                                    projectList.Add(new SelectListItem() { Text = "Kaizoe2", Value = "1" });
+                                    projectList.Add(new SelectListItem() { Text = "TaxStamp", Value = "2" });
+                                }
+                                @Html.DropDownListFor(model => model.CompanyProjectId, new SelectList(projectList, "Value", "Text"), "--Choose--", new { @class = "form-control input-sm" })
+                                @Html.ValidationMessageFor(model => model.CompanyProjectId)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control input-sm", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueName)</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.IssueName, new { @class = "form-control input-sm", @placeholder = "Issue Name" })
+                                @Html.ValidationMessageFor(model => model.IssueName)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Priority)</label>
+                            <div class="col-md-6">
+                                <div class="form-check form-check-inline">
+                                    <label class="form-check-label">
+                                        @Html.EditorFor(model => model.Priority, new { @type = "checkbox", @class = "form-check-input-styled input-sm", @Value = false })
+                                        @Html.ValidationMessageFor(model => model.Priority)
+                                    </label>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                @* Attachments *@
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="sectionLedgend">Attachments</h4>
+                        @{Html.RenderPartial("~/Views/Shared/_AttachmentFilePartial.cshtml");}
+                    </div>
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("Index", "Ticket")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                    <button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSumbit()"><i class="fa fa-save"></i> Save</button>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- /basic layout -->
+
+</div>
+<!-- /content area -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    <script type="text/javascript">
+        function formSumbit() {
+            rearrangeNameSuffix("#attachmentFileTBody");
+            $("#ticketCreateForm").submit();
+        }
+    </script>
+}

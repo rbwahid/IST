@@ -48,6 +48,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Migrations\201907300940098_attachmentFileEntityUpdate.cs" />
+    <Compile Include="Migrations\201907300940098_attachmentFileEntityUpdate.Designer.cs">
+      <DependentUpon>201907300940098_attachmentFileEntityUpdate.cs</DependentUpon>
+    </Compile>
+    <Compile Include="TicketRepository.cs" />
+    <Compile Include="AttachmentFileRepository.cs" />
+    <Compile Include="TicketUnitOfWork.cs" />
+    <Compile Include="AttachmentFileUnitOfWork.cs" />
     <Compile Include="AuditLogRepository.cs" />
     <Compile Include="CompanyRepository.cs" />
     <Compile Include="CompanyUnitOfWork.cs" />
@@ -90,6 +98,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907280730124_entities.resx">
       <DependentUpon>201907280730124_entities.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201907300940098_attachmentFileEntityUpdate.resx">
+      <DependentUpon>201907300940098_attachmentFileEntityUpdate.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

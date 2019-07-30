@@ -46,7 +46,6 @@ function reset_password_confirm(url, paramData) {
 
 }
 
-
 //---Form Progress-----
 $("form").on("submit", function (event) {
     if ($(this).valid()) {
@@ -71,7 +70,7 @@ $("form").on("submit", function (event) {
 });
 
 
-//-------for Check Value--------
+// check & convert value //
 function customTryParseInt(value, defaultValue) {
     defaultValue = (typeof defaultValue !== "undefined" && defaultValue !== null) ? defaultValue : 0;
     var returnValue = defaultValue;
@@ -84,7 +83,6 @@ function customTryParseInt(value, defaultValue) {
     }
     return returnValue;
 }
-
 function customTryParseFloat(value, defaultValue) {
     defaultValue = (typeof defaultValue !== "undefined" && defaultValue !== null) ? defaultValue : 0;
     var returnValue = defaultValue;
@@ -97,4 +95,32 @@ function customTryParseFloat(value, defaultValue) {
     }
     return returnValue;
 }
-
+// serialized row //
+function rearrangeNameSuffix(selector) {
+    var count = 0;
+    $(selector).find('tr').each(function () {
+        var suffix = $(this).find(':input:first').attr('name').match(/\d+/);
+        $.each($(this).find(':input'), function (i, val) {
+            // Replaced Name
+            var oldN = $(this).attr('name');
+            var newN = oldN.replace('[' + suffix + ']', '[' + count + ']');
+            $(this).attr('name', newN);
+        });
+        count++;
+    });
+}
+// attachment file add & remove //
+function addAttachmentFileRow() {
+    var rowNumber = $("#attachmentFileTBody").find("tr").length;
+    $("#attachmentFileTBody").append('<tr>' +
+        '<td>' +
+        '<input class="col-md-12 form-control input-sm" id="FileLists_' + rowNumber + '__FileBase" name="FileLists[' + rowNumber + '].FileBase" type="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,text/plain, application/pdf,image/*">' +
+        '</td>' +
+        '<td width="3%">' +
+        '<span onclick="removeRow(this)" class="btn btn-xxs text-danger"><i class="icon-cancel-circle2"></i></span>' +
+        '</td>' +
+        '</tr>');
+}
+function removeRow(obj) {
+    $(obj).closest("tr").remove();
+}

@@ -1,24 +1,121 @@
-﻿body {
-    padding-top: 50px;
-    padding-bottom: 20px;
+﻿/*body {
+	padding-top: 50px;
+	padding-bottom: 20px;
 }
-
-/* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+	padding-left: 15px;
+	padding-right: 15px;
 }
 
-/* Override the default bootstrap behavior where horizontal description lists 
-   will truncate terms that are too long to fit in the left column 
-*/
 .dl-horizontal dt {
-    white-space: normal;
+	white-space: normal;
 }
 
-/* Set width on the form input elements since they're 100% wide by default */
 input,
 select,
 textarea {
-    max-width: 280px;
+	max-width: 280px;
+}*/
+
+/* custom code */
+
+/*<!-- styles for validation helpers -->*/
+.field-validation-error {
+	color: #ff0000;
+}
+
+.field-validation-valid {
+	display: none;
+}
+
+.input-validation-error {
+	border: 1px solid #ff0000 !important;
+	background-color: #ffeeee !important;
+}
+
+.validation-summary-errors {
+	font-weight: bold !important;
+	color: #ff0000 !important;
+}
+
+.validation-summary-valid {
+	display: none;
+}
+/*<!-- form input -->*/
+.input-sm {
+	height: 35px;
+	padding: 1px 10px;
+}
+/*<!-- table padding -->*/
+.table-condensed > thead > tr > th, .table-condensed > tbody > tr > th, .table-condensed > tfoot > tr > th, .table-condensed > thead > tr > td, .table-condensed > tbody > tr > td, .table-condensed > tfoot > tr > td {
+	padding: 3px;
+}
+
+
+/* header & footer */
+.card-header {
+	padding: 7px 10px !important;
+	/*background-color: rgba(0,0,0,.02) !important;*/
+}
+.card-footer {
+	padding: 7px 10px !important;
+	border-top: none !important;
+}
+/* modal header & footer */
+.modal-header {
+	padding: .50rem 1.25rem !important;
+}
+
+.modal-footer {
+	padding: .50rem !important;
+}
+/* all pages */
+.label-text {
+	font-weight: bold;
+}
+.serial {
+	width: 5% !important;
+	text-align: center;
+}
+
+.hr-mar-reduce {
+	margin: 0;
+}
+.file-preview-frame {
+	min-height: 18rem;
+	margin: 0.5rem 0;
+}
+
+.header-elements .list-icons a {
+	border: 2px solid white;
+	padding: 3px !important;
+}
+
+.row-margin-reduce {
+	margin-bottom: 0 !important;
+}
+
+.btn-custom {
+	padding: 0.25rem .35rem !important;
+}
+
+.input-group-text {
+	padding: .40rem .475rem !important;
+}
+
+.login-box {
+	padding: 30px;
+}
+.cust-details-row {
+	margin: 2px 0px;
+}
+.cust-details-row label {
+	font-weight: bold;
+}
+.input-group-text {
+	line-height: 0.4385;
+}
+/* modal close button */
+.modal-header .close {
+	top: 0 !important;
 }

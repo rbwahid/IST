@@ -44,6 +44,7 @@
     <Compile Include="DefaultValue.cs" />
     <Compile Include="EncryptDecrypt.cs" />
     <Compile Include="Enum.cs" />
+    <Compile Include="FileExtension.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
