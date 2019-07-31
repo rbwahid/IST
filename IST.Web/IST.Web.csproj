@@ -160,6 +160,7 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\CompanyController.cs" />
+    <Compile Include="Controllers\CompanyProjectController.cs" />
     <Compile Include="Controllers\ErrorHandlerController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\TicketAssignController.cs" />
@@ -171,6 +172,7 @@
     </Compile>
     <Compile Include="Models\AttachementFileModel.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
+    <Compile Include="Models\CompanyProjectModel.cs" />
     <Compile Include="Models\TicketAssignModel.cs" />
     <Compile Include="Models\TicketModel.cs" />
     <Compile Include="Models\CompanyModel.cs" />
@@ -2741,6 +2743,8 @@
     <Content Include="Views\Shared\_AttachmentFilePartial.cshtml" />
     <Content Include="Views\TicketAssign\Index.cshtml" />
     <Content Include="Views\TicketAssign\_TicketAssignAddOrEdit.cshtml" />
+    <Content Include="Views\CompanyProject\Index.cshtml" />
+    <Content Include="Views\CompanyProject\_CompanyProjectAddOrEdit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
