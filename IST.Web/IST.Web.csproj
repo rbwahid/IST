@@ -2741,10 +2741,12 @@
     <Content Include="Views\Ticket\Index.cshtml" />
     <Content Include="Views\Ticket\Details.cshtml" />
     <Content Include="Views\Shared\_AttachmentFilePartial.cshtml" />
-    <Content Include="Views\TicketAssign\Index.cshtml" />
-    <Content Include="Views\TicketAssign\_TicketAssignAddOrEdit.cshtml" />
     <Content Include="Views\CompanyProject\Index.cshtml" />
     <Content Include="Views\CompanyProject\_CompanyProjectAddOrEdit.cshtml" />
+    <Content Include="Views\TicketAssign\Details.cshtml" />
+    <Content Include="Views\TicketAssign\Edit.cshtml" />
+    <Content Include="Views\TicketAssign\Index.cshtml" />
+    <Content Include="Views\TicketAssign\Add.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

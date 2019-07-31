@@ -1,4 +1,5 @@
-﻿using IST.Entities;
+﻿using IST.Common;
+using IST.Entities;
 using IST.Service;
 using IST.Services;
 using System;
@@ -16,19 +17,18 @@ namespace IST.Web.Models
     {
         private TicketAssignService _ticketAssignService;
         public UserService _userService;
+        public TicketService _ticketService;
         public IEnumerable<User> userList { get; set; }
+        public IEnumerable<Ticket> ticketList { get; set; }
 
-        List<Ticket> ticketList = new List<Ticket>
-        {
-            new Ticket(){ Id=1,IsDeleted=false, IssueName="Issue 1",Description="no descp.!",Priority=true },
-            new Ticket(){ Id=2,IsDeleted=false, IssueName="Issue 2",Description="no descp22.!",Priority=true },
-            new Ticket(){ Id=3,IsDeleted=false, IssueName="Issue 3",Description="no descp33.!",Priority=false }
-        };
+       
         
         public TicketAssignModel()
         {
             _ticketAssignService = new TicketAssignService();
             _userService = new UserService();
+            _ticketService = new TicketService();
+            ticketList = _ticketService.GetAllTicket();
             userList = _userService.GetAllUsers();
         }
 
@@ -42,7 +42,7 @@ namespace IST.Web.Models
                 Description = TicketAssignEntry.Description;
                 Remarks = TicketAssignEntry.Remarks;
                 Code = TicketAssignEntry.Code;
-                Status = TicketAssignEntry.Status;
+                //Status = TicketAssignEntry.Status;
                 UserId = TicketAssignEntry.UserId;
                 Ticket = TicketAssignEntry.Ticket;
                 User = TicketAssignEntry.User;
@@ -66,6 +66,7 @@ namespace IST.Web.Models
         {
             
             base.CreatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
+            base.Status = (byte)EnumTicketAssignStatus.Draft;
             _ticketAssignService.AddTicketAssign(this);
         }
         public void EditTicketAssign()

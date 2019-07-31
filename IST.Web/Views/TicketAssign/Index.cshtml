@@ -1,111 +1,80 @@
-﻿@using System.Collections
-@using IST.Web.Models
-@model IEnumerable<IST.Entities.TicketAssign>
-
+﻿@model IEnumerable<IST.Entities.TicketAssign>
+@using IST.Common;
 @{
     ViewBag.Title = "TicketAssign";
-    var sl = 1;
+    var serial = 1;
 }
 
-
-<div class="content">
-    <div class="card border-teal">
-        <div class="card-header bg-teal header-elements-inline">
-            <h3 class="card-title"><strong>Ticket Assign</strong></h3>
-            <div class="header-elements">
-                <div class="list-icons">
-                    @*<a href="#" class="list-icons-item text-primary-600"><i class="icon-plus3"></i></a>*@
-                </div>
+<!-- Table with togglable columns -->
+<div class="card border-teal">
+    <div class="card-header header-elements-inline bg-teal">
+        <h5 class="card-title"><strong>Ticket Assign</strong></h5>
+        <div class="header-elements">
+            <div class="list-icons">
+                <a href="@Url.Action("Add","TicketAssign")" class="list-icons-item text-white" title="New Property"><i class="icon-plus3"></i></a>
             </div>
-        </div>
-        <hr class="hr-mar-reduce" />
-        <div class="card-body">
-            <div class="row">
-                <div class="col-md-8">
-                    <div class="table-responsive">
-                        <table class="table table-bordered table-striped table-condensed">
-                            <thead>
-                                <tr>
-                                    <th class="serial">#</th>
-                                    <th>@Html.DisplayNameFor(model => model.Code)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Description)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Status)</th>
-                                    <th>@Html.DisplayNameFor(model => model.TicketId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.UserId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Remarks)</th>
-
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
-                                <tr>
-                                    <td class="serial">@(sl++)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Code)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Status)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Ticket.IssueName)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Remarks)</td>
-
-                                    <td>
-                                        <div class="list-icons">
-                                            <a href="#" class="list-icons-item text-primary-600" onclick="getDataForEdit('@item.Id')"><i class="icon-pencil7"></i></a>
-                                            <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
-                                        </div>
-                                    </td>
-                                </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                <div class="col-md-4">
-                    @{TicketAssignModel TicketAssignModel = new TicketAssignModel();}
-                    @Html.Partial("~/Views/TicketAssign/_TicketAssignAddOrEdit.cshtml", TicketAssignModel)
-                </div>
-               
-            </div>
-
         </div>
     </div>
+    <div class="card-body">
+
+    </div>
+    <table class="table table-togglable table-hover">
+        <thead>
+            <tr>
+                <th>#</th>
+                <th data-toggle="true">@Html.DisplayNameFor(model => model.Ticket.IssueName)</th>
+                <th data-hide="phone">@Html.DisplayNameFor(model => model.Description)</th>
+                <th data-hide="phone,tablet">@Html.DisplayNameFor(model => model.Remarks)</th>
+                <th data-hide="phone,tablet">@Html.DisplayNameFor(model => model.Code)</th>
+                <th data-hide="phone,tablet">@Html.DisplayNameFor(model => model.Status)</th>
+                <th data-hide="phone,tablet">@Html.DisplayNameFor(model => model.User.FullName)</th>
+                @*<th data-hide="phone">Status</th>*@
+                <th class="text-center" style="width: 30px;">@*<i class="icon-menu-open2"></i>*@ Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td class="serial">@(serial++)</td>
+                    <td>@item.Ticket.IssueName</td>
+                    <td>@item.Description</td>
+                    <td>@item.Remarks</td>
+                    <td>@item.Code</td>
+                  
+                    <td>@Enum.GetName(typeof(EnumTicketAssignStatus), item.Status)</td>
+                    <td>@item.User.FullName</td>
+                    @*<td><span class="badge badge-success">Active</span></td>*@
+                    <td class="text-center">
+                        <div class="list-icons">
+                            <div class="dropdown">
+                                <a href="#" class="list-icons-item" data-toggle="dropdown">
+                                    <i class="icon-menu9"></i>
+                                </a>
+                                <div class="dropdown-menu dropdown-menu-right">
+                                    <a href="@Url.Action("Details","TicketAssign", new { id = item.Id })" class="dropdown-item text-info"><i class="icon-eye"></i> Details</a>
+                                    <a href="@Url.Action("Edit","TicketAssign", new { id = item.Id })" class="dropdown-item text-primary"><i class="icon-pencil7"></i> Edit</a>
+                                    <a href="#" onclick="delete_Data('@item.Id')" class="dropdown-item text-danger"><i class="icon-bin"></i> Delete</a>
+                                </div>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
 </div>
+<!-- table with togglable columns -->
 
-@section Scripts {
-    @Scripts.Render("~/bundles/jqueryval")
+@section scripts{
+    @Scripts.Render("~/bundles/table-responsive")
     @Scripts.Render("~/bundles/ajax-call")
-    @Scripts.Render("~/bundles/theme-uniform")
-
     <script>
+
         function delete_Data(id) {
-                var url = '@Url.Action("Delete", "TicketAssign")';
-                var paramData = { id: id };
-                delete_confirm(url, paramData);
-            }
-        function getDataForEdit(id) {
-            var url = '@Url.Action("GetTicketAssignDetailsById", "TicketAssign")';
+            var url = '@Url.Action("Delete", "TicketAssign")';
             var paramData = { id: id };
-            ajaxCall(url, paramData, "renderTicketAssignEntryLoad");
-        }
-        function renderTicketAssignEntryLoad(data) {
-            var editUrl = '@Url.Action("Edit", "TicketAssign")';
-            $('#TicketAssignCreateForm').attr('action', editUrl);
-            $("#TicketAssignId").val(data.Id);
-            
-            $("#Code").val(data.Code);           
-            $("#Description").val(data.Description);
-            $("#Status").val(data.Status);
-            $("#Remarks").val(data.Remarks);
-            $("#TicketId").val(data.TicketId);
-            if (data.TicketId == 0 || data.TicketId == null) {
-                $('#TicketId option[value=""]').prop("selected", true);
-            } else {
-                $('#TicketId option[value=' + data.CompanyId + ']').prop("selected", true);
-            }
-            $('')
-           
-            $("#submitButton").html('<i class="fa fa-save"></i> Update');
+            delete_confirm(url, paramData);
         }
     </script>
 }
