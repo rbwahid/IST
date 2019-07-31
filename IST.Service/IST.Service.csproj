@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachmentFileService.cs" />
+    <Compile Include="TicketAssignService.cs" />
     <Compile Include="TicketService.cs" />
     <Compile Include="CompanyService.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
