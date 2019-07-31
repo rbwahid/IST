@@ -52,6 +52,8 @@
     <Compile Include="Migrations\201907300940098_attachmentFileEntityUpdate.Designer.cs">
       <DependentUpon>201907300940098_attachmentFileEntityUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="TicketAssignRepository.cs" />
+    <Compile Include="TicketAssignUnitOfWork.cs" />
     <Compile Include="TicketRepository.cs" />
     <Compile Include="AttachmentFileRepository.cs" />
     <Compile Include="TicketUnitOfWork.cs" />
