@@ -1,0 +1,106 @@
+﻿@using IST.Common
+@model IST.Entities.Ticket
+
+@{
+    int rowNo = 1;
+}
+
+<style>
+    /*.cust-details-row {
+        margin: 2px;
+    }*/
+
+        /*.cust-details-row label {
+            font-weight: bold;
+        }*/
+</style>
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h5 class="card-title"><strong>Ticket</strong></h5>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.CompanyProjectId)</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.CompanyProject.Name)
+                        </div>
+                    </div>
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Description)</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.Description)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.IssueName)</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.IssueName)
+                        </div>
+                    </div>
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Priority)</label>
+                        <div class="col-md-8">
+                            @(Model.Priority ? "Yes" : "No")
+                        </div>
+                    </div>
+                </div>
+            </div>
+            @* Attachment Collection *@
+            @if (Model.AttachmentFileCollection.Any())
+            {
+                <div class="row">
+                    <div class="col-md-6">
+                        <h4 class="sectionLedgend">Attachments</h4>
+                        <table class="table table-bordered table-striped table-condensed" id="attachFileCollectionTable">
+                            <thead>
+                                <tr>
+                                    <th class="serial">#</th>
+                                    <th>@Html.DisplayName("File Name")</th>
+                                </tr>
+                            </thead>
+                            <tbody id="attachFileCollectionTBody">
+                                @foreach (var item in Model.AttachmentFileCollection)
+                                {
+                                    <tr>
+                                        <td class="serial">
+                                            @(rowNo++)
+                                        </td>
+                                        <td>
+                                            <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
+                                                <img height="25" src="@Url.Content(String.Format("~{0}", FileExtension.GetFileExtensionThumbnail(item.FileExtension)))" />  @item.OriginalName
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            }
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a href="@Url.Action("Index","Ticket")" class="btn btn-danger btn-custom"> <i class="fa fa-times-circle text-white"></i> Cancel</a>
+            </div>
+        </div>
+    </div>
+    <!-- /basic layout -->
+
+</div>
+<!-- /content area -->

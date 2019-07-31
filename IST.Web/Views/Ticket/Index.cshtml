@@ -1,0 +1,72 @@
+﻿@using System.Collections
+@using IST.Web.Models
+@model IEnumerable<IST.Entities.Ticket>
+
+@{
+    ViewBag.Title = "Ticket";
+    var sl = 1;
+}
+
+<div class="content">
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h3 class="card-title"><strong>Ticket</strong></h3>
+            <div class="header-elements">
+                <div class="list-icons">
+                    <a href="@Url.Action("Add","Ticket")" class="list-icons-item text-white text-primary-600" title="Add Ticket"><i class="icon-plus3"></i></a>
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-xs table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="serial">#</th>
+                                    <th>@Html.DisplayNameFor(model => model.CompanyProjectId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssueName)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Priority)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="serial">@(sl++)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.CompanyProject.Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.IssueName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Priority)</td>
+                                        <td>
+                                            <div class="list-icons">
+                                                <a href="@Url.Action("Details","Ticket", new { id = item.Id })" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
+                                                <a href="@Url.Action("Edit","Ticket", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
+                                                <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    <script>
+        function delete_Data(id) {
+            var url = '@Url.Action("Delete", "Ticket")';
+            var paramData = { id: id };
+            delete_confirm(url, paramData);
+        }
+    </script>
+}
