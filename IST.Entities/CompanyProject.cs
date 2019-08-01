@@ -22,5 +22,7 @@ namespace IST.Entities
         [ForeignKey("CompanyId")]
         public virtual Company Company { get; set; }
 
+        public virtual ICollection<Ticket> TicketCollections { get; set; }
+
     }
 }

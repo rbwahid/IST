@@ -18,18 +18,21 @@ namespace IST.Web.Models
         private TicketAssignService _ticketAssignService;
         public UserService _userService;
         public TicketService _ticketService;
+        public CompanyProjectService _companyProjectService;
+
         public IEnumerable<User> userList { get; set; }
         public IEnumerable<Ticket> ticketList { get; set; }
-
-       
-        
+        public IEnumerable<CompanyProject> companyProjectList { get; set; }
+      
         public TicketAssignModel()
         {
             _ticketAssignService = new TicketAssignService();
             _userService = new UserService();
             _ticketService = new TicketService();
+            _companyProjectService = new CompanyProjectService();
             ticketList = _ticketService.GetAllTicket();
             userList = _userService.GetAllUsers();
+            companyProjectList = _companyProjectService.GetAllCompanyProjects();
         }
 
         public TicketAssignModel(int id) : this()
@@ -40,7 +43,7 @@ namespace IST.Web.Models
                 Id = TicketAssignEntry.Id;
                 TicketId = TicketAssignEntry.TicketId;
                 Description = TicketAssignEntry.Description;
-                Remarks = TicketAssignEntry.Remarks;
+               
                 Code = TicketAssignEntry.Code;
                 //Status = TicketAssignEntry.Status;
                 UserId = TicketAssignEntry.UserId;
