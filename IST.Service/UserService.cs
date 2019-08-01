@@ -47,6 +47,8 @@ namespace IST.Services
                 //UserType = user.UserType,
                 ImageFile = user.ImageFile,
                 RoleId = user.RoleId,
+                CompanyId = user.CompanyId,
+                PositionId = user.PositionId,
                 LastPassword = user.Password,
                 LastPassChangeDate = DateTime.Now,
                 PasswordChangedCount = 0,
@@ -87,6 +89,8 @@ namespace IST.Services
                 userEntry.Address = updateUser.Address;
                 userEntry.Mobile = updateUser.Mobile;
                 userEntry.RoleId = updateUser.RoleId;
+                userEntry.CompanyId = updateUser.CompanyId;
+                userEntry.PositionId = updateUser.PositionId;
                 userEntry.UpdatedAt = updateUser.UpdatedAt;
                 userEntry.UpdatedBy = updateUser.UpdatedBy;
 

@@ -10,6 +10,7 @@ using System.Security.Cryptography;
 using System.Web;
 using System.Web.Mvc;
 using IST.Common;
+using IST.Service;
 
 namespace IST.Web.Models
 {
@@ -49,18 +50,32 @@ namespace IST.Web.Models
         public int RoleId { get; set; }
         [ForeignKey("RoleId")]
         public virtual UserRole UserRole { get; set; }
+        [Display(Name = "Company")]
+        public int? CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
+        [Display(Name = "Position")]
+        public int? PositionId { get; set; }
+        [ForeignKey("PositionId")]
+        public virtual Position Position { get; set; }
         public byte? Status { get; set; }
         
-
         private UserService _userService;
         private UserRoleService _userRoleService;
+        private CompanyService _companyService;
+        private PositionService _positionService;
         public IEnumerable<UserRole> Roles { get; set; }
-
+        public IEnumerable<Company> CompanyList { get; set; }
+        public IEnumerable<Position> PositionList { get; set; }
         public UserRegisterModel()
         {
             _userService = new UserService();
             _userRoleService = new UserRoleService();
+            _companyService = new CompanyService();
+            _positionService = new PositionService();
             Roles = _userRoleService.GetAllRoles();
+            CompanyList = _companyService.GetAllCompanies().ToList();
+            PositionList = _positionService.GetAllPositions().ToList();
         }
 
         public UserRegisterModel(int id) : this()
@@ -78,6 +93,11 @@ namespace IST.Web.Models
                 Address = userEntry.Address;
                 MobileNumber = userEntry.Mobile;
                 RoleId = userEntry.RoleId??0;
+                UserRole = userEntry.UserRole;
+                CompanyId = userEntry.CompanyId ?? 0;
+                Company = userEntry.Company;
+                PositionId = userEntry.PositionId ?? 0;
+                Position = userEntry.Position;
                 ImageFile = userEntry.ImageFile;
                 //UserType = userEntry.UserType;
             }
@@ -114,6 +134,8 @@ namespace IST.Web.Models
                 SupUser = false,
                 Status = (byte)EnumUserStatus.GeneralUser,
                 CreatedBy = loggedInUserId,
+                CompanyId = CompanyId,
+                PositionId = PositionId,
                 RoleId = RoleId,
                 ImageFile = ImagePath,
                 //UserType = DefaultValue.UserType.RAUser
@@ -137,6 +159,8 @@ namespace IST.Web.Models
                 Gender = Gender,
                 Address = Address,
                 Mobile = MobileNumber,
+                CompanyId = CompanyId,
+                PositionId = PositionId,
                 RoleId = RoleId,
                 UpdatedAt = DateTime.Now,
                 UpdatedBy = loggedInUserId,

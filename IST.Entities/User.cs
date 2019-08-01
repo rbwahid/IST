@@ -30,11 +30,18 @@ namespace IST.Entities
         public bool SupUser { get; set; }
         [Display(Name = "Image Link")]
         public string ImageFile { get; set; }
-        //public string UserType { get; set; }
         [Display(Name = "Role")]
         public int? RoleId { get; set; }
         [ForeignKey("RoleId")]
         public virtual UserRole UserRole { get; set; }
+        [Display(Name = "Company")]
+        public int? CompanyId { get; set; }
+        [ForeignKey("CompanyId")]
+        public virtual Company Company { get; set; }
+        [Display(Name = "Position")]
+        public int? PositionId { get; set; }
+        [ForeignKey("PositionId")]
+        public virtual Position Position { get; set; }
 
         [DataType(DataType.Password)]
         [Display(Name = "Last Password")]

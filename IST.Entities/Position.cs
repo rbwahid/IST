@@ -14,5 +14,7 @@ namespace IST.Entities
         public string PositionName { get; set; }
         [Display(Name = "Short Name")]
         public string ShortName { get; set; }
+        [Display(Name = "Ticket Process")]
+        public bool IsTicketProcess { get; set; }
     }
 }
