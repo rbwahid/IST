@@ -11,9 +11,9 @@ namespace IST.Web.Controllers
 {
     [Authorize]
     //[CustomExceptionFilter]
+    [Roles("Ticket_Configuration", "Global_SupAdmin")]
     public class TicketController : Controller
     {
-        [Roles("Ticket_Configuration", "Global_SupAdmin")]
         public ActionResult Index()
         {
             return View(new TicketModel().GetAllTicket());

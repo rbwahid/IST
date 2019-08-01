@@ -92,16 +92,14 @@ namespace IST.Web.Models
     {
         public List<RoleTaskCheckBoxModel> TaskList = new List<RoleTaskCheckBoxModel>
         {
-
             new RoleTaskCheckBoxModel {PermissionName="User_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Role_Configuration", PermissionCategory = "Configuration"},
+            new RoleTaskCheckBoxModel {PermissionName="Position_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Company_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Company_Project_Configuration", PermissionCategory = "Configuration"},
-            new RoleTaskCheckBoxModel {PermissionName="Ticket_Configuration", PermissionCategory = "Configuration"},
-            new RoleTaskCheckBoxModel {PermissionName="Ticket_Assign_Configuration", PermissionCategory = "Configuration"},
+            new RoleTaskCheckBoxModel {PermissionName="Ticket_Configuration", PermissionCategory = "Ticket"},
+            new RoleTaskCheckBoxModel {PermissionName="Ticket_Assign_Configuration", PermissionCategory = "Ticket_Assign"},
         };
-
-
     }
     #endregion
 }

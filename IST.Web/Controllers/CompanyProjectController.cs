@@ -8,7 +8,7 @@ using System.Web.Mvc;
 namespace IST.Web.Controllers
 {
     [Authorize]
-    [Roles("Global_SupAdmin,Configuration")]
+    [Roles("Company_Project_Configuration,Global_SupAdmin")]
     public class CompanyProjectController : Controller
     {
         // GET: Product
