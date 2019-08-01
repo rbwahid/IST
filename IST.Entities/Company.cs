@@ -14,13 +14,15 @@ namespace IST.Entities
         [Required]
         [Display(Name = "Name")]
         public string Name { get; set; }
+        [Display(Name = "Short Name")]
+        public string ShortName { get; set; }
         [Display(Name = "Address")]
         public string Address { get; set; }
         [Display(Name = "Phone")]
         public string Phone { get; set; }
         [Display(Name = "Email")]
         public string Email { get; set; }
-        [Display(Name = "Fax")]
-        public string FaxNo { get; set; }
+        [Display(Name = "Mobile")]
+        public string MobileNo { get; set; }
     }
 }

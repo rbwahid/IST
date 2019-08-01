@@ -1,4 +1,5 @@
-﻿using IST.Web;
+﻿using IST.Common;
+using IST.Web;
 using IST.Web.Models;
 using System;
 using System.Collections.Generic;
@@ -39,14 +40,20 @@ namespace IST.Web.Controllers
         public ActionResult Details(int id)
         {
             var model = new TicketModel(id);
-            return View(model);
+            var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+            if((model.Status == (byte)EnumTicketStatus.Pending || model.Status == (byte)EnumTicketStatus.Rejected) && model.CreatedBy == authenticatedUserId)
+            {
+                return View("Edit", model);
+            }
+            return View("Details",model);
         }
 
         [Roles("Ticket_Configuration", "Global_SupAdmin")]
         public ActionResult Edit(int id)
         {
-            var model = new TicketModel(id);
-            return View(model);
+            //var model = new TicketModel(id);
+            //return View(model);
+            return RedirectToAction("Details", "Ticket", new { id = id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -78,6 +85,20 @@ namespace IST.Web.Controllers
         {
             new TicketModel().RemoveAttachmentFileFromDbById(fileId);
             return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
+        }
+        #endregion
+        #region Approve
+        public ActionResult Approve(WorkflowProcessModel workflowProcess)
+        {
+            new TicketModel().Approve(workflowProcess);
+            return RedirectToAction("Details", "Ticket", new { id = workflowProcess.RecordId });
+        }
+        #endregion
+        #region Disapprove
+        public ActionResult Disapprove(WorkflowProcessModel workflowProcess)
+        {
+            new TicketModel().Disapprove(workflowProcess);
+            return RedirectToAction("Details", "Ticket", new { id = workflowProcess.RecordId });
         }
         #endregion
     }

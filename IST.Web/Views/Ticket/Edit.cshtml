@@ -25,15 +25,15 @@
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true);
-            @Html.Hidden("InitialName", "undefined")
+            @Html.Hidden("InitialName", new { @Value=Model.IssueName})
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.CompanyProjectId)</label>
                             <div class="col-lg-6">
-                                @*@Html.DropDownListFor(model => model.CompanyProjectId,new SelectList(Model.CompanyProjectList,"Id","Name"), "---Select---", new { @class = "form-control input-sm" })
-                                    @Html.ValidationMessageFor(model => model.CompanyProjectId)*@
+                                @Html.DropDownListFor(model => model.CompanyProjectId, new SelectList(Model.CompanyProjectList, "Id", "Name"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.CompanyProjectId)
                             </div>
                         </div>
                         <div class="form-group row">
@@ -41,6 +41,12 @@
                             <div class="col-lg-6">
                                 @Html.TextBoxFor(model => model.Description, new { @class = "form-control input-sm", @placeholder = "Description" })
                                 @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                        <div class="form-group row cust-details-row">
+                            <label class="col-lg-3">@Html.DisplayNameFor(model => model.Status)</label>
+                            <div class="col-lg-6">
+                                @Enum.GetName(typeof(EnumTicketStatus), Model.Status)
                             </div>
                         </div>
                     </div>
@@ -98,7 +104,7 @@
                                                 </a>
                                             </td>
                                             <td width="5%">
-                                                <span onclick="removeAttachmentFromList('@item.Id',this)" class="btn btn-xxs text-danger"><i class="fa fa-times"></i></span>
+                                                <span onclick="removeAttachmentFromList('@item.Id',this)" class="btn btn-sm text-danger"><i class="fa fa-times"></i></span>
                                             </td>
                                         </tr>
                                         rowCount++;
@@ -118,7 +124,7 @@
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
                     <a href="@Url.Action("Index", "Ticket")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
-                    <button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSumbit()"><i class="fa fa-save"></i> Save</button>
+                    <button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSubmit()"><i class="fa fa-save"></i> Save</button>
                 </div>
             </div>
         }
@@ -132,7 +138,7 @@
     @Scripts.Render("~/bundles/jqueryval")
 
     <script type="text/javascript">
-        function formSumbit() {
+        function formSubmit() {
             rearrangeNameSuffix("#attachmentFileTBody");
              $("#ticketEditForm").submit();
         }

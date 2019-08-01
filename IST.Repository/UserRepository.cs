@@ -28,7 +28,10 @@ namespace IST.Repository
             var user = _context.Users.FirstOrDefault(u => u.UserName.ToUpper() == username.ToUpper() && !u.IsDeleted);
             return user;
         }
-
+        public bool CheckUserRole(int userId, string roleName)
+        {
+            return _context.Users.Any(u => u.Id == userId && u.UserRole.RoleName == roleName && !u.IsDeleted);
+        }
         public bool CheckUsernameIsValid(string username)
         {
             return _context.Users.Any(u => u.UserName.ToUpper() == username.ToUpper() && !u.IsDeleted);

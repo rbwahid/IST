@@ -17,20 +17,13 @@ namespace IST.Common
         GeneralUser = 1,
         SuperAdministrator = 2,
     }
-
-    public enum EnumMonths
+    public enum EnumTicketStatus
     {
-        January = 1,
-        February = 2,
-        March = 3,
-        April = 4,
-        May = 5,
-        June = 6,
-        July = 7,
-        August = 8,
-        September = 9,
-        October = 10,
-        November = 11,
-        December = 12
+        Rejected = 0,
+        Pending = 1,
+        Withhold = 2,
+        Accepted = 3,
+        In_Progress = 4,
+        Completed = 5,
     }
 }

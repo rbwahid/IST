@@ -1,4 +1,5 @@
-﻿using IST.Entities;
+﻿using IST.Common;
+using IST.Entities;
 using IST.Service;
 using IST.Services;
 using System;
@@ -16,7 +17,10 @@ namespace IST.Web.Models
     {
         private TicketService _ticketService;
         private AttachmentFileService _attachmentFileService;
+        private CompanyProjectService _companyProjectService;
+        private WorkflowService _workflowService;
         public List<AttachmentFileModel> FileLists { get; set; }
+        public List<CompanyProject> CompanyProjectList { get; set; }
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
         [Required]
         [Remote("IsTicketNameExist", "Ticket", AdditionalFields = "InitialName",
@@ -32,6 +36,9 @@ namespace IST.Web.Models
         {
             _ticketService = new TicketService();
             _attachmentFileService = new AttachmentFileService();
+            _companyProjectService = new CompanyProjectService();
+            _workflowService = new WorkflowService();
+            CompanyProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
         }
 
         public TicketModel(int id) : this()
@@ -67,7 +74,7 @@ namespace IST.Web.Models
         }
         public int AddTicket()
         {
-            base.Status = 1;
+            base.Status = (byte)EnumTicketStatus.Pending;
             base.CreatedAt = DateTime.Now;
             base.CreatedBy = authenticatedUserId;
             
@@ -89,11 +96,28 @@ namespace IST.Web.Models
 
             return ticketId;
         }
-        public void EditTicket()
+        public int EditTicket()
         {
             base.UpdatedAt = DateTime.Now;
             base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
-            _ticketService.EditTicket(this);
+
+            int ticketId = _ticketService.EditTicket(this);
+            // Attachment File //
+            List<AttachmentFile> attachmentList = new List<AttachmentFile>();
+            if (FileLists != null)
+            {
+                foreach (var item in FileLists)
+                {
+                    if (item.FileBase != null)
+                    {
+                        var attachmentEntry = new AttachmentFileModel().SaveAttachmentFile(item, ticketId, authenticatedUserId);
+                        attachmentList.Add(attachmentEntry);
+                    }
+                }
+            }
+            _ticketService.AddAttachmentForTicket(attachmentList);
+
+            return ticketId;
         }
         public void DeleteTicket(int id)
         {
@@ -107,6 +131,28 @@ namespace IST.Web.Models
         public void RemoveAttachmentFileFromDbById(int fileId)
         {
             _attachmentFileService.RemoveAttachmentFileFromDbById(fileId);
+        }
+        public void Approve(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketStatus.Accepted;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Accepted);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketService.UpdateTicketStatus(workflowModel.RecordId,workflowModel.Status);
+        }
+        public void Disapprove(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketStatus.Rejected;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Rejected);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);
         }
         public void Dispose()
         {

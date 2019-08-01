@@ -36,7 +36,10 @@ namespace IST.Web.Models
         {
             return _userService.GetUserByUsername(username);
         }
-
+        public bool CheckUserRole(int userId,string roleName)
+        {
+            return _userService.CheckUserRole(userId, roleName);
+        }
         public bool IsUserNameExist(string UserName, string InitialUserName)
         {
             return _userService.IsUserNameExist(UserName, InitialUserName);

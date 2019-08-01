@@ -22,6 +22,10 @@ namespace IST.Entities
 
         [Display(Name = "Status")]
         public byte Status { get; set; }
+        [Display(Name = "Approved Date")]
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd-MMM-yyyy hh:mm tt}", ApplyFormatInEditMode = true)]
+        public DateTime? ApprovedDate { get; set; }
         [Display(Name = "Project")]
         public int? CompanyProjectId { get; set; }
         [ForeignKey("CompanyProjectId")]

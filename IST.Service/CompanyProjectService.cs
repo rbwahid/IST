@@ -24,7 +24,10 @@ namespace IST.Service
             var Company = _companyProjectUnitOfWork.CompanyProjectRepository.GetAll();
             return Company.OrderBy(x => x.Name);
         }
-        
+        public IEnumerable<CompanyProject> GetAllProjectByCompanyId(int companyId)
+        {
+            return _companyProjectUnitOfWork.CompanyProjectRepository.GetAllProjectByCompanyId(companyId);
+        }
         public CompanyProject GetCompanyProjectById(int id)
         {
             return _companyProjectUnitOfWork.CompanyProjectRepository.GetById(id);

@@ -30,6 +30,8 @@ namespace IST.Repository
         public DbSet<AttachmentFile> AttachmentFiles    { get; set; }
         public DbSet<Ticket> Tickets    { get; set; }
         public DbSet<TicketAssign> TicketAssigns  { get; set; }
+        public DbSet<Position> Positions { get; set; }
+        public DbSet<Workflow> Workflows { get; set; }
 
         public int SaveChanges(string occurrenceUserId)
         {

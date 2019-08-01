@@ -117,7 +117,7 @@ function addAttachmentFileRow() {
         '<input class="col-md-12 form-control input-sm" id="FileLists_' + rowNumber + '__FileBase" name="FileLists[' + rowNumber + '].FileBase" type="file" accept="application/msword, application/vnd.openxmlformats-officedocument.wordprocessingml.document, application/vnd.ms-powerpoint, application/vnd.openxmlformats-officedocument.presentationml.slideshow, application/vnd.openxmlformats-officedocument.presentationml.presentation,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel,text/plain, application/pdf,image/*">' +
         '</td>' +
         '<td width="3%">' +
-        '<span onclick="removeRow(this)" class="btn btn-xxs text-danger"><i class="icon-cancel-circle2"></i></span>' +
+        '<span onclick="removeRow(this)" class="btn btn-sm text-danger"><i class="icon-cancel-circle2"></i></span>' +
         '</td>' +
         '</tr>');
 }
