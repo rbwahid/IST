@@ -41,7 +41,7 @@ namespace IST.Service
                 Address = company.Address,
                 Phone = company.Phone,
                 Email = company.Email,
-                FaxNo = company.FaxNo,
+                MobileNo = company.MobileNo,
 
                 CreatedBy = company.CreatedBy
             };
@@ -56,7 +56,7 @@ namespace IST.Service
             companyEntry.Address = company.Address;
             companyEntry.Phone = company.Phone;
             companyEntry.Email = company.Email;
-            companyEntry.FaxNo = company.FaxNo;
+            companyEntry.MobileNo = company.MobileNo;
 
             companyEntry.UpdatedAt = company.UpdatedAt;
             companyEntry.UpdatedBy = company.UpdatedBy;

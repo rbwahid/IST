@@ -54,6 +54,10 @@
     <Compile Include="Migrations\201907300940098_attachmentFileEntityUpdate.Designer.cs">
       <DependentUpon>201907300940098_attachmentFileEntityUpdate.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\201908010612033_ticketEntityUpdate_WorkflowEntityAdded.cs" />
+    <Compile Include="Migrations\201908010612033_ticketEntityUpdate_WorkflowEntityAdded.Designer.cs">
+      <DependentUpon>201908010612033_ticketEntityUpdate_WorkflowEntityAdded.cs</DependentUpon>
+    </Compile>
     <Compile Include="TicketAssignRepository.cs" />
     <Compile Include="TicketAssignUnitOfWork.cs" />
     <Compile Include="TicketRepository.cs" />
@@ -81,6 +85,8 @@
     <Compile Include="UserRoleRepository.cs" />
     <Compile Include="UserRoleUnitOfWork.cs" />
     <Compile Include="UserUnitOfWork.cs" />
+    <Compile Include="WorkflowRepository.cs" />
+    <Compile Include="WorkflowUnitOfWork.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
@@ -105,6 +111,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\201907300940098_attachmentFileEntityUpdate.resx">
       <DependentUpon>201907300940098_attachmentFileEntityUpdate.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\201908010612033_ticketEntityUpdate_WorkflowEntityAdded.resx">
+      <DependentUpon>201908010612033_ticketEntityUpdate_WorkflowEntityAdded.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

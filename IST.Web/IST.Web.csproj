@@ -182,6 +182,7 @@
     <Compile Include="Models\UserModel.cs" />
     <Compile Include="Models\UserRegisterModel.cs" />
     <Compile Include="Models\UserRoleModel.cs" />
+    <Compile Include="Models\WorkflowModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>

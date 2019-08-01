@@ -18,7 +18,7 @@ namespace IST.Web.Models
         [Required]
         [Remote("IsCompanyNameExist", "Company", AdditionalFields = "InitialName",
             ErrorMessage = "Company already Exist")]
-        [Display(Name = "Full Name")]
+        [Display(Name = "Name")]
         public new string Name
         {
             get { return base.Name; }
@@ -40,7 +40,7 @@ namespace IST.Web.Models
                 Address = companyEntry.Address;
                 Phone = companyEntry.Phone;
                 Email = companyEntry.Email;
-                FaxNo = companyEntry.FaxNo;
+                MobileNo = companyEntry.MobileNo;
 
                 CreatedAt = companyEntry.CreatedAt;
                 CreatedBy = companyEntry.CreatedBy;

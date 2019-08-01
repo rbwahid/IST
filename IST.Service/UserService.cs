@@ -140,7 +140,10 @@ namespace IST.Services
         {
             return _userUnitOfWork.UserRepository.GetUserByUsername(username);
         }
-
+        public bool CheckUserRole(int userId,string roleName)
+        {
+            return _userUnitOfWork.UserRepository.CheckUserRole(userId, roleName);
+        }
         public bool CheckUsernameIsValid(string username)
         {
             return _userUnitOfWork.UserRepository.CheckUsernameIsValid(username);

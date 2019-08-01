@@ -47,19 +47,33 @@ namespace IST.Service
             _ticketUnitOfWork.Save(Ticket.CreatedBy.ToString());
             return newTicket.Id;
         }
-        public void EditTicket(Ticket Ticket)
+        public int EditTicket(Ticket Ticket)
         {
             var TicketEntry = GetTicketById(Ticket.Id);
             if (TicketEntry != null)
             {
+                TicketEntry.CompanyProjectId = Ticket.CompanyProjectId;
+                TicketEntry.IssueName = Ticket.IssueName;
+                TicketEntry.Description = Ticket.Description;
+                TicketEntry.Priority = Ticket.Priority;
 
-                TicketEntry.Status = Ticket.Status;
+                //TicketEntry.Status = Ticket.Status;
                 TicketEntry.UpdatedAt = Ticket.UpdatedAt;
                 TicketEntry.UpdatedBy = Ticket.UpdatedBy;
+
+                // Attachment File //
+                //if (TicketEntry.AttachmentFileCollection.Any())
+                //{
+                //    foreach(var item in TicketEntry.AttachmentFileCollection)
+                //    {
+                //        _attachmentFileUnitOfWork.AttachmentFileRepository.DeleteFromDb(item);
+                //        _attachmentFileUnitOfWork.Save();
+                //    }
+                //}
                 _ticketUnitOfWork.TicketRepository.Update(TicketEntry);
                 _ticketUnitOfWork.Save();
-
             }
+            return TicketEntry.Id;
         }
 
         public void DeleteTicket(int id, string currUserId)
@@ -86,6 +100,25 @@ namespace IST.Service
                     _attachmentFileUnitOfWork.AttachmentFileRepository.Add(item);
                     _attachmentFileUnitOfWork.Save();
                 }
+            }
+        }
+        public void Approve()
+        {
+            throw new NotImplementedException();
+        }
+        public void Disapprove()
+        {
+            throw new NotImplementedException();
+        }
+
+        public void UpdateTicketStatus(int recordId, byte status)
+        {
+            var model = GetTicketById(recordId);
+            if(model != null)
+            {
+                model.Status = status;
+                model.ApprovedDate = DateTime.Now;
+                _ticketUnitOfWork.Save();
             }
         }
     }

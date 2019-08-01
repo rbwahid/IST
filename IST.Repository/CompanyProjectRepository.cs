@@ -37,5 +37,9 @@ namespace IST.Repository
             return isNotExist;
         }
 
+        public IEnumerable<CompanyProject> GetAllProjectByCompanyId(int companyId)
+        {
+            return _context.CompanyProjects.Where(x => !x.IsDeleted && x.CompanyId == companyId);
+        }
     }
 }

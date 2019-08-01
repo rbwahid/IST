@@ -31,7 +31,7 @@
                                     <th>@Html.DisplayNameFor(model => model.Address)</th>
                                     <th>@Html.DisplayNameFor(model => model.Phone)</th>
                                     <th>@Html.DisplayNameFor(model => model.Email)</th>
-                                    <th>@Html.DisplayNameFor(model => model.FaxNo)</th>
+                                    <th>@Html.DisplayNameFor(model => model.MobileNo)</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -44,7 +44,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Address)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Phone)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.FaxNo)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.MobileNo)</td>
                                         
                                         <td>
                                             <div class="list-icons">
@@ -71,7 +71,7 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ajax-call")
-    @Scripts.Render("~/bundles/theme-uniform")
+    @*@Scripts.Render("~/bundles/theme-uniform")*@
 
     <script>
         function delete_Data(id) {

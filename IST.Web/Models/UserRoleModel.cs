@@ -32,12 +32,6 @@ namespace IST.Web.Models
             _roleService = new UserRoleService();
             this.RoleTaskList = new RoleTaskCheckBoxList().TaskList.OrderBy(x => x.PermissionCategory).ThenBy(x => x.PermissionName).ToList();
         }
-
-        public List<UserRole> GetAllRoles()
-        {
-            return _roleService.GetAllRoles().ToList();
-        }
-
         public UserRoleModel(int id) : this()
         {
             var role = _roleService.GetRole(id);
@@ -51,7 +45,10 @@ namespace IST.Web.Models
                 this.RoleTaskList.Add(item);
             }
         }
-
+        public List<UserRole> GetAllRoles()
+        {
+            return _roleService.GetAllRoles().ToList();
+        }
         public void AddRole()
         {
             var taskList = this.RoleTaskList.Where(x => x.IsChecked).Select(taskItem => new UserRolePermission
@@ -98,7 +95,10 @@ namespace IST.Web.Models
 
             new RoleTaskCheckBoxModel {PermissionName="User_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Role_Configuration", PermissionCategory = "Configuration"},
-
+            new RoleTaskCheckBoxModel {PermissionName="Company_Configuration", PermissionCategory = "Configuration"},
+            new RoleTaskCheckBoxModel {PermissionName="Company_Project_Configuration", PermissionCategory = "Configuration"},
+            new RoleTaskCheckBoxModel {PermissionName="Ticket_Configuration", PermissionCategory = "Configuration"},
+            new RoleTaskCheckBoxModel {PermissionName="Ticket_Assign_Configuration", PermissionCategory = "Configuration"},
         };
 
 
