@@ -22,6 +22,9 @@ function ajaxCall(url, paramData, callback, method, obj) {
             }
             else if (callback == 'renderCompanyProjectEntryLoad') {
                 renderCompanyProjectEntryLoad(response);
+            }
+            else if (callback == 'renderTicketsByProjectLoad') {
+                renderTicketsByProjectLoad(response);
             }  
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {

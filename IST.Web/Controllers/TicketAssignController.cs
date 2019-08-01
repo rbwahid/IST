@@ -67,5 +67,11 @@ namespace IST.Web.Controllers
             return Json(new { meg = "success" });
 
         }
+        public JsonResult GetTicketsByProjectId(int projectId)
+        {
+            var project = new CompanyProjectModel(projectId);
+            return Json(project==null?null:project.TicketCollections.Select(s=>new {Id=s.Id , Name = s.IssueName }));
+
+        }
     }
 }
