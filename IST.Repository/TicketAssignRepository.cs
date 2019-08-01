@@ -15,7 +15,11 @@ namespace IST.Repository
         {
             _context = context;
         }
-        
+        public int GetCountByYear(int year)
+        {
+            return _context.TicketAssigns.Count(s => s.CreatedAt.Value.Year == year);
+        }
+
 
     }
 }

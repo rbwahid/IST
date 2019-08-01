@@ -26,6 +26,9 @@ function ajaxCall(url, paramData, callback, method, obj) {
             else if (callback == 'renderPositionEntryLoad') {
                 renderPositionEntryLoad(response);
             }
+            else if (callback == 'renderTicketsByProjectLoad') {
+                renderTicketsByProjectLoad(response);
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert(textStatus + "! please try again", '<i class="fa fa-exclamation-circle" aria-hidden="true"> Alert</i>');

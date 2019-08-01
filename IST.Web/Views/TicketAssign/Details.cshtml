@@ -1,0 +1,75 @@
+﻿@using IST.Common
+@model IST.Entities.TicketAssign
+
+@{
+    int rowNo = 1;
+}
+
+<style>
+    /*.cust-details-row {
+        margin: 2px;
+    }*/
+
+        /*.cust-details-row label {
+            font-weight: bold;
+        }*/
+</style>
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h5 class="card-title"><strong>TicketAssign</strong></h5>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Code)</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.Code)
+                        </div>
+                    </div>
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Ticket)</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.Ticket.IssueName)
+                        </div>
+                    </div>
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.User.FullName)</label>
+                        <div class="col-md-8">
+                            @Html.DisplayFor(model => model.User.FullName)
+                        </div>
+                    </div>
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Description)</label>
+                        <div class="col-md-8">
+                        @Html.DisplayFor(model => model.Description)
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a href="@Url.Action("Index","TicketAssign")" class="btn btn-danger btn-custom"> <i class="fa fa-times-circle text-white"></i> Cancel</a>
+            </div>
+        </div>
+    </div>
+    <!-- /basic layout -->
+
+</div>
+<!-- /content area -->

@@ -34,14 +34,13 @@ namespace IST.Service
         {
             var newTicketAssign = new TicketAssign
             {
-                Remarks = ticketAssign.Remarks,
-                Code = ticketAssign.Code,
+                
+                Code =GetCodeNo(),
                 Status = ticketAssign.Status,
                 TicketId = ticketAssign.TicketId,
                 UserId = ticketAssign.UserId,                
                 Description = ticketAssign.Description,
                
-
                 CreatedBy = ticketAssign.CreatedBy,
                 CreatedAt = ticketAssign.CreatedAt,
                 IsDeleted = ticketAssign.IsDeleted,
@@ -50,11 +49,15 @@ namespace IST.Service
             _ticketAssignUnitOfWork.TicketAssignRepository.Add(newTicketAssign);
             _ticketAssignUnitOfWork.Save();
         }
+        public string GetCodeNo()
+        {
+            var transactionNo = DateTime.Now.Year.ToString("0000") + "/" + (_ticketAssignUnitOfWork.TicketAssignRepository.GetCountByYear(DateTime.Now.Year) + 1).ToString("000000");
+            return transactionNo;
+        }
         public void EditTicketAssign(TicketAssign ticketAssign )
         {
             var ticketAssignEntry = GetTicketAssignById(ticketAssign.Id);
-
-            ticketAssignEntry.Remarks = ticketAssign.Remarks;
+           
             ticketAssignEntry.Description = ticketAssign.Description;
             ticketAssignEntry.Code = ticketAssign.Code;
             ticketAssignEntry.Status = ticketAssign.Status;

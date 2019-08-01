@@ -52,6 +52,7 @@ namespace IST.Web.Models
                 UpdatedAt = companyProjectEntry.UpdatedAt;
                 UpdatedBy = companyProjectEntry.UpdatedBy;
                 UpdatedByUser = companyProjectEntry.UpdatedByUser;
+                TicketCollections = companyProjectEntry.TicketCollections;
             } 
 
         }
