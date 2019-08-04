@@ -11,6 +11,8 @@ namespace IST.Entities
     public class Workflow:AuditableEntity
     {
         [Required]
+        public string FormName { get; set; }
+        [Required]
         public int RecordId { get; set; }
         public int? PositionId { get; set; }
         [ForeignKey("PositionId")]

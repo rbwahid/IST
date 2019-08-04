@@ -7,6 +7,7 @@
     ViewBag.Title = "Ticket";
     var sl = 1;
     var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+    bool IsTicketProcessPosition = new PositionModel().CheckTicketProcessPosition(authenticatedUserId);
 }
 
 <div class="content">
@@ -28,6 +29,7 @@
                             <thead>
                                 <tr>
                                     <th class="serial">#</th>
+                                    <th>@Html.DisplayNameFor(model => model.Code)</th>
                                     <th>@Html.DisplayNameFor(model => model.CompanyProjectId)</th>
                                     <th>@Html.DisplayNameFor(model => model.IssueName)</th>
                                     <th>@Html.DisplayNameFor(model => model.Description)</th>
@@ -41,10 +43,11 @@
                                 {
                                     <tr>
                                         <td class="serial">@(sl++)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Code)</td>
                                         <td>@Html.DisplayFor(modelItem => item.CompanyProject.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueName)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                                        <td>@(item.Priority?"Yes":"No")</td>
+                                        <td>@(item.Priority ? "Yes" : "No")</td>
                                         <td>@Enum.GetName(typeof(EnumTicketStatus), item.Status)</td>
                                         <td>
                                             <div class="list-icons">
@@ -55,8 +58,15 @@
                                                 }
                                                 else
                                                 {
-                                                    <a href="@Url.Action("Details","Ticket", new { id = item.Id })" target="_blank" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
-                                                    @*<a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>*@
+                                                    <a href="@Url.Action("Details","Ticket", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
+                                                    if (IsTicketProcessPosition && item.Status == (byte)EnumTicketStatus.Accepted)
+                                                    {
+                                                        <a href="@Url.Action("CreateTicketAssign","TicketAssign",new { ticketId = item.Id })" target="_blank" title="Ticket Assign" class="list-icons-item text-success-600"><i class="icon-book-play mr-2"></i></a>
+                                                    }
+                                                    @*else
+                                                    {
+                                                        <a href="@Url.Action("Details","TicketAssign",new { id = item.TicketAssignCollection.FirstOrDefault(x=>x.TicketId == item.Id).Id })" target="_blank" title="Ticket Assign" class="list-icons-item text-success-600"><i class="icon-book mr-2"></i></a>
+                                                    }*@
                                                 }
                                             </div>
                                         </td>

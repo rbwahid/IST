@@ -6,16 +6,6 @@ using System.Threading.Tasks;
 
 namespace IST.Common
 {
-    public enum EnumTicketAssignStatus
-    {
-        Draft = 1,
-        Withhold = 2,
-        Accepted = 3,
-        In_Progress = 4,
-        Completed = 5,
-    }
-
-
     public enum EnumUserRoleStatus
     {
         GeneralUser = 1,
@@ -30,6 +20,14 @@ namespace IST.Common
     public enum EnumTicketStatus
     {
         Rejected = 0,
+        Pending = 1,
+        Withhold = 2,
+        Accepted = 3,
+        In_Progress = 4,
+        Completed = 5,
+    }
+    public enum EnumTicketAssignStatus
+    {
         Pending = 1,
         Withhold = 2,
         Accepted = 3,

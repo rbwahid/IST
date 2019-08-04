@@ -32,7 +32,11 @@ namespace IST.Repository
         public DbSet<TicketAssign> TicketAssigns  { get; set; }
         public DbSet<Position> Positions { get; set; }
         public DbSet<Workflow> Workflows { get; set; }
-
+        protected override void OnModelCreating(DbModelBuilder modelBuilder)
+        {
+            base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<User>().HasOptional(e => e.Position).WithMany(s => s.UserCollection);
+        }
         public int SaveChanges(string occurrenceUserId)
         {
             if (!String.IsNullOrEmpty(occurrenceUserId))

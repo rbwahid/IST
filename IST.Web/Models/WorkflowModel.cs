@@ -57,9 +57,9 @@ namespace IST.Web.Models
         {
             return _workflowService.GetWorkflowByPosition(recordId,positionId);
         }
-        public IEnumerable<Workflow> GetWorkflowsByRecordId(int recordId)
+        public IEnumerable<Workflow> GetWorkflowsByRecordId(int recordId,string formName)
         {
-            return _workflowService.GetWorkflowsByRecordId(recordId);
+            return _workflowService.GetWorkflowsByRecordId(recordId,formName);
         }
         public void Dispose()
         {

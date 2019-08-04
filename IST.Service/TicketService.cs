@@ -33,6 +33,7 @@ namespace IST.Service
         {
             var newTicket = new Ticket
             {
+                Code = _ticketUnitOfWork.TicketRepository.GenerateTicketCode(),
                 CompanyProjectId = Ticket.CompanyProjectId,
                 IssueName = Ticket.IssueName,
                 Description = Ticket.Description,
@@ -53,6 +54,7 @@ namespace IST.Service
             if (TicketEntry != null)
             {
                 TicketEntry.CompanyProjectId = Ticket.CompanyProjectId;
+                //TicketEntry.Code = Ticket.Code;
                 TicketEntry.IssueName = Ticket.IssueName;
                 TicketEntry.Description = Ticket.Description;
                 TicketEntry.Priority = Ticket.Priority;

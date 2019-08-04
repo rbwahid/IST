@@ -32,14 +32,15 @@ namespace IST.Service
         {
             return _workflowApprovalUnitOfWork.WorkflowRepository.GetWorkflowByPosition(recordId,positionId);
         }
-        public IEnumerable<Workflow> GetWorkflowsByRecordId(int recordId)
+        public IEnumerable<Workflow> GetWorkflowsByRecordId(int recordId,string formName)
         {
-            return _workflowApprovalUnitOfWork.WorkflowRepository.GetWorkflowsByRecordId(recordId);
+            return _workflowApprovalUnitOfWork.WorkflowRepository.GetWorkflowsByRecordId(recordId,formName);
         }
         public int AddWorkflow(Workflow workflow)
         {
             var newWorkflow = new Workflow
             {
+                FormName = workflow.FormName,
                 RecordId = workflow.RecordId,
                 ApproverId = workflow.ApproverId,
                 PositionId = workflow.PositionId,
@@ -58,6 +59,7 @@ namespace IST.Service
             var workflowApprovalEntry = GetWorkflowById(workflow.Id);
             if(workflowApprovalEntry != null)
             {
+                workflowApprovalEntry.FormName = workflow.FormName;
                 workflowApprovalEntry.RecordId = workflow.RecordId;
                 workflowApprovalEntry.ApproverId = workflow.ApproverId;
                 workflowApprovalEntry.PositionId = workflow.PositionId;

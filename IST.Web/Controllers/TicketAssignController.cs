@@ -1,4 +1,5 @@
-﻿using IST.Web.Models;
+﻿using IST.Common;
+using IST.Web.Models;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -8,7 +9,7 @@ using System.Web.Mvc;
 namespace IST.Web.Controllers
 {
     [Authorize]
-    [Roles("Global_SupAdmin,Configuration")]
+    [Roles("Ticket_Assign_Configuration,Global_SupAdmin")]
     public class TicketAssignController : Controller
     {
         // GET: Product
@@ -16,10 +17,21 @@ namespace IST.Web.Controllers
         {
             return View((new TicketAssignModel().GetAllTicketAssigns()));
         }
-
+        public ActionResult CreateTicketAssign(int ticketId)
+        {
+            var model = new TicketAssignModel();
+            var ticket = new TicketAssignModel().CreateTicketAssign(ticketId);
+            model.Ticket = ticket;
+            if (ticket.TicketAssignCollection.Any())
+            {
+                return RedirectToAction("Details", "TicketAssign", new { id = ticket.TicketAssignCollection.FirstOrDefault().Id });
+            }
+            return View("Add",model);
+        }
         public ActionResult Add()
         {
-            return View(new TicketAssignModel());
+            var model = new TicketAssignModel();
+            return View(model);
         }
 
         [HttpPost]
@@ -37,17 +49,24 @@ namespace IST.Web.Controllers
         public JsonResult GetTicketAssignDetailsById(int id)
         {
             var model = new TicketAssignModel(id);
-            return Json(new { Id = model.Id, Remarks = model.Remarks, Description = model.Description, Code = model.Code , TicketId = model.TicketId  , UserId = model.UserId , Status = model.Status });
+            return Json(new { Id = model.Id, Description = model.Description , TicketId = model.TicketId  , UserId = model.UserId , Status = model.Status });
         }
 
         public ActionResult Details(int id)
         {
-            return View(new TicketAssignModel(id));
+            var model = new TicketAssignModel(id);
+            var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+            if ((model.Status == (byte)EnumTicketAssignStatus.Pending || model.Status == (byte)EnumTicketAssignStatus.Withhold) && model.CreatedBy == authenticatedUserId)
+            {
+                return View("Edit", model);
+            }
+            return View("Details", model);
         }
 
         public ActionResult Edit(int id)
         {
-            return View(new TicketAssignModel(id));
+            //return View(new TicketAssignModel(id));
+            return RedirectToAction("Details", "TicketAssign", new { id = id });
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -73,5 +92,19 @@ namespace IST.Web.Controllers
             return Json(project==null?null:project.TicketCollections.Select(s=>new {Id=s.Id , Name = s.IssueName }));
 
         }
+        #region Approve
+        public ActionResult Approve(WorkflowProcessModel workflowProcess)
+        {
+            new TicketAssignModel().Approve(workflowProcess);
+            return RedirectToAction("Details", "TicketAssign", new { id = workflowProcess.RecordId });
+        }
+        #endregion
+        #region Disapprove
+        public ActionResult Disapprove(WorkflowProcessModel workflowProcess)
+        {
+            new TicketAssignModel().Disapprove(workflowProcess);
+            return RedirectToAction("Details", "TicketAssign", new { id = workflowProcess.RecordId });
+        }
+        #endregion
     }
 }

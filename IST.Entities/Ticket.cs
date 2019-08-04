@@ -11,6 +11,8 @@ namespace IST.Entities
     [Table("Tickets")]
     public class Ticket: AuditableEntity
     {
+        [Display(Name = "Code")]
+        public string Code { get; set; }
         [Required]
         [Display(Name = "Issue Name")]
         public string IssueName { get; set; }
@@ -32,5 +34,6 @@ namespace IST.Entities
         public virtual CompanyProject CompanyProject  { get; set; }
 
         public virtual ICollection<AttachmentFile> AttachmentFileCollection { get; set; }
+        public virtual ICollection<TicketAssign> TicketAssignCollection { get; set; }
     }
 }

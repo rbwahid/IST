@@ -35,14 +35,14 @@
                     </a>
                 </li>
             }
-            @if (User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
+            @*@if (User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
             {
                 <li class="nav-item">
                     <a href="@Url.Action("Add","TicketAssign")" class="navbar-nav-link ">
                         <i class="icon-book-play mr-2"></i>Ticket Assign
                     </a>
                 </li>
-            }
+            }*@
             @if (User.IsInRole("User_Configuration") || User.IsInRole("Role_Configuration") || User.IsInRole("Global_SupAdmin"))
             {
                 <li class="nav-item dropdown">

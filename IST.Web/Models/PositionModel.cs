@@ -74,7 +74,14 @@ namespace IST.Web.Models
         {
             return _positionService.IsPositionNameExist(Name, InitialName);
         }
-
+        public bool CheckUserPosition(int userId, string positionName)
+        {
+            return _positionService.CheckUserPosition(userId, positionName);
+        }
+        public bool CheckTicketProcessPosition(int userId)
+        {
+            return _positionService.CheckTicketProcessPosition(userId);
+        }
         public void Dispose()
         {
             _positionService.Dispose();

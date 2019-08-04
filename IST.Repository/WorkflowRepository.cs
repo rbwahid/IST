@@ -20,9 +20,9 @@ namespace IST.Repository
         {
             return _context.Workflows.FirstOrDefault(x => !x.IsDeleted && x.RecordId == recordId && x.PositionId == positionId);
         }
-        public IEnumerable<Workflow> GetWorkflowsByRecordId(int recordId)
+        public IEnumerable<Workflow> GetWorkflowsByRecordId(int recordId, string formName)
         {
-            return _context.Workflows.Where(x => !x.IsDeleted && x.RecordId == recordId).ToList();
+            return _context.Workflows.Where(x => !x.IsDeleted && x.RecordId == recordId && x.FormName == formName).ToList();
         }
     }
 }

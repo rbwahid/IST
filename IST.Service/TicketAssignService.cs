@@ -24,50 +24,46 @@ namespace IST.Service
             var TicketAssign = _ticketAssignUnitOfWork.TicketAssignRepository.GetAll();
             return TicketAssign.OrderBy(x => x.Id);
         }
-        
+
         public TicketAssign GetTicketAssignById(int id)
         {
             return _ticketAssignUnitOfWork.TicketAssignRepository.GetById(id);
         }
 
-        public void AddTicketAssign(TicketAssign ticketAssign )
+        public int AddTicketAssign(TicketAssign ticketAssign)
         {
             var newTicketAssign = new TicketAssign
             {
-                
-                Code =GetCodeNo(),
                 Status = ticketAssign.Status,
                 TicketId = ticketAssign.TicketId,
-                UserId = ticketAssign.UserId,                
+                UserId = ticketAssign.UserId,
                 Description = ticketAssign.Description,
-               
+
                 CreatedBy = ticketAssign.CreatedBy,
                 CreatedAt = ticketAssign.CreatedAt,
                 IsDeleted = ticketAssign.IsDeleted,
             };
-
             _ticketAssignUnitOfWork.TicketAssignRepository.Add(newTicketAssign);
             _ticketAssignUnitOfWork.Save();
+
+            return newTicketAssign.Id;
         }
-        public string GetCodeNo()
-        {
-            var transactionNo = DateTime.Now.Year.ToString("0000") + "/" + (_ticketAssignUnitOfWork.TicketAssignRepository.GetCountByYear(DateTime.Now.Year) + 1).ToString("000000");
-            return transactionNo;
-        }
-        public void EditTicketAssign(TicketAssign ticketAssign )
+        public int EditTicketAssign(TicketAssign ticketAssign)
         {
             var ticketAssignEntry = GetTicketAssignById(ticketAssign.Id);
-           
-            ticketAssignEntry.Description = ticketAssign.Description;
-            ticketAssignEntry.Code = ticketAssign.Code;
-            ticketAssignEntry.Status = ticketAssign.Status;
-            ticketAssignEntry.TicketId = ticketAssign.TicketId;
-            ticketAssignEntry.UserId = ticketAssign.UserId;
+            if (ticketAssignEntry != null)
+            {
+                ticketAssignEntry.Description = ticketAssign.Description;
+                //ticketAssignEntry.Status = ticketAssign.Status;
+                ticketAssignEntry.TicketId = ticketAssign.TicketId;
+                ticketAssignEntry.UserId = ticketAssign.UserId;
 
-            ticketAssignEntry.UpdatedAt = ticketAssign.UpdatedAt;
-            ticketAssignEntry.UpdatedBy = ticketAssign.UpdatedBy;
-            _ticketAssignUnitOfWork.TicketAssignRepository.Update(ticketAssignEntry);
-            _ticketAssignUnitOfWork.Save();
+                ticketAssignEntry.UpdatedAt = ticketAssign.UpdatedAt;
+                ticketAssignEntry.UpdatedBy = ticketAssign.UpdatedBy;
+                _ticketAssignUnitOfWork.TicketAssignRepository.Update(ticketAssignEntry);
+                _ticketAssignUnitOfWork.Save();
+            }
+            return ticketAssignEntry.Id;
         }
 
         public void DeleteTicketAssign(int id, string currUserId)
@@ -75,7 +71,16 @@ namespace IST.Service
             _ticketAssignUnitOfWork.TicketAssignRepository.Disable(id);
             _ticketAssignUnitOfWork.Save(currUserId);
         }
-       
+        public void UpdateTicketAssignStatus(int recordId, byte status)
+        {
+            var model = GetTicketAssignById(recordId);
+            if (model != null)
+            {
+                model.Status = status;
+                model.ApprovedDate = DateTime.Now;
+                _ticketAssignUnitOfWork.Save();
+            }
+        }
         public void Dispose()
         {
             _ticketAssignUnitOfWork.Dispose();

@@ -15,10 +15,12 @@ namespace IST.Web.Models
     [NotMapped]
     public class TicketModel : Ticket
     {
+        private string formName = "Ticket";
         private TicketService _ticketService;
         private AttachmentFileService _attachmentFileService;
         private CompanyProjectService _companyProjectService;
         private WorkflowService _workflowService;
+        private UserService _userService;
         public List<AttachmentFileModel> FileLists { get; set; }
         public List<CompanyProject> CompanyProjectList { get; set; }
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
@@ -38,7 +40,17 @@ namespace IST.Web.Models
             _attachmentFileService = new AttachmentFileService();
             _companyProjectService = new CompanyProjectService();
             _workflowService = new WorkflowService();
-            CompanyProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
+            _userService = new UserService();
+            bool isCustomerUser = _userService.IsUserAsCustomer(authenticatedUserId,"Customer");
+            if (isCustomerUser == true)
+            {
+                var userAsCustomer = _userService.GetCustomerByUserId(authenticatedUserId);
+                CompanyProjectList = _companyProjectService.GetAllProjectByCompanyId(userAsCustomer.CompanyId.Value).ToList();
+            }
+            else
+            {
+                CompanyProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
+            }
         }
 
         public TicketModel(int id) : this()
@@ -47,6 +59,7 @@ namespace IST.Web.Models
             if (TicketEntry != null)
             {
                 Id = TicketEntry.Id;
+                Code = TicketEntry.Code;
                 IssueName = TicketEntry.IssueName;
                 Description = TicketEntry.Description;
                 Priority = TicketEntry.Priority;
@@ -77,17 +90,17 @@ namespace IST.Web.Models
             base.Status = (byte)EnumTicketStatus.Pending;
             base.CreatedAt = DateTime.Now;
             base.CreatedBy = authenticatedUserId;
-            
+
             int ticketId = _ticketService.AddTicket(this);
             // Attachment File //
             List<AttachmentFile> attachmentList = new List<AttachmentFile>();
-            if (FileLists !=null)
+            if (FileLists != null)
             {
-                foreach(var item in FileLists)
+                foreach (var item in FileLists)
                 {
-                    if(item.FileBase != null)
+                    if (item.FileBase != null)
                     {
-                        var attachmentEntry = new AttachmentFileModel().SaveAttachmentFile(item,ticketId, authenticatedUserId);
+                        var attachmentEntry = new AttachmentFileModel().SaveAttachmentFile(item, ticketId, authenticatedUserId);
                         attachmentList.Add(attachmentEntry);
                     }
                 }
@@ -135,17 +148,19 @@ namespace IST.Web.Models
         public void Approve(WorkflowProcessModel workflowProcess)
         {
             var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
             workflowModel.Status = (byte)EnumTicketStatus.Accepted;
             workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Accepted);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
-            _ticketService.UpdateTicketStatus(workflowModel.RecordId,workflowModel.Status);
+            _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);
         }
         public void Disapprove(WorkflowProcessModel workflowProcess)
         {
             var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
             workflowModel.Status = (byte)EnumTicketStatus.Rejected;

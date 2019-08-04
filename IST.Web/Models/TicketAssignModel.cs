@@ -15,41 +15,40 @@ namespace IST.Web.Models
     [NotMapped]
     public class TicketAssignModel : TicketAssign
     {
+        private string formName = "TicketAssign";
         private TicketAssignService _ticketAssignService;
         public UserService _userService;
         public TicketService _ticketService;
         public CompanyProjectService _companyProjectService;
-
+        private WorkflowService _workflowService;
         public IEnumerable<User> userList { get; set; }
         public IEnumerable<Ticket> ticketList { get; set; }
         public IEnumerable<CompanyProject> companyProjectList { get; set; }
-      
+
         public TicketAssignModel()
         {
             _ticketAssignService = new TicketAssignService();
             _userService = new UserService();
             _ticketService = new TicketService();
             _companyProjectService = new CompanyProjectService();
+            _workflowService = new WorkflowService();
             ticketList = _ticketService.GetAllTicket();
-            userList = _userService.GetAllUsers();
+            userList = _userService.GetAllUserAsDeveloper();
             companyProjectList = _companyProjectService.GetAllCompanyProjects();
         }
 
         public TicketAssignModel(int id) : this()
         {
-                var TicketAssignEntry = _ticketAssignService.GetTicketAssignById(id);
-            if(TicketAssignEntry != null)
+            var TicketAssignEntry = _ticketAssignService.GetTicketAssignById(id);
+            if (TicketAssignEntry != null)
             {
                 Id = TicketAssignEntry.Id;
                 TicketId = TicketAssignEntry.TicketId;
                 Description = TicketAssignEntry.Description;
-               
-                Code = TicketAssignEntry.Code;
-                //Status = TicketAssignEntry.Status;
+                Status = TicketAssignEntry.Status;
                 UserId = TicketAssignEntry.UserId;
                 Ticket = TicketAssignEntry.Ticket;
                 User = TicketAssignEntry.User;
-                
 
                 CreatedAt = TicketAssignEntry.CreatedAt;
                 CreatedBy = TicketAssignEntry.CreatedBy;
@@ -57,19 +56,23 @@ namespace IST.Web.Models
                 UpdatedAt = TicketAssignEntry.UpdatedAt;
                 UpdatedBy = TicketAssignEntry.UpdatedBy;
                 UpdatedByUser = TicketAssignEntry.UpdatedByUser;
-            } 
-
+            }
+        }
+        public Ticket CreateTicketAssign(int ticketId)
+        {
+            var TicketEntry = _ticketService.GetTicketById(ticketId);
+            return TicketEntry;
         }
         public IEnumerable<TicketAssign> GetAllTicketAssigns()
         {
             return _ticketAssignService.GetAllTicketAssigns();
         }
-        
+
         public void AddTicketAssign()
         {
-            
+
             base.CreatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
-            base.Status = (byte)EnumTicketAssignStatus.Draft;
+            base.Status = (byte)EnumTicketAssignStatus.Pending;
             _ticketAssignService.AddTicketAssign(this);
         }
         public void EditTicketAssign()
@@ -82,7 +85,30 @@ namespace IST.Web.Models
         {
             _ticketAssignService.DeleteTicketAssign(id, AuthenticatedUser.GetUserFromIdentity().UserId.ToString());
         }
-
+        public void Approve(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketStatus.Accepted;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Accepted);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+        }
+        public void Disapprove(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketStatus.Withhold;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Withhold);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+        }
         public void Dispose()
         {
             _ticketAssignService.Dispose();
