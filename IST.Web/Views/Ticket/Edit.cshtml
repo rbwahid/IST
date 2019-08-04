@@ -1,10 +1,27 @@
 ﻿@using IST.Common
 @model IST.Web.Models.TicketModel
-
+@using IST.Web.Models
 @{
     ViewBag.Title = "Ticket";
     int sl = 1;
     int rowCount = 0;
+    int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+    //bool IsTicketProcessPosition = new PositionModel().CheckTicketProcessPosition(authenticatedUserId);
+    var workflowItem = new WorkflowModel();
+    var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id,"Ticket").ToList();
+    if (workflowList.Any())
+    {
+        foreach (var item in workflowList)
+        {
+            workflowItem.Approver = item.Approver;
+            workflowItem.ApprovalStatus = item.ApprovalStatus;
+            workflowItem.Remarks = item.Remarks;
+        }
+    }
+    else
+    {
+        workflowItem = null;
+    }
 }
 
 <!-- Content area -->
@@ -25,7 +42,8 @@
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true);
-            @Html.Hidden("InitialName", new { @Value=Model.IssueName})
+            @Html.Hidden("InitialName", new { @Value = Model.IssueName })
+            @Html.HiddenFor(model=>model.Id)
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
@@ -43,12 +61,12 @@
                                 @Html.ValidationMessageFor(model => model.Description)
                             </div>
                         </div>
-                        <div class="form-group row cust-details-row">
-                            <label class="col-lg-3">@Html.DisplayNameFor(model => model.Status)</label>
-                            <div class="col-lg-6">
-                                @Enum.GetName(typeof(EnumTicketStatus), Model.Status)
-                            </div>
-                        </div>
+                        @*<div class="form-group row cust-details-row">
+                                <label class="col-lg-3">@Html.DisplayNameFor(model => model.Status)</label>
+                                <div class="col-lg-6">
+                                    @Enum.GetName(typeof(EnumTicketStatus), Model.Status)
+                                </div>
+                            </div>*@
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row">
@@ -96,7 +114,7 @@
                                     {
                                         <tr>
                                             <td class="serial">
-                                               @(sl++)
+                                                @(sl++)
                                             </td>
                                             <td>
                                                 <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
@@ -120,6 +138,42 @@
                         </table>
                     </div>
                 </div>
+                @if (Model.Status == (byte)EnumTicketStatus.Rejected)
+                {
+                    <div class="row" style="margin-top:20px;">
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="custom-header header-elements-inline">
+                                    <h5 class="">Approval Process</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-md-3">@Html.DisplayName("Remarks")</label>
+                                                <div class="col-md-9">
+                                                    @(workflowItem != null ? workflowItem.Remarks : "")
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3">@Html.DisplayName("Approved By")</label>
+                                                <div class="col-md-9">
+                                                    @(workflowItem != null ? workflowItem.Approver.FullName : "")
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
+                                                <div class="col-md-9">
+                                                    @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                }
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-between">

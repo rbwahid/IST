@@ -75,6 +75,21 @@ namespace IST.Repository
             return isNotExist;
         }
 
+        public IEnumerable<User> GetAllUserAsDeveloper()
+        {
+            return _context.Users.Where(x => !x.IsDeleted && x.UserRole.RoleName == "Developer");
+        }
+
+        public User GetCustomerByUserId(int authenticatedUserId)
+        {
+            return _context.Users.FirstOrDefault(x => !x.IsDeleted && x.Id == authenticatedUserId && x.UserRole.RoleName == "Customer");
+        }
+
+        public bool IsUserAsCustomer(int authenticatedUserId, string roleName)
+        {
+            return _context.Users.Any(u => !u.IsDeleted && u.Id == authenticatedUserId && u.UserRole.RoleName == roleName);
+        }
+
         public bool IsEmailExist(string Email, string InitialEmail)
         {
             bool isNotExist = true;

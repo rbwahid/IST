@@ -44,6 +44,16 @@ namespace IST.Repository
         public Position GetPositionByName(string positionName)
         {
             return _context.Positions.FirstOrDefault(x => !x.IsDeleted && x.PositionName.ToUpper() == positionName.ToUpper());
-        } 
+        }
+
+        public bool CheckUserPosition(int userId, string positionName)
+        {
+            return _context.Positions.Any(u => u.Id == userId && u.PositionName == positionName && !u.IsDeleted);
+        }
+
+        public bool CheckTicketProcessPosition(int userId)
+        {
+            return _context.Positions.Any(u => u.UserCollection.Any(x => x.Id == userId) && u.IsTicketProcess == true && !u.IsDeleted); ;
+        }
     }
 }

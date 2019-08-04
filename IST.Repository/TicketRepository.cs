@@ -36,5 +36,11 @@ namespace IST.Repository
             }
             return isNotExist;
         }
+        public virtual string GenerateTicketCode()
+        {
+            string fmt = "000.##";
+            return string.Format("{0:yyMMdd}", DateTime.Now) +
+                   (GetCount(DateTime.Now.Day) + 1).ToString(fmt);
+        }
     }
 }

@@ -16,5 +16,6 @@ namespace IST.Entities
         public string ShortName { get; set; }
         [Display(Name = "Ticket Process")]
         public bool IsTicketProcess { get; set; }
+        public virtual ICollection<User> UserCollection { get; set; }
     }
 }

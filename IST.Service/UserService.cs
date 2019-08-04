@@ -64,6 +64,21 @@ namespace IST.Services
             _userUnitOfWork.Save(user.CreatedBy.ToString());
         }
 
+        public IEnumerable<User> GetAllUserAsDeveloper()
+        {
+            return _userUnitOfWork.UserRepository.GetAllUserAsDeveloper();
+        }
+
+        public User GetCustomerByUserId(int authenticatedUserId)
+        {
+            return _userUnitOfWork.UserRepository.GetCustomerByUserId(authenticatedUserId);
+        }
+
+        public bool IsUserAsCustomer(int authenticatedUserId, string roleName)
+        {
+           return _userUnitOfWork.UserRepository.IsUserAsCustomer(authenticatedUserId, roleName);
+        }
+
         public void SaveLogin(string userId, string sessionId, bool loggedIn)
         {
             LoginRecord login = new LoginRecord

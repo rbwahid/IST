@@ -71,6 +71,15 @@ namespace IST.Service
         {
             _positionUnitOfWork.Dispose();
         }
-        
+
+        public bool CheckUserPosition(int userId, string positionName)
+        {
+            return _positionUnitOfWork.PositionRepository.CheckUserPosition(userId, positionName);
+        }
+
+        public bool CheckTicketProcessPosition(int userId)
+        {
+            return _positionUnitOfWork.PositionRepository.CheckTicketProcessPosition(userId);
+        }
     }
 }
