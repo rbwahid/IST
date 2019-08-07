@@ -63,6 +63,11 @@ namespace IST.Web
             bundles.Add(new ScriptBundle("~/bundles/dashboard").Include(
                       "~/Plugins/global_assets/js/demo_pages/dashboard.js"));
 
+            // Select2 Script---form_multiselect
+            bundles.Add(new ScriptBundle("~/bundles/select2").Include(
+                "~/Plugins/global_assets/js/plugins/forms/selects/select2.min.js",
+                      "~/Plugins/global_assets/js/demo_pages/form_select2.js"));
+
             // Login Script---
             bundles.Add(new ScriptBundle("~/bundles/login").Include(
                       "~/Plugins/global_assets/js/demo_pages/login.js"));
@@ -98,6 +103,11 @@ namespace IST.Web
             bundles.Add(new ScriptBundle("~/bundles/sweet-alert").Include(
                 "~/Plugins/global_assets/js/Plugins/notifications/sweet_alert.min.js",
                 "~/Plugins/global_assets/js/demo_pages/extra_sweetalert.js"));
+
+            // ckeditor //
+            bundles.Add(new ScriptBundle("~/bundles/ckeditor").Include(
+                "~/Plugins/global_assets/js/plugins/editors/ckeditor/ckeditor.js",
+                "~/Plugins/global_assets/js/demo_pages/editor_ckeditor.js"));
 
             // Ajax Call Script---
             bundles.Add(new ScriptBundle("~/bundles/ajax-call").Include(

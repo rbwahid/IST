@@ -7,7 +7,7 @@
     ViewBag.Title = "Ticket";
     var sl = 1;
     var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-    bool IsTicketProcessPosition = new PositionModel().CheckTicketProcessPosition(authenticatedUserId);
+    bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
 }
 
 <div class="content">
@@ -32,7 +32,7 @@
                                     <th>@Html.DisplayNameFor(model => model.Code)</th>
                                     <th>@Html.DisplayNameFor(model => model.CompanyProjectId)</th>
                                     <th>@Html.DisplayNameFor(model => model.IssueName)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                    @*<th>@Html.DisplayNameFor(model => model.Description)</th>*@
                                     <th>@Html.DisplayNameFor(model => model.Priority)</th>
                                     <th>@Html.DisplayNameFor(model => model.Status)</th>
                                     <th></th>
@@ -46,7 +46,7 @@
                                         <td>@Html.DisplayFor(modelItem => item.Code)</td>
                                         <td>@Html.DisplayFor(modelItem => item.CompanyProject.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueName)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                        @*<td>@Html.DisplayFor(modelItem => item.Description)</td>*@
                                         <td>@(item.Priority ? "Yes" : "No")</td>
                                         <td>@Enum.GetName(typeof(EnumTicketStatus), item.Status)</td>
                                         <td>
@@ -59,14 +59,10 @@
                                                 else
                                                 {
                                                     <a href="@Url.Action("Details","Ticket", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
-                                                    if (IsTicketProcessPosition && item.Status == (byte)EnumTicketStatus.Accepted)
+                                                    if (IsRoleUser && item.Status == (byte)EnumTicketStatus.Accepted)
                                                     {
-                                                        <a href="@Url.Action("CreateTicketAssign","TicketAssign",new { ticketId = item.Id })" target="_blank" title="Ticket Assign" class="list-icons-item text-success-600"><i class="icon-book-play mr-2"></i></a>
+                                                        <a href="#" onclick="ticket_Assign('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-list2"></i></a>
                                                     }
-                                                    @*else
-                                                    {
-                                                        <a href="@Url.Action("Details","TicketAssign",new { id = item.TicketAssignCollection.FirstOrDefault(x=>x.TicketId == item.Id).Id })" target="_blank" title="Ticket Assign" class="list-icons-item text-success-600"><i class="icon-book mr-2"></i></a>
-                                                    }*@
                                                 }
                                             </div>
                                         </td>
@@ -82,12 +78,39 @@
     </div>
 </div>
 
+
+<!-- Ticket Assign -->
+<div id="ticketAssignModal" class="modal fade" tabindex="-1">
+    <div class="modal-dialog modal-xl">
+        <div class="modal-content">
+            <div class="modal-body" id="ticketAssignModalContent">
+            </div>
+        </div>
+    </div>
+</div>
+<!-- /Ticket Assign -->
+
+
 @section Scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/ajax-call")
     <script>
         function delete_Data(id) {
             var url = '@Url.Action("Delete", "Ticket")';
             var paramData = { id: id };
             delete_confirm(url, paramData);
+            }
+        function ticket_Assign(id)
+         {
+            var url = '@Url.Action("TicketAssign", "Ticket")';
+            var paramData = { id: id };
+            ajaxCallModal(url, paramData, "renderCreateTicketAssignLoad")
+            }
+        function renderCreateTicketAssignLoad(data) {
+            $("#ticketAssignModalContent").html(data);
+            $("#ticketAssignModal").modal("show");
+            $(".select").select2({});
         }
     </script>
 }

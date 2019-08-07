@@ -29,7 +29,6 @@
                                     <th class="serial">#</th>
                                     <th>@Html.DisplayNameFor(model => model.ShortName)</th>
                                     <th>@Html.DisplayNameFor(model => model.PositionName)</th>
-                                    <th>@Html.DisplayNameFor(model => model.IsTicketProcess)</th>
                                     <th></th>
                                 </tr>
                             </thead>
@@ -40,7 +39,6 @@
                                     <td class="serial">@(sl++)</td>
                                     <td>@Html.DisplayFor(modelItem => item.ShortName)</td>
                                     <td>@Html.DisplayFor(modelItem => item.PositionName)</td>
-                                    <th>@(item.IsTicketProcess?"Yes":"No")</th>
                                     <td>
                                         <div class="list-icons">
                                             <a href="#" class="list-icons-item text-primary-600" onclick="getDataForEdit('@item.Id')"><i class="icon-pencil7"></i></a>
@@ -85,11 +83,6 @@
             $("#InitialName").val(data.PositionName);
             $("#PositionName").val(data.PositionName);           
             $("#ShortName").val(data.ShortName);
-            if (data.IsTicketProcess == true) {
-                $('#IsTicketProcess').attr('checked', 'checked');
-            } else {
-                $('#IsTicketProcess').removeAttr('checked');
-            }
             $("#submitButton").html('<i class="fa fa-save"></i> Update');
         }
     </script>

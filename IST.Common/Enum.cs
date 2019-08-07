@@ -10,6 +10,10 @@ namespace IST.Common
     {
         GeneralUser = 1,
         SuperAdministrator = 2,
+        Admin =3,
+        Manager=4,
+        Developer=5,
+        Customer =6,
     }
 
     public enum EnumUserStatus
@@ -33,5 +37,10 @@ namespace IST.Common
         Accepted = 3,
         In_Progress = 4,
         Completed = 5,
+    }
+    public enum EnumWorkflowFormStatus
+    {
+        Ticket,
+        TicketAssign,
     }
 }

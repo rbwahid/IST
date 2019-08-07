@@ -37,7 +37,6 @@ namespace IST.Service
             {
                 PositionName = position.PositionName,
                 ShortName = position.ShortName,
-                IsTicketProcess = position.IsTicketProcess,
                 CreatedAt = position.CreatedAt,
                 CreatedBy = position.CreatedBy
             };
@@ -51,7 +50,6 @@ namespace IST.Service
             {
                 positionEntry.PositionName = position.PositionName;
                 positionEntry.ShortName = position.ShortName;
-                positionEntry.IsTicketProcess = position.IsTicketProcess;
                 positionEntry.UpdatedAt = position.UpdatedAt;
                 positionEntry.UpdatedBy = position.UpdatedBy;
                 _positionUnitOfWork.Save();

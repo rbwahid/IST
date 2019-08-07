@@ -6,10 +6,9 @@
     ViewBag.Title = "Details";
     int rowNo = 1;
     int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-    bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, "Developer");
-    //bool IsTicketProcessPosition = new PositionModel().CheckTicketProcessPosition(authenticatedUserId);
+    bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus),EnumUserRoleStatus.Developer));
     var workflowItem = new WorkflowModel();
-    var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, "TicketAssign").ToList();
+    var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, Enum.GetName(typeof(EnumWorkflowFormStatus),EnumWorkflowFormStatus.TicketAssign)).ToList();
     if (workflowList.Any())
     {
         foreach (var item in workflowList)

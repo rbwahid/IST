@@ -6,8 +6,8 @@
 @{
     ViewBag.Title = "TicketAssign";
     var sl = 1;
-        var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-    bool IsTicketProcessPosition = new PositionModel().CheckTicketProcessPosition(authenticatedUserId);
+    var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+    bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
 }
 
 <div class="content">
@@ -16,7 +16,7 @@
             <h3 class="card-title"><strong>Ticket Assign</strong></h3>
             <div class="header-elements">
                 <div class="list-icons">
-                    <a href="@Url.Action("Add","TicketAssign")" class="list-icons-item text-white text-primary-600" title="Add Ticket"><i class="icon-plus3"></i></a>
+                    @*<a href="@Url.Action("Add","TicketAssign")" class="list-icons-item text-white text-primary-600" title="Add Ticket"><i class="icon-plus3"></i></a>*@
                 </div>
             </div>
         </div>
@@ -41,30 +41,30 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                <tr>
-                                    <td class="serial">@(sl++)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Ticket.Code)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Ticket.CompanyProject.Name)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Ticket.IssueName)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                                    <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
-                                    <td>
-                                        @Enum.GetName(typeof(EnumTicketAssignStatus), item.Status)
-                                    </td>
-                                    <td>
-                                        <div class="list-icons">
-                                            @if ((item.Status == (byte)EnumTicketAssignStatus.Pending || item.Status == (byte)EnumTicketAssignStatus.Withhold) && item.CreatedBy == authenticatedUserId)
-                                            {
-                                                <a href="@Url.Action("Edit","TicketAssign", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
-                                                <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
-                                            }
-                                            else
-                                            {
-                                                <a href="@Url.Action("Details","TicketAssign", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a> 
-                                            }
-                                        </div>
-                                    </td>
-                                </tr>
+                                    <tr>
+                                        <td class="serial">@(sl++)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Ticket.Code)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Ticket.CompanyProject.Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Ticket.IssueName)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.User.FullName)</td>
+                                        <td>
+                                            @Enum.GetName(typeof(EnumTicketAssignStatus), item.Status)
+                                        </td>
+                                        <td>
+                                            <div class="list-icons">
+                                                @if ((item.Status == (byte)EnumTicketAssignStatus.Pending || item.Status == (byte)EnumTicketAssignStatus.Withhold) && item.CreatedBy == authenticatedUserId)
+                                                {
+                                                    <a href="@Url.Action("Edit","TicketAssign", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
+                                                    <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("Details","TicketAssign", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
                                 }
                             </tbody>
                         </table>
