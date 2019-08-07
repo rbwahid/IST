@@ -5,6 +5,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Web.Mvc;
 
 namespace IST.Entities
 {
@@ -16,6 +17,7 @@ namespace IST.Entities
         [Required]
         [Display(Name = "Issue Name")]
         public string IssueName { get; set; }
+        [AllowHtml]
         [Display(Name = "Description")]
         public string Description { get; set; }
 

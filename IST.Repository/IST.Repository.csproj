@@ -50,6 +50,7 @@
   <ItemGroup>
     <Compile Include="CompanyProjectRepository.cs" />
     <Compile Include="CompanyProjectUnitOfWork.cs" />
+    <Compile Include="SeedConfig.cs" />
     <Compile Include="Migrations\201907300940098_attachmentFileEntityUpdate.cs" />
     <Compile Include="Migrations\201907300940098_attachmentFileEntityUpdate.Designer.cs">
       <DependentUpon>201907300940098_attachmentFileEntityUpdate.cs</DependentUpon>

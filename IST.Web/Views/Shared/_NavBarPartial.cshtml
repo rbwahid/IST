@@ -35,14 +35,6 @@
                     </a>
                 </li>
             }
-            @*@if (User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
-            {
-                <li class="nav-item">
-                    <a href="@Url.Action("Add","TicketAssign")" class="navbar-nav-link ">
-                        <i class="icon-book-play mr-2"></i>Ticket Assign
-                    </a>
-                </li>
-            }*@
             @if (User.IsInRole("User_Configuration") || User.IsInRole("Role_Configuration") || User.IsInRole("Global_SupAdmin"))
             {
                 <li class="nav-item dropdown">
@@ -52,7 +44,7 @@
                     <div class="dropdown-menu">
                         @if (User.IsInRole("User_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
-                            <a href="@Url.Action("Index", "User")" class="dropdown-item"><i class="icon-user"></i>User</a>
+                            <a href="@Url.Action("Index", "User")" class="dropdown-item"><i class="fa fa-user-check"></i>User</a>
                         }
                         @if (User.IsInRole("Role_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
@@ -65,8 +57,7 @@
             {
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-cog4"></i>
-                        Settings
+                        <i class="icon-cog4 mr-2"></i>Settings
                     </a>
                     <div class="dropdown-menu">
                         @if (User.IsInRole("Position_Configuration") || User.IsInRole("Global_SupAdmin"))
@@ -88,8 +79,7 @@
             {
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
-                        <i class="icon-chart mr-2"></i>
-                        Reports
+                        <i class="icon-chart mr-2"></i>Reports
                     </a>
                     <div class="dropdown-menu">
                         @if (User.IsInRole("Ticket_Configuration") || User.IsInRole("Global_SupAdmin"))

@@ -34,7 +34,7 @@ namespace IST.Web.Controllers
         public JsonResult GetPositionDetailsById(int id)
         {
             var model = new PositionModel(id);
-            return Json(new { Id = model.Id, PositionName = model.PositionName, ShortName = model.ShortName, IsTicketProcess = model.IsTicketProcess });
+            return Json(new { Id = model.Id, PositionName = model.PositionName, ShortName = model.ShortName });
         }
         public ActionResult Details(int id)
         {

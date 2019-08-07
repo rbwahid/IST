@@ -279,6 +279,10 @@ namespace IST.Repository
         {
             return _context.Set<T>().Count(e => e.CreatedAt.Value.Year == year && !e.IsDeleted);
         }
+        public int GetCountByDay(int day)
+        {
+            return _context.Set<T>().Count(e => e.CreatedAt.Value.Day == day && !e.IsDeleted);
+        }
 
         //public string GenerateRequisitionNo(int? formId)
         //{

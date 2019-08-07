@@ -20,13 +20,20 @@ namespace IST.Repository.Migrations
 
             //  You can use the DbSet<T>.AddOrUpdate() helper extension method 
             //  to avoid creating duplicate seed data.
+            //var seedCompany = new List<Company>()
+            //{
+            //    new Company{ShortName="EIL",Name="Encoders Infotech Limited",Address = "H-121, R-21, Mohakhali DOHS, Dhaka-1206.",Phone="+343 545163",Email="info@encodersbd.com",MobileNo="01751 000000"}
+            //};
+            //seedCompany.ForEach(s => context.Companies.AddOrUpdate(c => c.Name, s));
+            //context.SaveChanges();
+
             //var seedRoles = new List<UserRole>
             //{
             //    new UserRole {RoleName = "Administrator", Status = 2},
             //    new UserRole {RoleName = "Admin", Status = 1},
             //    new UserRole {RoleName = "Manager", Status = 1},
-            //    new UserRole {RoleName = "Customer", Status = 1 },
             //    new UserRole {RoleName = "Developer", Status = 1 },
+            //    new UserRole {RoleName = "Customer", Status = 1 },
             //};
             //seedRoles.ForEach(s => context.UserRoles.AddOrUpdate(r => r.RoleName, s));
             //context.SaveChanges();

@@ -13,9 +13,15 @@ using System.Web.Mvc;
 namespace IST.Web.Models
 {
     [NotMapped]
+    public class UserSelectList
+    {
+        public int[] SelectedId { get; set; }
+        public List<User> SelectedValueList { get; set; }
+    }
     public class TicketAssignModel : TicketAssign
     {
         private string formName = "TicketAssign";
+        public UserSelectList UserSelectList { get; set; }
         private TicketAssignService _ticketAssignService;
         public UserService _userService;
         public TicketService _ticketService;
@@ -35,6 +41,9 @@ namespace IST.Web.Models
             ticketList = _ticketService.GetAllTicket();
             userList = _userService.GetAllUserAsDeveloper();
             companyProjectList = _companyProjectService.GetAllCompanyProjects();
+
+            UserSelectList = new UserSelectList();
+            UserSelectList.SelectedValueList = _userService.GetAllUserAsDeveloper().ToList();
         }
 
         public TicketAssignModel(int id) : this()
@@ -70,10 +79,18 @@ namespace IST.Web.Models
 
         public void AddTicketAssign()
         {
-
             base.CreatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
             base.Status = (byte)EnumTicketAssignStatus.Pending;
-            _ticketAssignService.AddTicketAssign(this);
+
+            // Multiple User Select //
+            if(UserSelectList.SelectedId != null)
+            {
+                foreach (var userId in UserSelectList.SelectedId)
+                {
+                    base.UserId = userId;
+                    _ticketAssignService.AddTicketAssign(this);
+                }
+            } 
         }
         public void EditTicketAssign()
         {

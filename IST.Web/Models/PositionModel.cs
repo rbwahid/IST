@@ -37,7 +37,6 @@ namespace IST.Web.Models
                 Id = positionEntry.Id;
                 PositionName = positionEntry.PositionName;
                 ShortName = positionEntry.ShortName;
-                IsTicketProcess = positionEntry.IsTicketProcess;
 
                 CreatedAt = positionEntry.CreatedAt;
                 CreatedBy = positionEntry.CreatedBy;

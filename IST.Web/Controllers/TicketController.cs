@@ -101,5 +101,12 @@ namespace IST.Web.Controllers
             return RedirectToAction("Details", "Ticket", new { id = workflowProcess.RecordId });
         }
         #endregion
+
+        public ActionResult TicketAssign(int id)
+        {
+            var model = new TicketAssignModel();
+            model.TicketId = id;
+            return PartialView("_TicketAssign", model);
+        }
     }
 }
