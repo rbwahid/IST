@@ -1,0 +1,88 @@
+﻿@using System.Collections
+@using EIST.Web.Models
+@using EIST.Common
+@model IEnumerable<EIST.Entities.TicketAssign>
+
+@{
+    ViewBag.Title = "TicketAssign";
+    var sl = 1;
+    var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+    bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
+}
+
+<div class="content">
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h3 class="card-title"><strong>Ticket Assign</strong></h3>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a href="@Url.Action("Add","TicketAssign")" class="list-icons-item text-white text-primary-600" title="Add Ticket"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        <div class="card-body">
+            <div class="row">
+                <div class="col-md-12">
+                    <div class="table-responsive">
+                        <table class="table table-xs table-bordered table-striped table-condensed">
+                            <thead>
+                                <tr>
+                                    <th class="serial">#</th>
+                                    <th>@Html.DisplayNameFor(model => model.Issue.Code)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Issue.ProjectId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssueId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Description)</th>
+                                    <th>@Html.DisplayNameFor(model => model.AssigneeId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                                    <th></th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach (var item in Model)
+                                {
+                                    <tr>
+                                        <td class="serial">@(sl++)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Issue.Code)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Issue.Project.Name)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Issue.IssueTitle)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Assignee.FullName)</td>
+                                        <td>
+                                            @Enum.GetName(typeof(EnumTicketAssignStatus), item.Status)
+                                        </td>
+                                        <td>
+                                            <div class="list-icons">
+                                                @if ((item.Status == (byte)EnumTicketAssignStatus.Pending || item.Status == (byte)EnumTicketAssignStatus.Withhold) && item.CreatedBy == authenticatedUserId)
+                                                {
+                                                    <a href="@Url.Action("Edit","TicketAssign", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
+                                                    <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
+                                                }
+                                                else
+                                                {
+                                                    <a href="@Url.Action("Details","TicketAssign", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
+                                                }
+                                            </div>
+                                        </td>
+                                    </tr>
+                                }
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+@section Scripts{
+    @Scripts.Render("~/bundles/ajax-call")
+    <script>
+        function delete_Data(id) {
+            var url = '@Url.Action("Delete", "TicketAssign")';
+            var paramData = { id: id };
+            delete_confirm(url, paramData);
+        }
+    </script>
+}

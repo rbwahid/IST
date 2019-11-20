@@ -1,0 +1,220 @@
+﻿@model EIST.Web.Models.TicketAssignModel
+@using EIST.Common
+@using EIST.Web.Models
+@{
+    ViewBag.Title = "Ticket Assign";
+    var rowNo = 1;
+    int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+    var workflowItem = new WorkflowModel();
+    var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, Enum.GetName(typeof(EnumWorkflowFormStatus), EnumWorkflowFormStatus.TicketAssign)).ToList();
+    if (workflowList.Any())
+    {
+        foreach (var item in workflowList)
+        {
+            workflowItem.Approver = item.Approver;
+            workflowItem.ApprovalStatus = item.ApprovalStatus;
+            workflowItem.Remarks = item.Remarks;
+        }
+    }
+    else
+    {
+        workflowItem = null;
+    }
+}
+
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header header-elements-inline bg-teal">
+            <h5 class="card-title"><strong>Ticket Assign</strong></h5>
+            <div class="header-elements">
+                <div class="list-icons">
+                </div>
+            </div>
+        </div>
+        @*<hr class="hr-mar-reduce" />*@
+        @using (Html.BeginForm("Edit", "TicketAssign", FormMethod.Post, new { enctype = "multipart/form-data", @class = "ticketAssignCreateForm" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.HiddenFor(model => model.Id)
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row cust-details-row">
+                            <label class="col-md-3">@Html.DisplayNameFor(model => model.Issue.Code)</label>
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.Issue.Code)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row cust-details-row">
+                            <label class="col-md-3">@Html.DisplayNameFor(model => model.Issue.Project.Company.Name)</label>
+                            <div class="col-md-9">
+                                @Html.DisplayFor(model => model.Issue.Project.Company.Name)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayName("Project")</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownList("Project", new SelectList(Model.companyProjectList, "Id", "Name", Model.Issue.ProjectId), "--Select--", new { @class = "form-control", @onchange = "projectChangeFunc(this)" })
+                            </div>
+                        </div>
+                        @{
+                            var ticketList = new List<SelectListItem>();
+                            foreach (var sisterTicket in Model.Issue.Project.TicketCollections.ToList())
+                            {
+                                ticketList.Add(new SelectListItem() { Text = sisterTicket.IssueTitle, Value = sisterTicket.Id.ToString() });
+                            }
+                        }
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueId)</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.IssueId, new SelectList(ticketList, "Value", "Text"), "--Select--", new { @class = "form-control", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.IssueId)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.AssigneeId)</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.AssigneeId, new SelectList(Model.userList, "Id", "FullName"), "--Select--", new { @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.AssigneeId)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    @* Attachment Collection *@
+                    @if (Model.Issue.AttachmentFileCollection.Any())
+                    {
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="custom-header header-elements-inline">
+                                    <h5 class="">Attachments</h5>
+                                </div>
+                                <div class="card-body">
+                                    <table class="table table-bordered table-striped table-condensed" id="attachFileCollectionTable">
+                                        <thead>
+                                            <tr>
+                                                <th class="serial">#</th>
+                                                <th>@Html.DisplayName("File Name")</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody id="attachFileCollectionTBody">
+                                            @if (Model.Issue.AttachmentFileCollection.Any())
+                                            {
+                                                foreach (var item in Model.Issue.AttachmentFileCollection)
+                                                {
+                                                    <tr>
+                                                        <td class="serial">
+                                                            @(rowNo++)
+                                                        </td>
+                                                        <td>
+                                                            <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
+                                                                <img height="25" src="@Url.Content(String.Format("~{0}", FileExtension.GetFileExtensionThumbnail(item.FileExtension)))" />  @item.OriginalName
+                                                            </a>
+                                                        </td>
+                                                    </tr>
+                                                }
+                                            }
+                                            else
+                                            {
+                                                <tr>
+                                                    <td colspan="3" class="text-muted">No files found</td>
+                                                </tr>
+                                            }
+                                        </tbody>
+                                    </table>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                    @if (Model.Status == (byte)EnumTicketAssignStatus.Withhold)
+                    {
+                        <div class="col-md-6">
+                            <div class="card">
+                                <div class="custom-header header-elements-inline">
+                                    <h5 class="">Approval Process</h5>
+                                </div>
+                                <div class="card-body">
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row">
+                                                <label class="col-md-3">@Html.DisplayName("Remarks")</label>
+                                                <div class="col-md-9">
+                                                    @(workflowItem != null ? workflowItem.Remarks : "")
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3">@Html.DisplayName("Approved By")</label>
+                                                <div class="col-md-9">
+                                                    @(workflowItem != null ? workflowItem.Approver.FullName : "")
+                                                </div>
+                                            </div>
+                                            <div class="form-group row">
+                                                <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
+                                                <div class="col-md-9">
+                                                    @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    }
+                </div>
+            </div>
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("Index", "TicketAssign")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                    <button type="submit" class="btn bg-teal btn-custom ml-3" id="productSubmit"><i class="fa fa-save"></i> Save</button>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- /basic layout -->
+
+</div>
+<!-- /content area -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/select2")
+    @Scripts.Render("~/bundles/ajax-call")
+
+    <script>
+        function projectChangeFunc(obj) {
+            var projectId = $(obj).val();
+            $("#TicketId").empty();
+            $("#TicketId").append(new Option("--Select--", ""));
+            if (projectId != '') {
+               var url = '@Url.Action("GetTicketsByProjectId","TicketAssign")';
+                var paramData = { projectId: projectId }
+                ajaxCall(url, paramData, 'renderTicketsByProjectLoad');
+            }
+        }
+        function renderTicketsByProjectLoad(data) {
+            $(data).each(function () {
+                $("#TicketId").append(new Option(this.Name, this.Id));
+            });
+        }
+    </script>
+}
+

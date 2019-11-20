@@ -158,6 +158,6 @@ $RECYCLE.BIN/
 .DS_Store
 
 
-/IST.Web/ConnectionStrings.config
+/EIST.Web/ConnectionStrings.config
 
-/IST.Web/Properties/PublishProfiles/*.pubxml
+/EIST.Web/Properties/PublishProfiles/*.pubxml
