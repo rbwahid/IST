@@ -48,6 +48,8 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="IssueLabelRepository.cs" />
+    <Compile Include="IssueLabelUnitOfWork.cs" />
     <Compile Include="Migrations\201911201128368_initialMgt.cs" />
     <Compile Include="Migrations\201911201128368_initialMgt.Designer.cs">
       <DependentUpon>201911201128368_initialMgt.cs</DependentUpon>
