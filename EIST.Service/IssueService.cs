@@ -38,6 +38,7 @@ namespace EIST.Service
                 IssueTitle = Ticket.IssueTitle,
                 Description = Ticket.Description,
                 Priority = Ticket.Priority,
+                LabelId = Ticket.LabelId,
                 //AttachmentFileCollection = Ticket.AttachmentFileCollection,
 
                 Status = Ticket.Status,
@@ -58,6 +59,7 @@ namespace EIST.Service
                 TicketEntry.IssueTitle = Ticket.IssueTitle;
                 TicketEntry.Description = Ticket.Description;
                 TicketEntry.Priority = Ticket.Priority;
+                TicketEntry.LabelId = Ticket.LabelId;
 
                 //TicketEntry.Status = Ticket.Status;
                 TicketEntry.UpdatedAt = Ticket.UpdatedAt;

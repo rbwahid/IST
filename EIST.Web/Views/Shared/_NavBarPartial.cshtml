@@ -27,11 +27,11 @@
     </div>
     <div class="collapse navbar-collapse" id="navbar-mobile">
         <ul class="navbar-nav">
-            @if (User.IsInRole("Ticket_Configuration") || User.IsInRole("Global_SupAdmin"))
+            @if (User.IsInRole("Issue_Configuration") || User.IsInRole("Global_SupAdmin"))
             {
                 <li class="nav-item">
-                    <a href="@Url.Action("Add","Ticket")" class="navbar-nav-link ">
-                        <i class="icon-ticket mr-2"></i>Ticket
+                    <a href="@Url.Action("Add","Issue")" class="navbar-nav-link ">
+                        <i class="icon-ticket mr-2"></i>Issue
                     </a>
                 </li>
             }

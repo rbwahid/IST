@@ -27,19 +27,42 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.CompanyProjectId)</label>
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.ProjectId)</label>
                             <div class="col-lg-6">
-                                @Html.DropDownListFor(model => model.CompanyProjectId, new SelectList(Model.CompanyProjectList, "Id", "Name"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
-                                @Html.ValidationMessageFor(model => model.CompanyProjectId)
+                                @Html.DropDownListFor(model => model.ProjectId, new SelectList(Model.ProjectList, "Id", "Name"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.ProjectId)
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueName)</label>
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueTitle)</label>
                             <div class="col-lg-6">
-                                @Html.TextBoxFor(model => model.IssueName, new { @class = "form-control input-sm", @placeholder = "Issue Name" })
-                                @Html.ValidationMessageFor(model => model.IssueName)
+                                @Html.TextBoxFor(model => model.IssueTitle, new { @class = "form-control input-sm", @placeholder = "Issue Title" })
+                                @Html.ValidationMessageFor(model => model.IssueTitle)
                             </div>
                         </div>
+                        
+                        @*<div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.Description, new { @class = "form-control input-sm", @placeholder = "Issue Name" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>*@
+                        @*<div class="form-group row">
+                                @Html.LabelFor(model => model.Description, new { @class = "col-sm-12" })
+                                <div class="col-sm-12">
+                                    @Html.TextAreaFor(model => model.Description, new {@placeholder="Description",@id="Description", @class = "form-control" })
+                                    @Html.ValidationMessageFor(model => model.Description)
+                                </div>
+                            </div>*@
+                        @*<div class="form-group row">
+                                <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.LabelId)</label>
+                                <div class="col-lg-6">
+                                    @Html.DropDownListFor(model => model.LabelId, new SelectList(Model.IssueLabelList, "Id", "LabelTitle"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                    @Html.ValidationMessageFor(model => model.LabelId)
+                                </div>
+                            </div>*@
+
                     </div>
                     <div class="col-md-6">
                         <div class="form-group row cust-details-row">
@@ -62,12 +85,12 @@
                     </div>
                 </div>
                 <div class="form-group row">
-                    @*@Html.LabelFor(model => model.Description, new { @class = "col-sm-12" })*@
-                    <div class="col-sm-12">
-                        @Html.TextAreaFor(model => model.Description, new {@placeholder="Description",@id="Description", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Description)
+                        @Html.LabelFor(model => model.Description, new { @class = "col-sm-12" })
+                        <div class="col-sm-12">
+                            @Html.TextAreaFor(model => model.Description, new {@placeholder="Description",@id="Description", @class = "form-control" })
+                            @Html.ValidationMessageFor(model => model.Description)
+                        </div>
                     </div>
-                </div>
                 @* Attachments *@
                 <div class="row">
                     <div class="col-md-6">
