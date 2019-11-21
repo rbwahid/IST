@@ -1,88 +1,90 @@
-﻿using EIST.Service;
+﻿using EIST.Entities;
+using EIST.Service;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Linq;
 using System.Web;
+using System.Web.ModelBinding;
 using System.Web.Mvc;
 
 namespace EIST.Web.Models
 {
     [NotMapped]
-    public class IssueLabelModel : IssueModel
+    public class IssueLabelModel : IssueLabel
     {
         private IssueLabelService _issueLabelService;
         [Required]
-        [Remote("IsIssueLabelExist", "Position", AdditionalFields = "InitialName",
+        [Remote("IsIssueLabelExist", "IssueLabel", AdditionalFields = "InitialLabelTitle",
             ErrorMessage = "Project already Exist")]
-        [Display(Name = "Position Name")]
-        public new string PositionName
+        [Display(Name = "Label Title")]
+        public new string LabelTitle
         {
-            get { return base.PositionName; }
-            set { base.PositionName = value; }
+            get { return base.LabelTitle; }
+            set { base.LabelTitle = value; }
         }
 
-        public PositionModel()
+        public IssueLabelModel()
         {
-            _positionService = new PositionService();
+            _issueLabelService = new IssueLabelService();
         }
 
-        public PositionModel(int id) : this()
+        public IssueLabelModel(int id) : this()
         {
-            var positionEntry = _positionService.GetPositionById(id);
-            if (positionEntry != null)
+            var IssueLabelEntry = _issueLabelService.GetLabelTitleById(id);
+            if (IssueLabelEntry != null)
             {
-                Id = positionEntry.Id;
-                PositionName = positionEntry.PositionName;
-                ShortName = positionEntry.ShortName;
+                Id = IssueLabelEntry.Id;
+                LabelTitle = IssueLabelEntry.LabelTitle;
+                ColorCode = IssueLabelEntry.ColorCode;
 
-                CreatedAt = positionEntry.CreatedAt;
-                CreatedBy = positionEntry.CreatedBy;
-                CreatedByUser = positionEntry.CreatedByUser;
-                UpdatedAt = positionEntry.UpdatedAt;
-                UpdatedBy = positionEntry.UpdatedBy;
-                UpdatedByUser = positionEntry.UpdatedByUser;
+                CreatedAt = IssueLabelEntry.CreatedAt;
+                CreatedBy = IssueLabelEntry.CreatedBy;
+                CreatedByUser = IssueLabelEntry.CreatedByUser;
+                UpdatedAt = IssueLabelEntry.UpdatedAt;
+                UpdatedBy = IssueLabelEntry.UpdatedBy;
+                UpdatedByUser = IssueLabelEntry.UpdatedByUser;
             }
 
         }
-        public IEnumerable<Position> GetAllPositions()
+        public IEnumerable<IssueLabel> GetAllIssueLabel()
         {
-            return _positionService.GetAllPositions();
+            return _issueLabelService.GetAllIssueLabel();
         }
 
-        public void AddPosition()
+        public void AddIssueLabel()
         {
             base.CreatedAt = DateTime.Now;
-            base.CreatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
-            _positionService.AddPosition(this);
+            base.CreatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;          
+            _issueLabelService.AddIssuelabel(this);
         }
-        public void EditPosition()
+        public void EditIssueLabel()
         {
             base.UpdatedAt = DateTime.Now;
             base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
-            _positionService.EditPosition(this);
+            _issueLabelService.EditIssueLabel(this);
         }
-        public void DeletePosition(int id)
+        public void DeleteIssueLabel(int id)
         {
-            _positionService.DeletePosition(id, AuthenticatedUser.GetUserFromIdentity().UserId.ToString());
+            _issueLabelService.DeleteIssueLabel(id, AuthenticatedUser.GetUserFromIdentity().UserId.ToString());
         }
 
-        public bool IsPositionNameExist(string Name, string InitialName)
+        public bool IsIssueLabelExist(string LabelTitle, string InitialLabelTitle)
         {
-            return _positionService.IsPositionNameExist(Name, InitialName);
+            return _issueLabelService.IsIssueLabelExist(LabelTitle, InitialLabelTitle);
         }
-        public bool CheckUserPosition(int userId, string positionName)
-        {
-            return _positionService.CheckUserPosition(userId, positionName);
-        }
-        public bool CheckTicketProcessPosition(int userId)
-        {
-            return _positionService.CheckTicketProcessPosition(userId);
-        }
+        //public bool CheckUserPosition(int userId, string positionName)
+        //{
+        //    return _positionService.CheckUserPosition(userId, positionName);
+        //}
+        //public bool CheckTicketProcessPosition(int userId)
+        //{
+        //    return _positionService.CheckTicketProcessPosition(userId);
+        //}
         public void Dispose()
         {
-            _positionService.Dispose();
+            _issueLabelService.Dispose();
         }
     }
 }
