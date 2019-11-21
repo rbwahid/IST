@@ -1,5 +1,6 @@
 ﻿using EIST.Entities;
 using EIST.Service;
+using EIST.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -15,6 +16,9 @@ namespace EIST.Web.Models
     {
         private ProjectService _companyProjectService;
         public CompanyService _companyService;
+        public UserService _userService;
+        public IEnumerable<User> projectMangaerList { get; set; }
+       // public IEnumerable<User> superVisorList { get; set; }
         public IEnumerable<Company> companyList { get; set; }
 
         [Required]
@@ -31,7 +35,11 @@ namespace EIST.Web.Models
         {
             _companyProjectService = new ProjectService();
             _companyService = new CompanyService();
+            _userService = new UserService();
             companyList = _companyService.GetAllCompanies();
+            projectMangaerList = _userService.GetAllUser();
+            //superVisorList = _userService.GetAllSuperVisorList();
+
         }
 
         public ProjectModel(int id) : this()
@@ -44,6 +52,11 @@ namespace EIST.Web.Models
                 Description = companyProjectEntry.Description;
                 CompanyId = companyProjectEntry.CompanyId;
                 Company = companyProjectEntry.Company;
+                PmId = companyProjectEntry.PmId;
+                ProjectManager = companyProjectEntry.ProjectManager;
+                SuperVisorId = companyProjectEntry.SuperVisorId;
+                SuperVisor = companyProjectEntry.SuperVisor;
+               
                 
 
                 CreatedAt = companyProjectEntry.CreatedAt;

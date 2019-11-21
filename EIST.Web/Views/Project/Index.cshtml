@@ -11,7 +11,7 @@
 <div class="content">
     <div class="card border-teal">
         <div class="card-header bg-teal header-elements-inline">
-            <h3 class="card-title"><strong>Company Project</strong></h3>
+            <h3 class="card-title"><strong>Project</strong></h3>
             <div class="header-elements">
                 <div class="list-icons">
                     @*<a href="#" class="list-icons-item text-primary-600"><i class="icon-plus3"></i></a>*@
@@ -30,27 +30,30 @@
                                     <th>@Html.DisplayNameFor(model => model.Name)</th>
                                     <th>@Html.DisplayNameFor(model => model.Description)</th>
                                     <th>@Html.DisplayNameFor(model => model.CompanyId)</th>
-
+                                    <th>@Html.DisplayNameFor(model => model.PmId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.SuperVisorId)</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td class="serial">@(sl++)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Name)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Description)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Company.Name)</td>
+                                <tr>
+                                    <td class="serial">@(sl++)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Description)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Company.Name)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.ProjectManager.UserName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.SuperVisor.UserName)</td>
 
 
-                                        <td>
-                                            <div class="list-icons">
-                                                <a href="#" class="list-icons-item text-primary-600" onclick="getDataForEdit('@item.Id')"><i class="icon-pencil7"></i></a>
-                                                <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                    <td>
+                                        <div class="list-icons">
+                                            <a href="#" class="list-icons-item text-primary-600" onclick="getDataForEdit('@item.Id')"><i class="icon-pencil7"></i></a>
+                                            <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
+                                        </div>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>
@@ -74,7 +77,7 @@
     <script>
        
         function delete_Data(id) {
-                var url = '@Url.Action("Delete", "CompanyProject")';
+                var url = '@Url.Action("Delete", "Project")';
                 var paramData = { id: id };
                 delete_confirm(url, paramData);
             }
@@ -91,10 +94,22 @@
             $("#Name").val(data.Name);           
             $("#Description").val(data.Description);
             $("#CompanyId").val(data.CompanyId);
-            if (data.CompanyId == 0 || data.CompanyId == null) {
+             if (data.CompanyId == 0 || data.CompanyId == null) {
                 $('#CompanyId option[value=""]').prop("selected", true);
             } else {
                 $('#CompanyId option[value=' + data.CompanyId + ']').prop("selected", true);
+            }
+            $("#PmId").val(data.PmId);
+             if (data.PmId == 0 || data.PmId == null) {
+                $('#PmId option[value=""]').prop("selected", true);
+            } else {
+                $('#PmId option[value=' + data.PmId + ']').prop("selected", true);
+            }
+            $("#SuperVisorId").val(data.SuperVisorId);
+             if (data.SuperVisorId == 0 || data.SuperVisorId == null) {
+                $('#SuperVisorId option[value=""]').prop("selected", true);
+            } else {
+                $('#SuperVisorId option[value=' + data.SuperVisorId + ']').prop("selected", true);
             }
            
             $("#submitButton").html('<i class="fa fa-save"></i> Update');

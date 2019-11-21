@@ -62,6 +62,5 @@ namespace EIST.Entities
         public new int? CreatedByUser { get; set; }
         [NotMapped]
         public new int? UpdatedByUser { get; set; }
-
     }
 }
