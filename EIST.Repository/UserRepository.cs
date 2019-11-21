@@ -77,7 +77,7 @@ namespace EIST.Repository
 
         public IEnumerable<User> GetAllUserAsDeveloper()
         {
-            return _context.Users.Where(x => !x.IsDeleted && x.UserRole.RoleName == "Developer");
+            return _context.Users.Where(x => !x.IsDeleted && x.UserType == EnumUserType.Developer.ToString());
         }
 
         public User GetCustomerByUserId(int authenticatedUserId)
