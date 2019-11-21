@@ -1,6 +1,6 @@
 ﻿@using System.Collections
 @using EIST.Web.Models
-@model IEnumerable<IST.Entities.Project>
+@model IEnumerable<EIST.Entities.Project>
 
 @{
     ViewBag.Title = "CompanyProject";
@@ -58,7 +58,7 @@
                 </div>
                 <div class="col-md-4">
                     @{ProjectModel CompanyProjectModel = new ProjectModel();}
-                    @Html.Partial("~/Views/CompanyProject/_CompanyProjectAddOrEdit.cshtml", CompanyProjectModel)
+                    @Html.Partial("~/Views/Project/_CompanyProjectAddOrEdit.cshtml", CompanyProjectModel)
                 </div>
             </div>
 
@@ -69,21 +69,22 @@
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ajax-call")
-    @Scripts.Render("~/bundles/theme-uniform")
+
 
     <script>
+       
         function delete_Data(id) {
                 var url = '@Url.Action("Delete", "CompanyProject")';
                 var paramData = { id: id };
                 delete_confirm(url, paramData);
             }
         function getDataForEdit(id) {
-            var url = '@Url.Action("GetCompanyProjectDetailsById", "CompanyProject")';
+            var url = '@Url.Action("GetCompanyProjectDetailsById", "Project")';
             var paramData = { id: id };
             ajaxCall(url, paramData, "renderCompanyProjectEntryLoad");
         }
         function renderCompanyProjectEntryLoad(data) {
-            var editUrl = '@Url.Action("Edit", "CompanyProject")';
+            var editUrl = '@Url.Action("Edit", "Project")';
             $('#CompanyProjectCreateForm').attr('action', editUrl);
             $("#CompanyProjectId").val(data.Id);
             $("#InitialName").val(data.Name);

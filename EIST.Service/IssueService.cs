@@ -38,7 +38,10 @@ namespace EIST.Service
                 IssueTitle = Ticket.IssueTitle,
                 Description = Ticket.Description,
                 Priority = Ticket.Priority,
-                //AttachmentFileCollection = Ticket.AttachmentFileCollection,
+                LabelId = Ticket.LabelId,
+                Milestone = Ticket.Milestone,
+
+                AttachmentFileCollection = Ticket.AttachmentFileCollection,
 
                 Status = Ticket.Status,
                 CreatedAt = Ticket.CreatedAt,
@@ -54,10 +57,12 @@ namespace EIST.Service
             if (TicketEntry != null)
             {
                 TicketEntry.ProjectId = Ticket.ProjectId;
-                //TicketEntry.Code = Ticket.Code;
+                TicketEntry.Code = Ticket.Code;
                 TicketEntry.IssueTitle = Ticket.IssueTitle;
                 TicketEntry.Description = Ticket.Description;
                 TicketEntry.Priority = Ticket.Priority;
+                TicketEntry.LabelId = Ticket.LabelId;
+                TicketEntry.Milestone = Ticket.Milestone;
 
                 //TicketEntry.Status = Ticket.Status;
                 TicketEntry.UpdatedAt = Ticket.UpdatedAt;

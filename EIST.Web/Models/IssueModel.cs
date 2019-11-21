@@ -22,18 +22,19 @@ namespace EIST.Web.Models
         private WorkflowService _workflowService;
         private UserService _userService;
         public List<AttachmentFileModel> FileLists { get; set; }
-        public List<Project> CompanyProjectList { get; set; }
+        public List<Project> ProjectList { get; set; }
+        public List<IssueLabel> IssueLabelList { get; set; }
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
         [Required]
         [Remote("IsTicketNameExist", "Ticket", AdditionalFields = "InitialName",
             ErrorMessage = "Issue Name already Exist")]
         [Display(Name = "Issue Name")]
-        public new string IssueName
+        public new string IssueTitle
         {
             get { return base.IssueTitle; }
             set { base.IssueTitle = value; }
         }
-
+        
         public IssueModel()
         {
             _ticketService = new IssueService();
@@ -45,12 +46,19 @@ namespace EIST.Web.Models
             if (isCustomerUser == true)
             {
                 var userAsCustomer = _userService.GetCustomerByUserId(authenticatedUserId);
-                CompanyProjectList = _companyProjectService.GetAllProjectByCompanyId(userAsCustomer.CompanyId.Value).ToList();
+                ProjectList = _companyProjectService.GetAllProjectByCompanyId(userAsCustomer.CompanyId.Value).ToList();
             }
             else
             {
-                CompanyProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
+                ProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
             }
+
+            IssueLabelList = new List<IssueLabel>();
+            IssueLabelList.Add(new IssueLabel
+            {
+                LabelTitle = "LOL",
+                ColorCode = "12345"
+            });
         }
 
         public IssueModel(int id) : this()
@@ -60,12 +68,16 @@ namespace EIST.Web.Models
             {
                 Id = TicketEntry.Id;
                 Code = TicketEntry.Code;
-                IssueName = TicketEntry.IssueTitle;
+                IssueTitle = TicketEntry.IssueTitle;
                 Description = TicketEntry.Description;
                 Priority = TicketEntry.Priority;
                 ProjectId = TicketEntry.ProjectId;
                 Project = TicketEntry.Project;
+                IssueLabel = TicketEntry.IssueLabel;
+                LabelId = TicketEntry.LabelId;
+                Milestone = TicketEntry.Milestone;
                 AttachmentFileCollection = TicketEntry.AttachmentFileCollection;
+                TicketAssignCollection = TicketEntry.TicketAssignCollection;
 
                 Status = TicketEntry.Status;
                 CreatedAt = TicketEntry.CreatedAt;

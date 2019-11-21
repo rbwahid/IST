@@ -6,14 +6,15 @@
 @using (Html.BeginForm("Add", "Project", FormMethod.Post, new { @class = "form-horizontal", @id = "CompanyProjectCreateForm" }))
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(true)
     <div class="card">
         <div class="card-header">
             <h5 class="card-title">Add Or Edit</h5>
         </div>
         <hr class="hr-mar-reduce" />
         <div class="card-body">
-            @Html.ValidationSummary(true)
-            @Html.HiddenFor(model => model.Id, new { @id = "CompanyProjectId" })           
+
+            @Html.HiddenFor(model => model.Id, new { @id = "CompanyProjectId" })
             @Html.Hidden("InitialName", "undefined")
             <div class="form-group row">
                 @Html.LabelFor(model => model.Name, new { @class = "col-sm-4" })
@@ -36,17 +37,17 @@
                     @Html.ValidationMessageFor(model => model.CompanyId)
                 </div>
             </div>
-           
-            
-            </div>
-            <div class="card-footer">
-                <div class="d-flex justify-content-between">
-                    <a href="@Url.Action("Index","CompanyProject")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
-                    <button type="submit" class="btn  bg-teal btn-custom ml-3" id="submitButton"><i class="fa fa-save"></i> Save</button>
-                </div>
+
+
+        </div>
+        <div class="card-footer">
+            <div class="d-flex justify-content-between">
+                <a href="@Url.Action("Index","CompanyProject")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                <button type="submit" class="btn  bg-teal btn-custom ml-3" id="submitButton"><i class="fa fa-save"></i> Save</button>
             </div>
         </div>
-        }
+    </div>
+}
 
 
 
