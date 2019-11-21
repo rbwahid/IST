@@ -155,10 +155,6 @@ namespace EIST.Services
         {
             return _userUnitOfWork.UserRepository.GetAll(x => x.UserType == EnumUserType.Customer.ToString());
         }
-        public IEnumerable<User> GetAllDeveloperUser()
-        {
-            return _userUnitOfWork.UserRepository.GetAll(x => x.UserType == EnumUserType.Developer.ToString());
-        }
         public User GetUserById(int id)
         {
             return _userUnitOfWork.UserRepository.GetById(id);

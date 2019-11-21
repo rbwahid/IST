@@ -43,7 +43,11 @@
                                 {
                                     <tr>
                                         <td class="serial">@(sl++)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Code)</td>
+                                        <td>
+                                            <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Ticket Details">
+                                                @Html.DisplayFor(modelItem => item.Code)
+                                            </a>
+                                        </td>
                                         <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueTitle)</td>
                                         @*<td>@Html.DisplayFor(modelItem => item.Description)</td>*@
@@ -97,13 +101,13 @@
     @Scripts.Render("~/bundles/ajax-call")
     <script>
         function delete_Data(id) {
-            var url = '@Url.Action("Delete", "Ticket")';
+            var url = '@Url.Action("Delete", "Issue")';
             var paramData = { id: id };
             delete_confirm(url, paramData);
             }
         function ticket_Assign(id)
          {
-            var url = '@Url.Action("TicketAssign", "Ticket")';
+            var url = '@Url.Action("TicketAssign", "Issue")';
             var paramData = { id: id };
             ajaxCallModal(url, paramData, "renderCreateTicketAssignLoad")
             }

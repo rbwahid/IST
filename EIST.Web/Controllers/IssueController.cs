@@ -11,7 +11,7 @@ namespace EIST.Web.Controllers
 {
     [Authorize]
     //[CustomExceptionFilter]
-    [Roles("Ticket_Configuration", "Global_SupAdmin")]
+    [Roles("Issue_Configuration", "Global_SupAdmin")]
     public class IssueController : Controller
     {
         public ActionResult Index()
@@ -19,7 +19,7 @@ namespace EIST.Web.Controllers
             return View(new IssueModel().GetAllTicket());
         }
 
-        [Roles("Ticket_Configuration", "Global_SupAdmin")]
+        [Roles("Issue_Configuration", "Global_SupAdmin")]
         public ActionResult Add()
         {
             return View(new IssueModel());
@@ -48,7 +48,7 @@ namespace EIST.Web.Controllers
             return View("Details",model);
         }
 
-        [Roles("Ticket_Configuration", "Global_SupAdmin")]
+        [Roles("Issue_Configuration", "Global_SupAdmin")]
         public ActionResult Edit(int id)
         {
             //var model = new TicketModel(id);
@@ -91,14 +91,14 @@ namespace EIST.Web.Controllers
         public ActionResult Approve(WorkflowProcessModel workflowProcess)
         {
             new IssueModel().Approve(workflowProcess);
-            return RedirectToAction("Details", "Ticket", new { id = workflowProcess.RecordId });
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
         }
         #endregion
         #region Disapprove
         public ActionResult Disapprove(WorkflowProcessModel workflowProcess)
         {
             new IssueModel().Disapprove(workflowProcess);
-            return RedirectToAction("Details", "Ticket", new { id = workflowProcess.RecordId });
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
         }
         #endregion
 
