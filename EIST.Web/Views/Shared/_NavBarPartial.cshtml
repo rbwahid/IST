@@ -68,23 +68,23 @@
                         {
                             <a href="@Url.Action("Index", "Company")" class="dropdown-item"><i class="fa fa-building"></i>Company</a>
                         }
-                        @if (User.IsInRole("Company_Project_Configuration") || User.IsInRole("Global_SupAdmin"))
+                        @if (User.IsInRole("Project_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
-                            <a href="@Url.Action("Index", "CompanyProject")" class="dropdown-item"><i class="fa fa-file-contract"></i>Company Project</a>
+                            <a href="@Url.Action("Index", "Project")" class="dropdown-item"><i class="fa fa-file-contract"></i>Project</a>
                         }
                     </div>
                 </li>
             }
-            @if (User.IsInRole("Ticket_Configuration") || User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
+            @if (User.IsInRole("Issue_Configuration") || User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
             {
                 <li class="nav-item dropdown">
                     <a href="#" class="navbar-nav-link dropdown-toggle" data-toggle="dropdown">
                         <i class="icon-chart mr-2"></i>Reports
                     </a>
                     <div class="dropdown-menu">
-                        @if (User.IsInRole("Ticket_Configuration") || User.IsInRole("Global_SupAdmin"))
+                        @if (User.IsInRole("Issue_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
-                            <a href="@Url.Action("Index", "Ticket")" class="dropdown-item"><i class="icon-ticket mr-2"></i> Ticket</a>
+                        <a href="@Url.Action("Index", "Issue")" class="dropdown-item"><i class="icon-ticket mr-2"></i> Issue</a>
                         }
                         @if (User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {

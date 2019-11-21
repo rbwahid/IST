@@ -27,6 +27,7 @@
                                     <th class="serial">#</th>
                                     <th>@Html.DisplayNameFor(model => model.UserName)</th>
                                     <th>@Html.DisplayNameFor(model => model.FullName)</th>
+                                    <th>@Html.DisplayName("User Type")</th>
                                     <th>@Html.DisplayNameFor(model => model.CompanyId)</th>
                                     <th>@Html.DisplayNameFor(model => model.Email)</th>
                                     <th>@Html.DisplayNameFor(model => model.Address)</th>
@@ -38,26 +39,28 @@
                             <tbody>
                                 @foreach (var item in Model)
                                 {
-                                    <tr>
-                                        <td class="serial">@(sl++)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.UserName)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.FullName)</td>
-                                        <th>@Html.DisplayFor(modelItem => item.Company.Name)</th>
-                                        <td>@Html.DisplayFor(modelItem => item.Email)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Address)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.Mobile)</td>
-                                        <td>@Html.DisplayFor(modelItem => item.UserRole.RoleName)</td>
-                                        <td>
-                                            <div class="list-icons">
-                                                <a href="#" onclick="details_Data('@item.Id')" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
-                                                <a href="@Url.Action("Edit","User", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
-                                                <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
-                                                <a href="#" onclick="reset_Password('@item.Id')" class="list-icons-item text-orange">
-                                                    <i class="icon-unlocked2 mr-3 icon-1x"></i>
-                                                </a>
-                                            </div>
-                                        </td>
-                                    </tr>
+                                <tr>
+                                    <td class="serial">@(sl++)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UserName)</td>
+
+                                    <td>@Html.DisplayFor(modelItem => item.FullName)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UserType)</td>
+                                    <th>@Html.DisplayFor(modelItem => item.Company.Name)</th>
+                                    <td>@Html.DisplayFor(modelItem => item.Email)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Address)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.Mobile)</td>
+                                    <td>@Html.DisplayFor(modelItem => item.UserRole.RoleName)</td>
+                                    <td>
+                                        <div class="list-icons">
+                                            <a href="#" onclick="details_Data('@item.Id')" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
+                                            <a href="@Url.Action("Edit","User", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
+                                            <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
+                                            <a href="#" onclick="reset_Password('@item.Id')" class="list-icons-item text-orange">
+                                                <i class="icon-unlocked2 mr-3 icon-1x"></i>
+                                            </a>
+                                        </div>
+                                    </td>
+                                </tr>
                                 }
                             </tbody>
                         </table>

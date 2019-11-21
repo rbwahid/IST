@@ -62,9 +62,9 @@ namespace EIST.Web.Controllers
             return Json(new { meg = "success" });
 
         }
-        public JsonResult IsCompanyProjectNameExist(string Name, string initialName)
-        {
-            bool isNotExist = new ProjectModel().IsCompanyProjectNameExist(Name, initialName);
+        public JsonResult IsCompanyProjectNameExist(string Name, string InitialName)
+      {
+            bool isNotExist = new ProjectModel().IsCompanyProjectNameExist(Name, InitialName);
             return Json(isNotExist, JsonRequestBehavior.AllowGet);
         }
     }

@@ -43,4 +43,9 @@ namespace EIST.Common
         Ticket,
         TicketAssign,
     }
+    public enum EnumUserType : byte
+    {
+        Customer_User ,
+        Developer_User ,
+    }
 }

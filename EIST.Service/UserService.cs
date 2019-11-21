@@ -50,6 +50,7 @@ namespace EIST.Services
                 CompanyId = user.CompanyId,
                 PositionId = user.PositionId,
                 LastPassword = user.Password,
+                UserType = user.UserType,
                 LastPassChangeDate = DateTime.Now,
                 PasswordChangedCount = 0,
                 LockoutEnabled = true,
@@ -108,6 +109,7 @@ namespace EIST.Services
                 userEntry.PositionId = updateUser.PositionId;
                 userEntry.UpdatedAt = updateUser.UpdatedAt;
                 userEntry.UpdatedBy = updateUser.UpdatedBy;
+                userEntry.UserType = updateUser.UserType;
 
                 if (updateUser.ImageFile != null)
                 {

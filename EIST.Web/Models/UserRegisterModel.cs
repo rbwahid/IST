@@ -59,7 +59,8 @@ namespace EIST.Web.Models
         [ForeignKey("PositionId")]
         public virtual Position Position { get; set; }
         public byte? Status { get; set; }
-        
+        public string UserType { get; set; }
+
         private UserService _userService;
         private UserRoleService _userRoleService;
         private CompanyService _companyService;
@@ -99,7 +100,7 @@ namespace EIST.Web.Models
                 PositionId = userEntry.PositionId ?? 0;
                 Position = userEntry.Position;
                 ImageFile = userEntry.ImageFile;
-                //UserType = userEntry.UserType;
+                UserType = userEntry.UserType;
             }
         }
 
@@ -137,6 +138,7 @@ namespace EIST.Web.Models
                 CompanyId = CompanyId,
                 PositionId = PositionId,
                 RoleId = RoleId,
+                UserType = UserType,
                 ImageFile = ImagePath,
                 //UserType = DefaultValue.UserType.RAUser
                 //ExpireDate = EmployeeType != "Permanent" ? ExpireDate : null
@@ -162,6 +164,7 @@ namespace EIST.Web.Models
                 CompanyId = CompanyId,
                 PositionId = PositionId,
                 RoleId = RoleId,
+                UserType = UserType,
                 UpdatedAt = DateTime.Now,
                 UpdatedBy = loggedInUserId,
             };

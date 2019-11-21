@@ -18,7 +18,7 @@ namespace EIST.Web.Models
         public IEnumerable<Company> companyList { get; set; }
 
         [Required]
-        [Remote("IsCompanyProjectNameExist", "CompanyProject", AdditionalFields = "InitialName",
+        [Remote("IsCompanyProjectNameExist", "Project", AdditionalFields = "InitialName",
             ErrorMessage = "Project already Exist")]
         [Display(Name = "Project Name")]
         public new string Name

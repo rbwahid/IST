@@ -52,11 +52,13 @@ namespace EIST.Web.Models
             {
                 ProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
             }
-            //IssueLabelList.Add(new IssueLabel
-            //{
-            //    LabelTitle = "LOL",
-            //    ColorCode= "12345"
-            //});
+
+            IssueLabelList = new List<IssueLabel>();
+            IssueLabelList.Add(new IssueLabel
+            {
+                LabelTitle = "LOL",
+                ColorCode = "12345"
+            });
         }
 
         public IssueModel(int id) : this()
@@ -73,6 +75,7 @@ namespace EIST.Web.Models
                 Project = TicketEntry.Project;
                 IssueLabel = TicketEntry.IssueLabel;
                 LabelId = TicketEntry.LabelId;
+                Milestone = TicketEntry.Milestone;
                 AttachmentFileCollection = TicketEntry.AttachmentFileCollection;
                 TicketAssignCollection = TicketEntry.TicketAssignCollection;
 
