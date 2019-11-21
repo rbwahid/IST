@@ -40,6 +40,8 @@ namespace EIST.Service
                 Name = companyProject.Name,
                 CompanyId = companyProject.CompanyId,                
                 Description = companyProject.Description,
+                PmId = companyProject.PmId,
+                SuperVisorId = companyProject.SuperVisorId,
                
 
                 CreatedBy = companyProject.CreatedBy,
@@ -57,6 +59,8 @@ namespace EIST.Service
             companyProjectEntry.Name = companyProject.Name;
             companyProjectEntry.Description = companyProject.Description;
             companyProjectEntry.CompanyId = companyProject.CompanyId;
+            companyProjectEntry.PmId = companyProject.PmId;
+            companyProjectEntry.SuperVisorId = companyProject.SuperVisorId;
 
             companyProjectEntry.UpdatedAt = companyProject.UpdatedAt;
             companyProjectEntry.UpdatedBy = companyProject.UpdatedBy;

@@ -34,7 +34,7 @@ namespace EIST.Web.Controllers
         public JsonResult GetCompanyProjectDetailsById(int id)
         {
             var model = new ProjectModel(id);
-            return Json(new { Id = model.Id, Name = model.Name, Description = model.Description, CompanyId = model.CompanyId });
+            return Json(new { Id = model.Id, Name = model.Name, Description = model.Description, CompanyId = model.CompanyId,PmId =model.PmId, SuperVisorId = model.SuperVisorId });
         }
         public ActionResult Details(int id)
         {
