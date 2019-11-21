@@ -147,7 +147,7 @@ namespace EIST.Repository
         public virtual IEnumerable<T> GetAll(Expression<Func<T, bool>> filter = null, Func<IQueryable<T>,
             IOrderedQueryable<T>> orderBy = null, string includeProperties = "", bool isTrackingOff = false)
         {
-            IQueryable<T> query = _context.Set<T>();
+            IQueryable<T> query = _context.Set<T>().Where(x => !x.IsDeleted);
 
             if (filter != null)
             {

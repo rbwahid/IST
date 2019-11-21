@@ -34,7 +34,7 @@ namespace EIST.Entities
         public int? ProjectId { get; set; }
         [ForeignKey("ProjectId")]
         public virtual Project Project  { get; set; }
-        [Display(Name = "Project")]
+        [Display(Name = "Label")]
         public int? LabelId { get; set; }
         [ForeignKey("LabelId")]
         public virtual IssueLabel IssueLabel { get; set; }

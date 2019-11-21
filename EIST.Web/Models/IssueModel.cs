@@ -21,12 +21,13 @@ namespace EIST.Web.Models
         private ProjectService _companyProjectService;
         private WorkflowService _workflowService;
         private UserService _userService;
+        private IssueLabelService _issueLabelService;
         public List<AttachmentFileModel> FileLists { get; set; }
         public List<Project> ProjectList { get; set; }
         public List<IssueLabel> IssueLabelList { get; set; }
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
         [Required]
-        [Remote("IsTicketNameExist", "Ticket", AdditionalFields = "InitialName",
+        [Remote("IsTicketNameExist", "Issue", AdditionalFields = "InitialName",
             ErrorMessage = "Issue Name already Exist")]
         [Display(Name = "Issue Name")]
         public new string IssueTitle
@@ -42,7 +43,8 @@ namespace EIST.Web.Models
             _companyProjectService = new ProjectService();
             _workflowService = new WorkflowService();
             _userService = new UserService();
-            bool isCustomerUser = _userService.IsUserAsCustomer(authenticatedUserId,"Customer");
+            _issueLabelService = new IssueLabelService();
+            bool isCustomerUser = _userService.IsUserAsCustomer(authenticatedUserId, EnumUserType.Customer.ToString());
             if (isCustomerUser == true)
             {
                 var userAsCustomer = _userService.GetCustomerByUserId(authenticatedUserId);
@@ -53,12 +55,7 @@ namespace EIST.Web.Models
                 ProjectList = _companyProjectService.GetAllCompanyProjects().ToList();
             }
 
-            IssueLabelList = new List<IssueLabel>();
-            IssueLabelList.Add(new IssueLabel
-            {
-                LabelTitle = "LOL",
-                ColorCode = "12345"
-            });
+            IssueLabelList = _issueLabelService.GetAllIssueLabel().ToList();
         }
 
         public IssueModel(int id) : this()

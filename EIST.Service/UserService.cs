@@ -44,13 +44,13 @@ namespace EIST.Services
                 Address = user.Address,
                 Mobile = user.Mobile,
                 SupUser = user.SupUser,
-                //UserType = user.UserType,
+                UserType = user.UserType,
                 ImageFile = user.ImageFile,
                 RoleId = user.RoleId,
                 CompanyId = user.CompanyId,
                 PositionId = user.PositionId,
                 LastPassword = user.Password,
-                UserType = user.UserType,
+               
                 LastPassChangeDate = DateTime.Now,
                 PasswordChangedCount = 0,
                 LockoutEnabled = true,
@@ -151,7 +151,14 @@ namespace EIST.Services
         {
             return _userUnitOfWork.UserRepository.GetAll();
         }
-
+        public IEnumerable<User> GetAllCustomerUser()
+        {
+            return _userUnitOfWork.UserRepository.GetAll(x => x.UserType == EnumUserType.Customer.ToString());
+        }
+        public IEnumerable<User> GetAllDeveloperUser()
+        {
+            return _userUnitOfWork.UserRepository.GetAll(x => x.UserType == EnumUserType.Developer.ToString());
+        }
         public User GetUserById(int id)
         {
             return _userUnitOfWork.UserRepository.GetById(id);
