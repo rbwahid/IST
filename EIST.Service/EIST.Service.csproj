@@ -49,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AttachmentFileService.cs" />
+    <Compile Include="IssueLabelService.cs" />
     <Compile Include="ProjectService.cs" />
     <Compile Include="PositionService.cs" />
     <Compile Include="TicketAssignService.cs" />

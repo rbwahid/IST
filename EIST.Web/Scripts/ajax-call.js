@@ -28,6 +28,8 @@ function ajaxCall(url, paramData, callback, method, obj) {
             }
             else if (callback == 'renderTicketsByProjectLoad') {
                 renderTicketsByProjectLoad(response);
+            } else if (callback == 'renderIssueLabelEntryLoad') {
+                renderIssueLabelEntryLoad(response);
             }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
