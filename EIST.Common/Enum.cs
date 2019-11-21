@@ -45,7 +45,7 @@ namespace EIST.Common
     }
     public enum EnumUserType : byte
     {
-        Customer_User ,
-        Developer_User ,
+        Customer ,
+        Developer ,
     }
 }

@@ -63,7 +63,7 @@ namespace EIST.Web.Controllers
 
         }
         public JsonResult IsCompanyProjectNameExist(string Name, string InitialName)
-      {
+        {
             bool isNotExist = new ProjectModel().IsCompanyProjectNameExist(Name, InitialName);
             return Json(isNotExist, JsonRequestBehavior.AllowGet);
         }
