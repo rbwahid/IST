@@ -44,9 +44,7 @@
                                     <tr>
                                         <td class="serial">@(sl++)</td>
                                         <td>
-                                            <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Ticket Details">
-                                                @Html.DisplayFor(modelItem => item.Code)
-                                            </a>
+                                            @Html.DisplayFor(modelItem => item.Code)
                                         </td>
                                         <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueTitle)</td>

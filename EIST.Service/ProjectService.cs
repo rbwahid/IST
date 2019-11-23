@@ -12,11 +12,12 @@ namespace EIST.Service
     {
         private EISTDbContext _context;
         private ProjectUnitOfWork _companyProjectUnitOfWork;
-
+        private CustomerUserProjectUnitOfWork _customerUserProjectUnitOfWork;
         public ProjectService()
         {
             _context = new EISTDbContext();
             _companyProjectUnitOfWork = new ProjectUnitOfWork(_context);
+            _customerUserProjectUnitOfWork = new CustomerUserProjectUnitOfWork(_context);
         }
 
         public IEnumerable<Project> GetAllCompanyProjects()
@@ -33,7 +34,7 @@ namespace EIST.Service
             return _companyProjectUnitOfWork.CompanyProjectRepository.GetById(id);
         }
 
-        public void AddCompanyProject(Project companyProject )
+        public int AddCompanyProject(Project companyProject )
         {
             var newCompanyProject = new Project
             {
@@ -51,6 +52,7 @@ namespace EIST.Service
 
             _companyProjectUnitOfWork.CompanyProjectRepository.Add(newCompanyProject);
             _companyProjectUnitOfWork.Save();
+            return newCompanyProject.Id;
         }
         public void EditCompanyProject(Project companyProject)
         {
@@ -66,12 +68,36 @@ namespace EIST.Service
             companyProjectEntry.UpdatedBy = companyProject.UpdatedBy;
             _companyProjectUnitOfWork.CompanyProjectRepository.Update(companyProjectEntry);
             _companyProjectUnitOfWork.Save();
+
+           
+            foreach (var customerUser in companyProjectEntry.CustomerUserProjectCollections.ToList())
+            {
+                _customerUserProjectUnitOfWork.CustomerUserProjectRepository.DeleteFromDb(customerUser.Id);
+                _customerUserProjectUnitOfWork.Save();
+            }
+            foreach (var customerUser in companyProject.CustomerUserProjectCollections.ToList())
+            {
+                customerUser.ProjectId = companyProjectEntry.Id;
+                _customerUserProjectUnitOfWork.CustomerUserProjectRepository.Add(customerUser);
+                _customerUserProjectUnitOfWork.Save();
+            }
+
         }
 
         public void DeleteCompanyProject(int id, string currUserId)
         {
             _companyProjectUnitOfWork.CompanyProjectRepository.Disable(id);
             _companyProjectUnitOfWork.Save(currUserId);
+        }
+        public void AddCustomerUserProject(CustomerUserProject customerUserProject)
+        {
+            var newCustomerUserProject = new CustomerUserProject()
+            {              
+                UserId= customerUserProject.UserId,
+                ProjectId=customerUserProject.ProjectId
+            };         
+            _customerUserProjectUnitOfWork.CustomerUserProjectRepository.Add(newCustomerUserProject);
+            _customerUserProjectUnitOfWork.Save();
         }
         public bool IsCompanyProjectNameExist(string Name, string InitialName)
         {

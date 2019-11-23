@@ -24,12 +24,11 @@ namespace EIST.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Add(ProjectModel model)
         {
-            if (ModelState.IsValid)
-            {
+            
                 model.AddCompanyProject();
                 return RedirectToAction("Index");
-            }
-            return View(model);
+        
+           
         }
         public JsonResult GetCompanyProjectDetailsById(int id)
         {
@@ -48,12 +47,8 @@ namespace EIST.Web.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Edit(ProjectModel model)
         {
-            if (ModelState.IsValid)
-            {
                 model.EditCompanyProject();
-                return RedirectToAction("Index");
-            }
-            return View(model);
+                return RedirectToAction("Index");      
         }
 
         public ActionResult Delete(int id)

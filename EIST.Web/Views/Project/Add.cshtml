@@ -1,0 +1,105 @@
+﻿@model EIST.Web.Models.ProjectModel
+
+@{
+    ViewBag.Title = "Ticket";
+}
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h3 class="card-title"><strong>Issue</strong></h3>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        @using (Html.BeginForm("Add", "Project", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ProjectCreateForm", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true);
+            @Html.Hidden("InitialName", "undefined")
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Name)</label>
+                            <div class="col-lg-6">
+                                @Html.TextBoxFor(model => model.Name, new { @class = "form-control input-sm", @placeholder = "Project Name" })
+                                @Html.ValidationMessageFor(model => model.Name)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.PmId)</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.PmId, new SelectList(Model.DeveloperList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.PmId)
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>
+                            <div class="col-lg-6">
+                                @Html.TextAreaFor(model => model.Description, new { @placeholder = "Description", @id = "Description", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.SuperVisorId)</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.SuperVisorId, new SelectList(Model.DeveloperList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.SuperVisorId)
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.CompanyId)</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.CompanyId, new SelectList(Model.companyList, "Id", "Name"), new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.CompanyId)
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.CustomerUserIds)</label>
+                            <div class="col-lg-6">
+                                @Html.DropDownListFor(model => model.CustomerUserIds, new SelectList(Model.CustomerList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm select2", @multiple = "multiple", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.CustomerUserIds)
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("Index", "Project")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                        <button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSubmit()"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- /basic layout -->
+    </div>
+</div>
+<!-- /content area -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ckeditor")
+
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".select2").select2();
+
+        function formSubmit() {
+          
+            $("#ProjectCreateForm").submit();
+        }
+    </script>
+
+}
