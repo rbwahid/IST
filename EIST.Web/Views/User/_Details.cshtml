@@ -12,10 +12,13 @@
 
 <div class="row justify-content-md-center">
     <div class="col-md-3">
-        <div class="card bg-teal-400" style="background-image: url(@Url.Content("~/Content/images/panel_bg.png")); background-size: contain;">
+  
+        <div class="card bg-teal-400">
             <div class="card-img-actions" style="height:175px;">
-                <img class="card-img-top" src="@Url.Content(Model.ImageFile)" height="175" alt="User Picture">
+                <img class="card-img-top" src="@(!string.IsNullOrEmpty(Model.ImageFile)? Model.ImageFile :"/Content/images/no-profile-picture.jpg")" height="175" width="170" alt="User Picture">
+           
             </div>
+
 
             <div class="card-body text-center" style="padding: 0.50rem">
                 <h5 class="font-weight-semibold mb-0">@Html.DisplayFor(model => model.UserName)</h5>

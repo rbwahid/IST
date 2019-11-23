@@ -35,7 +35,7 @@ namespace EIST.Web.Controllers
         public JsonResult GetCompanyDetailsById(int id)
         {
             var model = new CompanyModel(id);
-            return Json(new { Id = model.Id, Name = model.Name, Address = model.Address, Phone = model.Phone, FaxNo = model.MobileNo, Email=model.Email });
+            return Json(new { Id = model.Id, Name = model.Name, Address = model.Address, Phone = model.Phone, Email=model.Email, MobileNo = model.MobileNo });
         }
         public ActionResult Details(int id)
         {

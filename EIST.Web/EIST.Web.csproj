@@ -212,6 +212,7 @@
     <Content Include="Content\images\File_Extension\file_extension_unknown.png" />
     <Content Include="Content\images\File_Extension\file_extension_word.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\no-profile-picture.jpg" />
     <Content Include="Content\images\Siemens-logo.png" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\fa-brands-400.svg" />

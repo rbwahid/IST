@@ -20,6 +20,7 @@ namespace EIST.Web.Models
         public IEnumerable<User> projectMangaerList { get; set; }
        // public IEnumerable<User> superVisorList { get; set; }
         public IEnumerable<Company> companyList { get; set; }
+        public IEnumerable<User> CustomerUser { get; set; }
 
         [Required]
         [Remote("IsCompanyProjectNameExist", "Project", AdditionalFields = "InitialName",

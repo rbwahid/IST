@@ -50,6 +50,7 @@ function ajaxCallModal(url, paramData, callback, method, obj) {
         success: function (response) {
             //callback(data);
             if (callback == 'renderUserDetailsEntryLoad') {
+                console.log(response);
                 renderUserDetailsEntryLoad(response);
             }
             else if (callback == 'renderCreateTicketAssignLoad') {
