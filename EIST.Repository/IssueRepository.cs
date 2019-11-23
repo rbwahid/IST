@@ -36,11 +36,6 @@ namespace EIST.Repository
             }
             return isNotExist;
         }
-        public string GenerateTicketCode()
-        {
-            string fmt = "000.##";
-            return string.Format("{0:yyMMdd}", DateTime.Now) +
-                   (GetCountByDay(DateTime.Now.Day) + 1).ToString(fmt);
-        }
+        
     }
 }

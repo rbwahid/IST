@@ -1,0 +1,103 @@
+﻿@model EIST.Web.Models.ProjectModel
+
+@{
+    ViewBag.Title = "Project";
+}
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h3 class="card-title"><strong>Project Details</strong></h3>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        @using (Html.BeginForm("Edit", "Project", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ProjectCreateForm", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true);
+            @Html.Hidden("InitialName", Model.Name)
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Name, new { @class = "col-sm-3 control-label text-left " })
+                            <div class="col-lg-6">
+                                <label class="data-label control-label">  @Html.DisplayFor(model => model.Name) </label>
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.PmId, new { @class = "col-sm-3 control-label text-left " })
+                            <div class="col-lg-6">
+                                <label class="data-label control-label">  @Html.DisplayFor(model => model.ProjectManager.UserName) </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.Description, new { @class = "col-sm-3 control-label text-left " })
+                            <div class="col-lg-6">
+                                <label class="data-label control-label">  @Html.DisplayFor(model => model.Description) </label>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.SuperVisorId, new { @class = "col-sm-3 control-label text-left " })
+                            <div class="col-lg-6">
+                                <label class="data-label control-label">  @Html.DisplayFor(model => model.SuperVisor.UserName) </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.LabelFor(model => model.CompanyId, new { @class = "col-sm-3 control-label text-left " })
+                            <div class="col-lg-6">
+                                <label class="data-label control-label">  @Html.DisplayFor(model => model.Company.Name) </label>
+                            </div>
+                        </div>
+
+                        <div class="form-group row">
+                            @Html.DisplayName("Customer User")
+                            <div class="col-lg-6">
+                                @{
+                                        int num = 1;
+                                        foreach (var user in Model.CustomerUserProjectCollections)
+                                        {
+                                        <label class="data-label control-label"> @num. &nbsp;  @Html.DisplayFor(model => user.CustomerUser.UserName) </label>
+                                        num++;
+                                    }
+                                }
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="d-flex justify-content-between">
+                        <a href="@Url.Action("Index", "Project")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                        @*<button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSubmit()"><i class="fa fa-save"></i> Save</button>*@
+                    </div>
+                </div>
+            </div>
+        }
+        <!-- /basic layout -->
+    </div>
+</div>
+<!-- /content area -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ckeditor")
+
+    <script src="~/Scripts/select2.min.js"></script>
+    <script type="text/javascript">
+        $(".select2").select2();
+
+       
+    </script>
+
+}

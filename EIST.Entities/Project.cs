@@ -31,6 +31,7 @@ namespace EIST.Entities
         public virtual User SuperVisor { get; set; }
 
         public virtual ICollection<Issue> TicketCollections { get; set; }
+        public virtual ICollection<CustomerUserProject> CustomerUserProjectCollections { get; set; }
 
     }
 }

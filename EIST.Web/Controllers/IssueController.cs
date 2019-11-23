@@ -45,7 +45,7 @@ namespace EIST.Web.Controllers
             {
                 return View("Edit", model);
             }
-            return View("Details",model);
+            return View(model);
         }
 
         [Roles("Issue_Configuration", "Global_SupAdmin")]

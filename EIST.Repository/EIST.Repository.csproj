@@ -54,7 +54,9 @@
     <Compile Include="Migrations\201911201128368_initialMgt.Designer.cs">
       <DependentUpon>201911201128368_initialMgt.cs</DependentUpon>
     </Compile>
+    <Compile Include="CustomerUserProjectRepository.cs" />
     <Compile Include="ProjectRepository.cs" />
+    <Compile Include="CustomerUserProjectUnitOfWork.cs" />
     <Compile Include="ProjectUnitOfWork.cs" />
     <Compile Include="SeedConfig.cs" />
     <Compile Include="PositionRepository.cs" />
