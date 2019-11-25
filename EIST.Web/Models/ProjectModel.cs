@@ -19,7 +19,6 @@ namespace EIST.Web.Models
         public UserService _userService;
         public IEnumerable<User> DeveloperList { get; set; }
         public IEnumerable<User> CustomerList { get; set; }
-     
         public IEnumerable<Company> companyList { get; set; }
         public List<int> CustomerUserIds { get; set; }
         [Required]
@@ -40,14 +39,12 @@ namespace EIST.Web.Models
             companyList = _companyService.GetAllCompanies();
             DeveloperList = _userService.GetAllUserAsDeveloper();
             CustomerList = _userService.GetAllCustomerUser();
-           
-
         }
 
         public ProjectModel(int id) : this()
         {
-                var companyProjectEntry = _companyProjectService.GetCompanyProjectById(id);
-            if(companyProjectEntry != null)
+            var companyProjectEntry = _companyProjectService.GetCompanyProjectById(id);
+            if (companyProjectEntry != null)
             {
                 Id = companyProjectEntry.Id;
                 Name = companyProjectEntry.Name;
@@ -68,18 +65,21 @@ namespace EIST.Web.Models
                 UpdatedBy = companyProjectEntry.UpdatedBy;
                 UpdatedByUser = companyProjectEntry.UpdatedByUser;
                 TicketCollections = companyProjectEntry.TicketCollections;
+
                 CustomerUserIds = companyProjectEntry.CustomerUserProjectCollections.Select(x => x.UserId).ToList();            } 
+
 
         }
         public IEnumerable<Project> GetAllCompanyProjects()
         {
             return _companyProjectService.GetAllCompanyProjects();
         }
-        
+
         public void AddCompanyProject()
         {
-            
+
             base.CreatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
+
            var returnId =  _companyProjectService.AddCompanyProject(this);
 
             foreach( var cuId in CustomerUserIds)
@@ -88,6 +88,7 @@ namespace EIST.Web.Models
                 {
                     ProjectId= returnId,
                     UserId= cuId
+
                 };
                 _companyProjectService.AddCustomerUserProject(newCustomerUser);
             }
@@ -98,7 +99,9 @@ namespace EIST.Web.Models
             base.UpdatedAt = DateTime.Now;
             base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
             var customerUserIdforEdits = new List<int>();
+
             foreach(var CUId in CustomerUserIds)
+
             {
                 customerUserIdforEdits.Add(CUId);
             }
