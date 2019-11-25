@@ -283,12 +283,11 @@ namespace EIST.Repository
         {
             return _context.Set<T>().Count(e => e.CreatedAt.Value.Day == day && !e.IsDeleted);
         }
-
-        //public string GenerateRequisitionNo(int? formId)
-        //{
-        //    string fmt = "000.##";
-        //    return string.Format("{0:yyMMdd}", DateTime.Now) + formId +
-        //           (GetCount(DateTime.Now.Year) + 1).ToString(fmt);
-        //}
+        public string GenerateTicketCode()
+        {
+            string fmt = "000.##";
+            return string.Format("{0:yyMMdd}", DateTime.Now) +
+                   (GetCountByDay(DateTime.Now.Day) + 1).ToString(fmt);
+        }
     }
 }

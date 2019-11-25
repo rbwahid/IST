@@ -1,27 +1,7 @@
-﻿@using EIST.Common
-@model EIST.Web.Models.IssueModel
-@using EIST.Web.Models
+﻿@model EIST.Web.Models.IssueModel
+
 @{
-    ViewBag.Title = "Issue";
-    int sl = 1;
-    int rowCount = 0;
-    int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-    //bool IsTicketProcessPosition = new PositionModel().CheckTicketProcessPosition(authenticatedUserId);
-    var workflowItem = new WorkflowModel();
-    var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, Enum.GetName(typeof(EnumWorkflowFormStatus), EnumWorkflowFormStatus.Ticket)).ToList();
-    if (workflowList.Any())
-    {
-        foreach (var item in workflowList)
-        {
-            workflowItem.Approver = item.Approver;
-            workflowItem.ApprovalStatus = item.ApprovalStatus;
-            workflowItem.Remarks = item.Remarks;
-        }
-    }
-    else
-    {
-        workflowItem = null;
-    }
+    ViewBag.Title = "Ticket";
 }
 
 <!-- Content area -->
@@ -38,35 +18,49 @@
             </div>
         </div>
         <hr class="hr-mar-reduce" />
-        @using (Html.BeginForm("Edit", "Issue", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ticketEditForm", @class = "form-horizontal" }))
+        @using (Html.BeginForm("Edit", "Issue", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ticketCreateForm", @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true);
-            @Html.HiddenFor(model => model.Id)
-            @Html.Hidden("InitialName", Model.IssueName)
+            @Html.Hidden("InitialName", "undefined")
             <div class="card-body">
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueTitle)</label>
+                            <div class="col-lg-12">
+                                @Html.TextBoxFor(model => model.IssueTitle, new { @class = "form-control input-sm", @placeholder = "Issue Title" })
+                                @Html.ValidationMessageFor(model => model.IssueTitle)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @*<label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>*@
+                            <div class="col-lg-12">
+                                @Html.TextAreaFor(model => model.Description, new { @placeholder = "Description", @id = "Description", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div> 
+                    </div>
+                    <div class="col-md-6">
+                        <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.ProjectId)</label>
                             <div class="col-lg-6">
-                                @Html.DropDownListFor(model => model.ProjectId, new SelectList(Model.CompanyProjectList, "Id", "Name"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.DropDownListFor(model => model.ProjectId, new SelectList(Model.ProjectList, "Id", "Name"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
                                 @Html.ValidationMessageFor(model => model.ProjectId)
                             </div>
                         </div>
                         <div class="form-group row">
-                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueName)</label>
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.LabelId)</label>
                             <div class="col-lg-6">
-                                @Html.TextBoxFor(model => model.IssueName, new { @class = "form-control input-sm", @placeholder = "Issue Name" })
-                                @Html.ValidationMessageFor(model => model.IssueName)
+                                @Html.DropDownListFor(model => model.LabelId, new SelectList(Model.IssueLabelList, "Id", "LabelTitle"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.LabelId)
                             </div>
                         </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group row cust-details-row">
-                            <label class="col-lg-3">@Html.DisplayNameFor(model => model.Status)</label>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Milestone)</label>
                             <div class="col-lg-6">
-                                @Enum.GetName(typeof(EnumTicketStatus), Model.Status)
+                                @Html.TextBoxFor(model => model.Milestone, new { @class = "form-control input-sm", @placeholder = "Milestone" })
+                                @Html.ValidationMessageFor(model => model.Milestone)
                             </div>
                         </div>
                         <div class="form-group row">
@@ -80,100 +74,28 @@
                                 </div>
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="form-group row">
-                    @*@Html.LabelFor(model => model.Description, new { @class = "col-sm-12" })*@
-                    <div class="col-sm-12">
-                        @Html.TextAreaFor(model => model.Description, new { @placeholder = "Description", @id = "Description", @class = "form-control" })
-                        @Html.ValidationMessageFor(model => model.Description)
-                    </div>
-                </div>
-                @* Attachments *@
-                <div class="row">
-                    <div class="col-md-12">
-                        <h4 class="sectionLedgend">Attachments</h4>
-                    </div>
-                    <div class="col-md-6">
-                        @{Html.RenderPartial("~/Views/Shared/_AttachmentFilePartial.cshtml");}
-                    </div>
-                    @* Attachment Collection *@
-                    <div class="col-md-6">
-                        <table class="table table-bordered table-striped table-condensed" id="attachFileCollectionTable">
-                            <thead>
-                                <tr>
-                                    <th class="serial">#</th>
-                                    <th>@Html.DisplayName("File Name")</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody id="attachFileCollectionTBody">
-                                @if (Model.AttachmentFileCollection.Any())
-                                {
-                                    foreach (var item in Model.AttachmentFileCollection)
-                                    {
-                                        <tr>
-                                            <td class="serial">
-                                                @(sl++)
-                                            </td>
-                                            <td>
-                                                <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
-                                                    <img height="25" src="@Url.Content(String.Format("~{0}", FileExtension.GetFileExtensionThumbnail(item.FileExtension)))" />  @item.OriginalName
-                                                </a>
-                                            </td>
-                                            <td width="5%">
-                                                <span onclick="removeAttachmentFromList('@item.Id',this)" class="btn btn-sm text-danger"><i class="fa fa-times"></i></span>
-                                            </td>
-                                        </tr>
-                                        rowCount++;
-                                    }
-                                }
-                                else
-                                {
-                                    <tr>
-                                        <td colspan="3" class="text-muted">No files found</td>
-                                    </tr>
-                                }
-                            </tbody>
-                        </table>
-                    </div>
-                </div>
-                @if (Model.Status == (byte)EnumTicketStatus.Rejected)
-                {
-                    <div class="row" style="margin-top:20px;">
-                        <div class="col-md-6">
-                            <div class="card">
-                                <div class="custom-header header-elements-inline">
-                                    <h5 class="">Approval Process</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Remarks")</label>
-                                                <div class="col-md-9">
-                                                    @(workflowItem != null ? workflowItem.Remarks : "")
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Approved By")</label>
-                                                <div class="col-md-9">
-                                                    @(workflowItem != null ? workflowItem.Approver.FullName : "")
-                                                </div>
-                                            </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
-                                                <div class="col-md-9">
-                                                    @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                        <div class="form-group row cust-details-row">
+                            <label class="col-lg-3">@Html.DisplayNameFor(model => model.Status)</label>
+                            <div class="col-lg-6">
+                                New
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @*<label class="col-form-label col-lg-3">Attachments</label>*@
+                            <div class="col-lg-12">
+                                @{Html.RenderPartial("~/Views/Shared/_AttachmentFilePartial.cshtml");}
                             </div>
                         </div>
                     </div>
-                }
+                </div>
+
+                @* Attachments *@
+                @*<div class="row">
+                        <div class="col-md-6">
+                            <h4 class="sectionLedgend">Attachments</h4>
+                            @{Html.RenderPartial("~/Views/Shared/_AttachmentFilePartial.cshtml");}
+                        </div>
+                    </div>*@
             </div>
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
@@ -184,7 +106,6 @@
         }
     </div>
     <!-- /basic layout -->
-
 </div>
 <!-- /content area -->
 
@@ -220,33 +141,7 @@
 
         function formSubmit() {
             rearrangeNameSuffix("#attachmentFileTBody");
-             $("#ticketEditForm").submit();
-        }
-        // attachment file remove //
-        function removeAttachmentFromList(fileId, obj) {
-            var confirmAns = confirm('Are you sure remove this attachment file?');
-            if (confirmAns == true) {
-                var paramdata = { fileId: fileId };
-                var url = '@Url.Action("RemoveAttachmentFileFromDbById", "Ticket")';
-                $.ajax({
-                    url: url,
-                    type: "POST",
-                    data: JSON.stringify(paramdata),
-                    contentType: "application/json; charset=utf-8",
-                    dataType: "json",
-                    success: function (data) {
-                        $(obj).parent('td').parent('tr').remove();
-                        serialRearrange();
-                    }
-                });
-            }
-        }
-        function serialRearrange() {
-            var row = 1;
-            $("#attachFileCollectionTBody").find('tr').each(function () {
-                $(this).find('[class="serial"]').text(row);
-                row++;
-            });
+            $("#ticketCreateForm").submit();
         }
     </script>
 }

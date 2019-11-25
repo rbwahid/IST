@@ -2742,6 +2742,7 @@
     <Content Include="Scripts\popper-utils.min.js" />
     <Content Include="Scripts\popper.js" />
     <Content Include="Scripts\popper.min.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Scripts\umd\popper-utils.js" />
     <Content Include="Scripts\umd\popper-utils.min.js" />
     <Content Include="Scripts\umd\popper.js" />
@@ -2776,7 +2777,7 @@
     <Content Include="Views\Company\Index.cshtml" />
     <Content Include="Views\Company\_CompanyAddOrEdit.cshtml" />
     <Content Include="Views\Issue\Add.cshtml" />
-    <Content Include="Views\Issue\Edit.cshtml" />
+    <Content Include="Views\Issue\Old_Edit.cshtml" />
     <Content Include="Views\Issue\Index.cshtml" />
     <Content Include="Views\Issue\Details.cshtml" />
     <Content Include="Views\Shared\_AttachmentFilePartial.cshtml" />
@@ -2798,6 +2799,10 @@
     <Content Include="Views\Issue\_TicketAssign.cshtml" />
     <Content Include="Views\Issuelabel\Index.cshtml" />
     <Content Include="Views\Issuelabel\_IssueLabelAddOrEdit.cshtml" />
+    <Content Include="Views\Issue\Edit.cshtml" />
+    <Content Include="Views\Project\Add.cshtml" />
+    <Content Include="Views\Project\Edit.cshtml" />
+    <Content Include="Views\Project\Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
