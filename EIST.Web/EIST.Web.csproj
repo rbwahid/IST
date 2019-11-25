@@ -2802,7 +2802,7 @@
     <Content Include="Views\Issue\Edit.cshtml" />
     <Content Include="Views\Project\Add.cshtml" />
     <Content Include="Views\Project\Edit.cshtml" />
-    <Content Include="Views\Project\Details.cshtml" />
+    <Content Include="Views\Project\_Details.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

@@ -35,9 +35,11 @@ namespace EIST.Web.Controllers
             var model = new ProjectModel(id);
             return Json(new { Id = model.Id, Name = model.Name, Description = model.Description, CompanyId = model.CompanyId,PmId =model.PmId, SuperVisorId = model.SuperVisorId });
         }
+        
         public ActionResult Details(int id)
         {
-            return View(new ProjectModel(id));
+            var model = new ProjectModel().GetCompanyProjectById(id);
+            return PartialView("_Details", model);
         }
         public ActionResult Edit(int id)
         {
