@@ -73,6 +73,23 @@ namespace EIST.Web.Controllers
             new IssueModel().DeleteTicket(id);
             return Json(new { meg = "success" });
         }
+        [Roles("Issue_Configuration", "Global_SupAdmin")]
+        public ActionResult Design()
+        {
+            return View(new IssueModel());
+        }
+        [Roles("Ticket_Configuration", "Global_SupAdmin")]
+        [HttpPost]
+        public ActionResult Design(IssueModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                model.AddTicket();
+                return RedirectToAction("Index");
+            }
+            return View(model);
+        }
+
         #region json helper
         public JsonResult IsTicketNameExist(string IssueName, string InitialName)
         {
