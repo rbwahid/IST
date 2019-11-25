@@ -2781,7 +2781,6 @@
     <Content Include="Views\Issue\Details.cshtml" />
     <Content Include="Views\Shared\_AttachmentFilePartial.cshtml" />
     <Content Include="Views\Project\Index.cshtml" />
-    <Content Include="Views\Project\_CompanyProjectAddOrEdit.cshtml" />
     <Content Include="Views\Position\_PositionAddOrEdit.cshtml" />
     <Content Include="Views\Position\Index.cshtml" />
     <Content Include="Views\TicketAssign\Edit.cshtml" />
