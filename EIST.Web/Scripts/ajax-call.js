@@ -56,6 +56,9 @@ function ajaxCallModal(url, paramData, callback, method, obj) {
             else if (callback == 'renderCreateTicketAssignLoad') {
                 renderCreateTicketAssignLoad(response);
             }
+            else if (callback == 'renderProjectDetailsEntryLoad') {
+                renderProjectDetailsEntryLoad(response);
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert(textStatus + "! please try again", '<i class="fa fa-exclamation-circle" aria-hidden="true"> Alert</i>');

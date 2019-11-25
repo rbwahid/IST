@@ -25,7 +25,7 @@ namespace EIST.Entities
         public int? PmId { get; set; }
         [ForeignKey("PmId")]
         public virtual User ProjectManager { get; set; }
-        [Display(Name = "Super Visor")]
+        [Display(Name = "Supervisor")]
         public int? SuperVisorId { get; set; }
         [ForeignKey("SuperVisorId")]
         public virtual User SuperVisor { get; set; }

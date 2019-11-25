@@ -74,6 +74,10 @@ namespace EIST.Web.Models
         {
             return _companyProjectService.GetAllCompanyProjects();
         }
+        public Project GetCompanyProjectById(int id)
+        {
+            return _companyProjectService.GetCompanyProjectById(id);
+        }
 
         public void AddCompanyProject()
         {
