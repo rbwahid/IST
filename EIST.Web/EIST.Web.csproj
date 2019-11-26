@@ -2801,6 +2801,7 @@
     <Content Include="Views\Project\_Details.cshtml" />
     <Content Include="Views\Issue\Design.cshtml" />
     <Content Include="Views\Issue\Add.cshtml" />
+    <Content Include="Views\Issue\Edit.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

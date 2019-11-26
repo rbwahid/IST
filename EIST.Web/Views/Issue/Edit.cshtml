@@ -1,0 +1,167 @@
+﻿@using EIST.Common
+@using EIST.Web.Models
+@model EIST.Web.Models.IssueModel
+
+@{
+    ViewBag.Title = "Ticket";
+}
+
+<!-- Content area -->
+<div class="content">
+
+    <!-- Basic layout-->
+    <div class="card border-teal">
+        <div class="card-header bg-teal header-elements-inline">
+            <h3 class="card-title"><strong>Issue</strong></h3>
+            <div class="header-elements">
+                <div class="list-icons">
+                    @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
+                </div>
+            </div>
+        </div>
+        <hr class="hr-mar-reduce" />
+        @using (Html.BeginForm("Edit", "Issue", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ticketCreateForm", @class = "form-horizontal" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.ValidationSummary(true);
+            @Html.Hidden("InitialName", "undefined")
+            <div class="card-body">
+                <div class="row">
+                    <div class="col-md-8">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.IssueTitle)</label>
+                            <div class="col-lg-12">
+                                @Html.TextBoxFor(model => model.IssueTitle, new { @class = "form-control input-sm", @placeholder = "Issue Title" })
+                                @Html.ValidationMessageFor(model => model.IssueTitle)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @*<label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>*@
+                            <div class="col-lg-12">
+                                @Html.TextAreaFor(model => model.Description, new { @placeholder = "Description", @id = "Description", @class = "form-control" })
+                                @Html.ValidationMessageFor(model => model.Description)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            @*<label class="col-form-label col-lg-3">Attachments</label>*@
+                            <div class="col-lg-12">
+                                @{Html.RenderPartial("~/Views/Shared/_AttachmentFilePartial.cshtml");}
+                            </div>
+                        </div>                   
+                    </div>
+
+
+                    <div class="col-md-4">
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.ProjectId)</label>
+                            <div class="col-lg-9">
+                                @Html.DropDownListFor(model => model.ProjectId, new SelectList(Model.ProjectList, "Id", "Name"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessageFor(model => model.ProjectId)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.LabelId)</label>
+                            <div class="col-lg-9">
+                                @Html.DropDownListFor(model => model.LabelId, new SelectList(Model.IssueLabelList, "Id", "LabelTitle"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+
+                                @Html.ValidationMessageFor(model => model.LabelId)
+
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Milestone)</label>
+                            <div class="col-lg-9">
+                                @Html.TextBoxFor(model => model.Milestone, new { @class = "form-control input-sm", @placeholder = "Milestone" })
+                                @Html.ValidationMessageFor(model => model.Milestone)
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayName("Assignee")</label>
+                            <div class="col-lg-9">
+                                @Html.DropDownList("AssigneeId", new SelectList(Model.UserList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessage("AssigneeId")
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayName("Description")</label>
+                            <div class="col-lg-9">
+                                @Html.TextArea("Description", null, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessage("Description")
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+
+            <div class="card-footer">
+                <div class="d-flex justify-content-between">
+                    <a href="@Url.Action("Index", "Issue")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                    <button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSubmit()"><i class="fa fa-save"></i> Save</button>
+                </div>
+            </div>
+        }
+    </div>
+    <!-- /basic layout -->
+</div>
+<!-- /content area -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ckeditor")
+    <script type="text/javascript">
+
+        $(document).ready(function () {
+            CKEDITOR.replace('Description', {
+                // Define the toolbar groups as it is a more accessible solution.
+                toolbarGroups: [{
+                    "name": "basicstyles",
+                    "groups": ["basicstyles"]
+                },
+                {
+                    "name": "paragraph",
+                    "groups": ["list", "blocks"]
+                },
+                {
+                    "name": "insert",
+                    "groups": ["insert"]
+                },
+                {
+                    "name": "styles",
+                    "groups": ["styles"]
+                }
+                ],
+                // Remove the redundant buttons from toolbar groups defined above.
+                removeButtons: 'Image'
+            });
+            CKEDITOR.replace('Description1', {
+                // Define the toolbar groups as it is a more accessible solution.
+                toolbarGroups: [{
+                    "name": "basicstyles",
+                    "groups": ["basicstyles"]
+                },
+                {
+                    "name": "paragraph",
+                    "groups": ["list", "blocks"]
+                },
+                {
+                    "name": "insert",
+                    "groups": ["insert"]
+                },
+                {
+                    "name": "styles",
+                    "groups": ["styles"]
+                }
+                ],
+                // Remove the redundant buttons from toolbar groups defined above.
+                removeButtons: 'Image'
+            });
+        });
+
+        function formSubmit() {
+            rearrangeNameSuffix("#attachmentFileTBody");
+            $("#ticketCreateForm").submit();
+        }
+    </script>
+}

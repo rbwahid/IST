@@ -50,7 +50,7 @@
                         </div>
 
                         @* Comment Area *@
-                        <div class="card">
+                        @*<div class="card">
                             <div class="card-header header-elements-inline">
                                 <h6 class="card-title font-weight-semibold">Discussion</h6>
                                 <div class="header-elements">
@@ -227,7 +227,7 @@
                                     <button type="button" class="btn bg-blue"><i class="icon-plus22 mr-1"></i> Add comment</button>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
 
@@ -270,7 +270,7 @@
                             </div>
                         </div>
 
-                        <div class="card">
+                        @*<div class="card">
                             <div class="custom-header header-elements-inline">
                                 <h5 class="">Approval</h5>
                             </div>
@@ -280,25 +280,25 @@
                                         <div class="form-group row">
                                             <label class="col-md-3">@Html.DisplayName("Remarks")</label>
                                             <div class="col-md-9">
-                                                @*@(workflowItem != null ? workflowItem.Remarks : "")*@
+                                                @(workflowItem != null ? workflowItem.Remarks : "")
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3">@Html.DisplayName("Approved By")</label>
                                             <div class="col-md-9">
-                                                @*@(workflowItem != null ? workflowItem.Approver.FullName : "")*@
+                                                @(workflowItem != null ? workflowItem.Approver.FullName : "")
                                             </div>
                                         </div>
                                         <div class="form-group row">
                                             <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
                                             <div class="col-md-9">
-                                                @*@(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")*@
+                                                @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </div>*@
                     </div>
 
                 </div>
@@ -307,7 +307,7 @@
 
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
-                    <a href="@Url.Action("Index", "Ticket")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
+                    <a href="@Url.Action("Index", "Issue")" class="btn btn-danger btn-custom"><i class="fa fa-times-circle text-white"></i> Cancel</a>
                     <button type="button" class="btn bg-teal btn-custom ml-3" onclick="formSubmit()"><i class="fa fa-save"></i> Save</button>
                 </div>
             </div>

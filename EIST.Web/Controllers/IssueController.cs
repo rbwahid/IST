@@ -53,7 +53,8 @@ namespace EIST.Web.Controllers
         {
             //var model = new TicketModel(id);
             //return View(model);
-            return RedirectToAction("Details", "Issue", new { id = id });
+            //return RedirectToAction("Details", "Issue", new { id = id });
+            return View(new IssueModel());
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
