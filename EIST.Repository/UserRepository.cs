@@ -75,9 +75,17 @@ namespace EIST.Repository
             return isNotExist;
         }
 
-        public IEnumerable<User> GetAllUserAsDeveloper()
+        public IEnumerable<User> GetAllCustomerTypeUser()
+        {
+            return _context.Users.Where(x => !x.IsDeleted && x.UserType == EnumUserType.Customer.ToString());
+        }
+        public IEnumerable<User> GetAllDeveloperTypeUser()
         {
             return _context.Users.Where(x => !x.IsDeleted && x.UserType == EnumUserType.Developer.ToString());
+        }
+        public IEnumerable<User> GetAllDeveloperRoleUser()
+        {
+            return _context.Users.Where(x => !x.IsDeleted && x.UserRole.RoleName == EnumUserRoleStatus.Developer.ToString());
         }
 
         public User GetCustomerByUserId(int authenticatedUserId)

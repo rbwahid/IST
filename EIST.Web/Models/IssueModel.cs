@@ -24,6 +24,7 @@ namespace EIST.Web.Models
         private IssueLabelService _issueLabelService;
         public List<AttachmentFileModel> FileLists { get; set; }
         public List<Project> ProjectList { get; set; }
+        public List<User> UserList { get; set; }
         public List<IssueLabel> IssueLabelList { get; set; }
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
         [Required]
@@ -44,6 +45,7 @@ namespace EIST.Web.Models
             _workflowService = new WorkflowService();
             _userService = new UserService();
             _issueLabelService = new IssueLabelService();
+            
             bool isCustomerUser = _userService.IsUserAsCustomer(authenticatedUserId, EnumUserType.Customer.ToString());
             if (isCustomerUser == true)
             {
@@ -56,6 +58,7 @@ namespace EIST.Web.Models
             }
 
             IssueLabelList = _issueLabelService.GetAllIssueLabel().ToList();
+            UserList = _userService.GetAllDeveloperRoleUser().ToList();
         }
 
         public IssueModel(int id) : this()
@@ -101,8 +104,10 @@ namespace EIST.Web.Models
             base.CreatedBy = authenticatedUserId;
 
             int ticketId = _ticketService.AddTicket(this);
+
             // Attachment File //
             List<AttachmentFile> attachmentList = new List<AttachmentFile>();
+            
             if (FileLists != null)
             {
                 foreach (var item in FileLists)

@@ -39,11 +39,11 @@ namespace EIST.Web.Models
             _companyProjectService = new ProjectService();
             _workflowService = new WorkflowService();
             ticketList = _ticketService.GetAllTicket();
-            userList = _userService.GetAllUserAsDeveloper();
+            userList = _userService.GetAllDeveloperRoleUser();
             companyProjectList = _companyProjectService.GetAllCompanyProjects();
 
             UserSelectList = new UserSelectList();
-            UserSelectList.SelectedValueList = _userService.GetAllUserAsDeveloper().ToList();
+            UserSelectList.SelectedValueList = _userService.GetAllDeveloperRoleUser().ToList();
         }
 
         public TicketAssignModel(int id) : this()

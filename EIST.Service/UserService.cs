@@ -65,9 +65,17 @@ namespace EIST.Services
             _userUnitOfWork.Save(user.CreatedBy.ToString());
         }
 
-        public IEnumerable<User> GetAllUserAsDeveloper()
+        public IEnumerable<User> GetAllCustomerTypeUser()
         {
-            return _userUnitOfWork.UserRepository.GetAllUserAsDeveloper();
+            return _userUnitOfWork.UserRepository.GetAllCustomerTypeUser();
+        }
+        public IEnumerable<User> GetAllDeveloperTypeUser()
+        {
+            return _userUnitOfWork.UserRepository.GetAllDeveloperTypeUser();
+        }
+        public IEnumerable<User> GetAllDeveloperRoleUser()
+        {
+            return _userUnitOfWork.UserRepository.GetAllDeveloperRoleUser();
         }
 
         public User GetCustomerByUserId(int authenticatedUserId)

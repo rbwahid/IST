@@ -20,6 +20,7 @@ namespace EIST.Web.Models
         public IEnumerable<User> DeveloperList { get; set; }
         public IEnumerable<User> CustomerList { get; set; }
         public IEnumerable<Company> companyList { get; set; }
+        [Display(Name="Customer Users")]
         public List<int> CustomerUserIds { get; set; }
         [Required]
         [Remote("IsCompanyProjectNameExist", "Project", AdditionalFields = "InitialName",
@@ -37,7 +38,7 @@ namespace EIST.Web.Models
             _companyService = new CompanyService();
             _userService = new UserService();
             companyList = _companyService.GetAllCompanies();
-            DeveloperList = _userService.GetAllUserAsDeveloper();
+            DeveloperList = _userService.GetAllDeveloperTypeUser();
             CustomerList = _userService.GetAllCustomerUser();
         }
 

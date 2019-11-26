@@ -10,7 +10,7 @@
     <!-- Basic layout-->
     <div class="card border-teal">
         <div class="card-header bg-teal header-elements-inline">
-            <h3 class="card-title"><strong>Issue</strong></h3>
+            <h3 class="card-title"><strong>Project</strong></h3>
             <div class="header-elements">
                 <div class="list-icons">
                     @*<a class="list-icons-item"><i class="icon-plus3"></i></a>*@
@@ -69,7 +69,7 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.CustomerUserIds)</label>
                             <div class="col-lg-6">
-                                @Html.DropDownListFor(model => model.CustomerUserIds, new SelectList(Model.CustomerList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm select2", @multiple = "multiple", @required = "required" })
+                                @Html.DropDownListFor(model => model.CustomerUserIds, new SelectList(Model.CustomerList, "Id", "UserName"),new {@placeholder="Select Customer Users", @class = "form-control input-sm select2", @multiple = "multiple", @required = "required" })
                                 @Html.ValidationMessageFor(model => model.CustomerUserIds)
                             </div>
                         </div>

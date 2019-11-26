@@ -9,14 +9,16 @@ using System.Web.Mvc;
 namespace EIST.Web.Controllers
 {
     [Authorize]
-    [Roles("Global_SupAdmin,Position_Configuration")]
-    public class IssuelabelController : Controller
+    
+    public class IssueLabelController : Controller
     {
+        [Roles("Global_SupAdmin,IssueLabel_Configuration")]
         // GET: Issuelabel
         public ActionResult Index(IssueLabel model)
         {
             return View((new IssueLabelModel().GetAllIssueLabel()));
         }
+        [Roles("Global_SupAdmin,IssueLabel_Configuration")]
         public ActionResult Add()
         {
             return View(new IssueLabelModel());
@@ -41,6 +43,7 @@ namespace EIST.Web.Controllers
         {
             return View(new IssueLabelModel(id));
         }
+        [Roles("Global_SupAdmin,IssueLabel_Configuration")]
         public ActionResult Edit(int id)
         {
             return View(new IssueLabelModel(id));
@@ -56,7 +59,7 @@ namespace EIST.Web.Controllers
             }
             return View(model);
         }
-
+        [Roles("Global_SupAdmin,IssueLabel_Configuration")]
         public ActionResult Delete(int id)
         {
             new IssueLabelModel().DeleteIssueLabel(id);
