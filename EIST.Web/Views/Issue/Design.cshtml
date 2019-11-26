@@ -243,7 +243,9 @@
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.LabelId)</label>
                             <div class="col-lg-9">
                                 @Html.DropDownListFor(model => model.LabelId, new SelectList(Model.IssueLabelList, "Id", "LabelTitle"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+
                                 @Html.ValidationMessageFor(model => model.LabelId)
+
                             </div>
                         </div>
                         <div class="form-group row">
@@ -256,14 +258,21 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayName("Assignee")</label>
                             <div class="col-lg-9">
-                                @Html.DropDownListFor(model =>Model.TicketAssignCollection.First().AssigneeId, new SelectList(Model.IssueLabelList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
-                                @Html.ValidationMessageFor(model => model.LabelId)
+                                @Html.DropDownList("AssigneeId", new SelectList(Model.UserList, "Id", "UserName"), "--Choose--", new { @class = "form-control input-sm", @required = "required" })
+                                @Html.ValidationMessage("AssigneeId")
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label class="col-form-label col-lg-3">@Html.DisplayName("Description")</label>
+                            <div class="col-lg-9">
+                                @Html.TextArea("Description", null, new { @class = "form-control", @placeholder = "Description" })
+                                @Html.ValidationMessage("Description")
                             </div>
                         </div>
 
                         <div class="card">
                             <div class="custom-header header-elements-inline">
-                                <h5 class="">Approval Process</h5>
+                                <h5 class="">Approval</h5>
                             </div>
                             <div class="card-body">
                                 <div class="row">
@@ -292,9 +301,9 @@
                         </div>
                     </div>
 
-                    </div>
                 </div>
-           
+            </div>
+
 
             <div class="card-footer">
                 <div class="d-flex justify-content-between">

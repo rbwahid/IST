@@ -94,6 +94,7 @@ namespace EIST.Web.Models
         {
             new RoleTaskCheckBoxModel {PermissionName="User_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Role_Configuration", PermissionCategory = "Configuration"},
+             new RoleTaskCheckBoxModel {PermissionName="IssueLabel_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Position_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Company_Configuration", PermissionCategory = "Configuration"},
             new RoleTaskCheckBoxModel {PermissionName="Company_Project_Configuration", PermissionCategory = "Configuration"},

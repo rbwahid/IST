@@ -72,6 +72,10 @@
                         {
                             <a href="@Url.Action("Index", "Project")" class="dropdown-item"><i class="fa fa-file-contract"></i>Project</a>
                         }
+                        @if (User.IsInRole("IssueLabel_Configuration") || User.IsInRole("Global_SupAdmin"))
+                        {
+                            <a href="@Url.Action("Index", "Issuelabel")" class="dropdown-item"><i class="fa fa-tag"></i>Issue Label</a>
+                        }
                     </div>
                 </li>
             }
