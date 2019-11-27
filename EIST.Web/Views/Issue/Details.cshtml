@@ -1,6 +1,6 @@
 ﻿@using EIST.Common
 @using EIST.Web.Models
-@model EIST.Entities.Issue
+@model EIST.Web.Models.IssueModel
 
 @{
     ViewBag.Title = "Details";
@@ -43,7 +43,7 @@
             <h5 class="card-title"><strong>Issue</strong></h5>
             <div class="header-elements">
                 <div class="list-icons">
-                    <a href="@Url.Action("Index","Ticket")" title="Back" class="list-icons-item"><i class="icon-arrow-left52"></i></a>
+                    <a href="@Url.Action("Details","Ticket")" title="Back" class="list-icons-item"><i class="icon-arrow-left52"></i></a>
                 </div>
             </div>
         </div>
@@ -52,159 +52,101 @@
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-group row cust-details-row">
-                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Code)</label>
-                        <div class="col-md-8">
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.IssueTitle)</label>
+                        <div class="col-md-7">
+                            @Html.DisplayFor(model => model.IssueTitle)
+                        </div>
+                    </div>
+                  
+                    @if (!string.IsNullOrEmpty(Model.Description))
+                    {
+                <div class="form-group row cust-details-row">
+                    <label class="col-md-3">@Html.DisplayNameFor(model => model.Description)</label>
+                    <div class="col-md-7">
+                        @Html.Raw(Model.Description)
+                    </div>
+                </div>
+                    }
+                    <table class="table table-bordered table-striped table-condensed">
+                        <thead>
+                            <tr>
+                                <th colspan="2" style="font-size:17px;">Attachment</th>
+                            </tr>
+                            <tr>
+                                <th>#SL</th>
+                                <th>@Html.DisplayName("File")</th>
+                            </tr>
+                        </thead>
+                        <tbody id="attachmentFileTBody">
+                            @if (Model.AttachmentFileCollection.Any())
+                            {
+                                foreach (var item in Model.AttachmentFileCollection)
+                                {
+                                    <tr>
+                                        <td class="serial">
+                                            @(rowNo++)
+                                        </td>
+                                        <td>
+                                            <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
+                                                <img height="25" src="@Url.Content(String.Format("~{0}", FileExtension.GetFileExtensionThumbnail(item.FileExtension)))" />  @item.OriginalName
+                                            </a>
+                                        </td>
+                                    </tr>
+                                }
+                            }
+                            else
+                            {
+                                <tr>
+                                    <td class="serial">@(rowNo++)</td>
+                                    <td colspan="3" class="text-muted">No files found</td>
+                                </tr>
+                            }
+                        </tbody>
+                    </table>
+
+
+                </div>
+                <div class="col-md-6">
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.Code)</label>
+                        <div class="col-md-7">
                             @Html.DisplayFor(model => model.Code)
                         </div>
                     </div>
                     <div class="form-group row cust-details-row">
-                        <label class="col-md-4">@Html.DisplayNameFor(model => model.ProjectId)</label>
-                        <div class="col-md-8">
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.ProjectId)</label>
+                        <div class="col-md-7">
                             @Html.DisplayFor(model => model.Project.Name)
                         </div>
                     </div>
+
                     <div class="form-group row cust-details-row">
-                        <label class="col-md-4">@Html.DisplayNameFor(model => model.IssueTitle)</label>
-                        <div class="col-md-8">
-                            @Html.DisplayFor(model => model.IssueTitle)
-                        </div>
-                    </div>
-                </div>
-                <div class="col-md-6">
-                    <div class="form-group row cust-details-row">
-                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Status)</label>
-                        <div class="col-lg-8">
-                            @Enum.GetName(typeof(EnumTicketStatus), Model.Status)
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.LabelId)</label>
+                        <div class="col-md-7">
+                            @Html.DisplayFor(model => model.IssueLabel.LabelTitle)
                         </div>
                     </div>
                     <div class="form-group row cust-details-row">
-                        <label class="col-md-4">@Html.DisplayNameFor(model => model.Priority)</label>
-                        <div class="col-md-8">
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.Milestone)</label>
+                        <div class="col-md-7">
+                            @Html.DisplayFor(model => model.Milestone)
+                        </div>
+                    </div>
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.Priority)</label>
+                        <div class="col-md-7">
                             @(Model.Priority ? "Yes" : "No")
                         </div>
                     </div>
+                    <div class="form-group row cust-details-row">
+                            <label class="col-md-3">@Html.DisplayNameFor(model => model.Status)</label>
+                            <div class="col-md-7">
+                                <label class="badge badge-info">@Enum.GetName(typeof(EnumTicketStatus), Model.Status)</label>
+                            </div>
+                        </div>
                 </div>
-            </div>
-            <div class="col-md-12">
-                <div class="form-group row cust-details-row">
-                    <div class="col-md-12" style="border: 1px solid #e9e9e9;padding:10px;">
-                        @Html.Raw(Model.Description)
-                    </div>
-                </div>
-            </div>
-            <div class="row">
-                @* Attachment Collection *@
-                <div class="col-md-6">
-                    <div class="card">
-                        <div class="custom-header header-elements-inline">
-                            <h5 class="">Attachments</h5>
-                        </div>
-                        <div class="card-body">
-                            <table class="table table-bordered table-striped table-condensed" id="attachFileCollectionTable">
-                                <thead>
-                                    <tr>
-                                        <th class="serial">#</th>
-                                        <th>@Html.DisplayName("File Name")</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="attachFileCollectionTBody">
-                                    @if (Model.AttachmentFileCollection.Any())
-                                    {
-                                        foreach (var item in Model.AttachmentFileCollection)
-                                        {
-                                            <tr>
-                                                <td class="serial">
-                                                    @(rowNo++)
-                                                </td>
-                                                <td>
-                                                    <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
-                                                        <img height="25" src="@Url.Content(String.Format("~{0}", FileExtension.GetFileExtensionThumbnail(item.FileExtension)))" />  @item.OriginalName
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        }
-                                    }
-                                    else
-                                    {
-                                        <tr>
-                                            <td colspan="3" class="text-muted">No files found</td>
-                                        </tr>
-                                    }
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-                @if (IsRoleUser && (Model.Status == (byte)EnumTicketStatus.Pending || Model.Status == (byte)EnumTicketStatus.Rejected))
-                {
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="custom-header header-elements-inline">
-                                <h5 class="">Approval Process</h5>
-                            </div>
-                            <div class="card-body">
-                                @using (Html.BeginForm("Approve", null, FormMethod.Post, new { @class = "approvalForm" }))
-                                {
-                                    @Html.Hidden("RecordId", Model.Id)
-                                    @Html.Hidden("ApprovalId", authenticatedUserId)
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Remarks")</label>
-                                                <div class="col-md-9">
-                                                    @Html.TextArea("ApprovalRemarks", new { @class = "form-control", @placeholder = "Remarks", @required = "required" })
-                                                </div>
-                                                @*<textarea rows="4" cols="4" class="form-control elastic" placeholder="Textarea" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 96px;"></textarea>*@
-                                            </div>
-                                            <div class="pull-right" style="float: right;">
-                                                <button type="submit" formaction="@Url.Action("Disapprove", "Ticket")" class="btn btn-sm btn-danger pull-right">Rejected</button>
-                                                <button type="submit" class="btn btn-sm btn-success pull-right">Accepted</button>
-                                            </div>
-                                        </div>
-                                    </div>
-                                }
-                            </div>
-                        </div>
-                    </div>
-                }
-                else
-                {
-                    <div class="col-md-6">
-                        <div class="card">
-                            <div class="custom-header header-elements-inline">
-                                <h5 class="">Approval Process</h5>
-                            </div>
-                            <div class="card-body">
-                                <div class="row">
-                                    <div class="col-md-12">
-                                        <div class="form-group row">
-                                            <label class="col-md-3">@Html.DisplayName("Remarks")</label>
-                                            <div class="col-md-9">
-                                                @(workflowItem != null ? workflowItem.Remarks : "")
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3">@Html.DisplayName("Approved By")</label>
-                                            <div class="col-md-9">
-                                                @(workflowItem != null ? workflowItem.Approver.FullName : "")
-                                            </div>
-                                        </div>
-                                        <div class="form-group row">
-                                            <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
-                                            <div class="col-md-9">
-                                                @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                }
             </div>
         </div>
     </div>
-    <!-- /basic layout -->
-
 </div>
 <!-- /content area -->

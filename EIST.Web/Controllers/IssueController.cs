@@ -40,11 +40,11 @@ namespace EIST.Web.Controllers
         public ActionResult Details(int id)
         {
             var model = new IssueModel(id);
-            var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-            if((model.Status == (byte)EnumTicketStatus.Pending || model.Status == (byte)EnumTicketStatus.Rejected) && model.CreatedBy == authenticatedUserId)
-            {
-                return View("Edit", model);
-            }
+            //var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
+            //if ((model.Status == (byte)EnumTicketStatus.Pending || model.Status == (byte)EnumTicketStatus.Rejected) && model.CreatedBy == authenticatedUserId)
+            //{
+            //    return View("Edit", model);
+            //}
             return View(model);
         }
 
@@ -53,7 +53,8 @@ namespace EIST.Web.Controllers
         {
             //var model = new TicketModel(id);
             //return View(model);
-            return RedirectToAction("Details", "Issue", new { id = id });
+            //return RedirectToAction("Details", "Issue", new { id = id });
+            return View(new IssueModel(id));
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
@@ -67,7 +68,7 @@ namespace EIST.Web.Controllers
             return View(model);
         }
 
-        [Roles("Ticket_Configuration", "Global_SupAdmin")]
+        [Roles("Issue_Configuration", "Global_SupAdmin")]
         public ActionResult Delete(int id)
         {
             new IssueModel().DeleteTicket(id);
@@ -78,7 +79,7 @@ namespace EIST.Web.Controllers
         {
             return View(new IssueModel());
         }
-        [Roles("Ticket_Configuration", "Global_SupAdmin")]
+        [Roles("Issue_Configuration", "Global_SupAdmin")]
         [HttpPost]
         public ActionResult Design(IssueModel model)
         {
@@ -98,9 +99,9 @@ namespace EIST.Web.Controllers
         }
         #endregion
         #region json helper
-        public JsonResult RemoveAttachmentFileFromDbById(int fileId)
+        public JsonResult RemoveAttachmentFileById(int id)
         {
-            new IssueModel().RemoveAttachmentFileFromDbById(fileId);
+            new IssueModel().RemoveAttachmentFileById(id);
             return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
         }
         #endregion

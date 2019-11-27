@@ -82,22 +82,6 @@
                             </div>
                         </div>
                     </div>
-                    <div class="col-md-6">
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.AssigneeId)</label>
-                            <div class="col-lg-6">
-                                @Html.DropDownListFor(model => model.AssigneeId, new SelectList(Model.userList, "Id", "FullName"), "--Select--", new { @class = "form-control" })
-                                @Html.ValidationMessageFor(model => model.AssigneeId)
-                            </div>
-                        </div>
-                        <div class="form-group row">
-                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Description)</label>
-                            <div class="col-lg-6">
-                                @Html.TextAreaFor(model => model.Description, new { @class = "form-control", @placeholder = "Description" })
-                                @Html.ValidationMessageFor(model => model.Description)
-                            </div>
-                        </div>
-                    </div>
                 </div>
                 <div class="row">
                     @* Attachment Collection *@

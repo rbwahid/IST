@@ -13,6 +13,13 @@ using System.Web.Mvc;
 namespace EIST.Web.Models
 {
     [NotMapped]
+    public class TicketAssignSelectedModel
+    {
+        public int[] SelectedId { get; set; }
+        public List<User> SelectedValueList { get; set; }
+        public int IssueId { get; set; }
+        public string Description { get; set; }
+    }
     public class IssueModel : Issue
     {
         private string formName = "Ticket";
@@ -26,6 +33,8 @@ namespace EIST.Web.Models
         public List<Project> ProjectList { get; set; }
         public List<User> UserList { get; set; }
         public List<IssueLabel> IssueLabelList { get; set; }
+        public TicketAssignSelectedModel TicketAssignSelectedModel { get; set; }
+
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
         [Required]
         [Remote("IsTicketNameExist", "Issue", AdditionalFields = "InitialName",
@@ -59,6 +68,9 @@ namespace EIST.Web.Models
 
             IssueLabelList = _issueLabelService.GetAllIssueLabel().ToList();
             UserList = _userService.GetAllDeveloperRoleUser().ToList();
+
+            TicketAssignSelectedModel = new TicketAssignSelectedModel();
+            TicketAssignSelectedModel.SelectedValueList = _userService.GetAllDeveloperRoleUser().ToList();
         }
 
         public IssueModel(int id) : this()
@@ -102,6 +114,23 @@ namespace EIST.Web.Models
             base.Status = (byte)EnumTicketStatus.Pending;
             base.CreatedAt = DateTime.Now;
             base.CreatedBy = authenticatedUserId;
+
+            //// Multiple User Select (Ticket Assign) //
+            //List<TicketAssign> ticketAssignList = new List<TicketAssign>();
+            //if (TicketAssignSelectedModel.SelectedId != null)
+            //{
+            //    foreach (var userId in TicketAssignSelectedModel.SelectedId)
+            //    {
+            //        var tickerAssign = new TicketAssign();
+            //        tickerAssign.IssueId = base.Id;
+            //        tickerAssign.AssigneeId = userId;
+            //        tickerAssign.Description = base.Description;
+            //        tickerAssign.Status = (byte)EnumTicketAssignStatus.Pending;
+
+            //        ticketAssignList.Add(tickerAssign);
+            //    }
+            //    base.TicketAssignCollection = ticketAssignList;
+            //}
 
             int ticketId = _ticketService.AddTicket(this);
 
@@ -155,7 +184,7 @@ namespace EIST.Web.Models
         {
             return _ticketService.IsTicketNameExist(Name, InitialName);
         }
-        public void RemoveAttachmentFileFromDbById(int fileId)
+        public void RemoveAttachmentFileById(int fileId)
         {
             _attachmentFileService.RemoveAttachmentFileFromDbById(fileId);
         }
