@@ -13,11 +13,14 @@ namespace EIST.Service
         private EISTDbContext _context;
         private IssueUnitOfWork _ticketUnitOfWork;
         private AttachmentFileUnitOfWork _attachmentFileUnitOfWork;
+        private UserUnitOfWork _userUnitOfWork;
         public IssueService()
         {
             _context = new EISTDbContext();
             _ticketUnitOfWork = new IssueUnitOfWork(_context);
             _attachmentFileUnitOfWork = new AttachmentFileUnitOfWork(_context);
+            _userUnitOfWork = new UserUnitOfWork(_context);
+
         }
 
         public IEnumerable<Issue> GetAllTicket()
@@ -37,6 +40,7 @@ namespace EIST.Service
                 ProjectId = Ticket.ProjectId,
                 IssueTitle = Ticket.IssueTitle,
                 Description = Ticket.Description,
+                
                 Priority = Ticket.Priority,
                 LabelId = Ticket.LabelId,
                 Milestone = Ticket.Milestone,
@@ -56,15 +60,12 @@ namespace EIST.Service
             var TicketEntry = GetTicketById(Ticket.Id);
             if (TicketEntry != null)
             {
-                TicketEntry.ProjectId = Ticket.ProjectId;
-                TicketEntry.Code = Ticket.Code;
+                TicketEntry.ProjectId = Ticket.ProjectId;                
                 TicketEntry.IssueTitle = Ticket.IssueTitle;
                 TicketEntry.Description = Ticket.Description;
                 TicketEntry.Priority = Ticket.Priority;
                 TicketEntry.LabelId = Ticket.LabelId;
                 TicketEntry.Milestone = Ticket.Milestone;
-
-                //TicketEntry.Status = Ticket.Status;
                 TicketEntry.UpdatedAt = Ticket.UpdatedAt;
                 TicketEntry.UpdatedBy = Ticket.UpdatedBy;
 

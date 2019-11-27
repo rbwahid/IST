@@ -32,7 +32,7 @@
                                     <th>@Html.DisplayNameFor(model => model.Code)</th>
                                     <th>@Html.DisplayNameFor(model => model.ProjectId)</th>
                                     <th>@Html.DisplayNameFor(model => model.IssueTitle)</th>
-                                    @*<th>@Html.DisplayNameFor(model => model.Description)</th>*@
+                                    
                                     <th>@Html.DisplayNameFor(model => model.Priority)</th>
                                     <th>@Html.DisplayNameFor(model => model.Status)</th>
                                     <th></th>
@@ -48,7 +48,7 @@
                                         </td>
                                         <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueTitle)</td>
-                                        @*<td>@Html.DisplayFor(modelItem => item.Description)</td>*@
+                                        
                                         <td>@(item.Priority ? "Yes" : "No")</td>
                                         <td>@Enum.GetName(typeof(EnumTicketStatus), item.Status)</td>
                                         @*<td>
@@ -68,9 +68,11 @@
                                                     }
                                                 </div>
                                             </td>*@
-                                        <td>
-                                            <a href="@Url.Action("Edit","Issue", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
-                                        </td>
+                                    <td>
+                                        <a href="@Url.Action("Edit","Issue", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
+                                        <a href="@Url.Action("Details","Issue", new { id = item.Id })" @*target="_blank" title="Ticket Details"*@ class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
+                                        <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
+                                    </td>
                                     </tr>
                                 }
                             </tbody>
