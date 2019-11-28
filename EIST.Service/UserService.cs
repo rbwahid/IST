@@ -27,6 +27,21 @@ namespace EIST.Services
             return _userUnitOfWork.UserRepository.GetAllUsers();
         }
 
+        public int GetDeveloperUserCount()
+        {
+            return _userUnitOfWork.UserRepository.GetCount(x => x.UserType == EnumUserType.Developer.ToString());
+        }
+
+        public int GetUserCount()
+        {
+            return _userUnitOfWork.UserRepository.GetCount(x=>x.Status!=2);
+        }
+
+        public int GetCustomerUserCount()
+        {
+            return _userUnitOfWork.UserRepository.GetCount(x => x.UserType == EnumUserType.Customer.ToString());
+        }
+
         public List<AuditLog> GetAllAuditLogsByUserIdDate(int currentUserId, DateTime lastDate)
         {
             return _userUnitOfWork.UserRepository.GetAllAuditLogsByUserIdDate(currentUserId, lastDate);

@@ -176,6 +176,7 @@
     </Compile>
     <Compile Include="Models\AttachementFileModel.cs" />
     <Compile Include="Models\AuthenticatedUser.cs" />
+    <Compile Include="Models\DashboardModel.cs" />
     <Compile Include="Models\IssueLabelModel.cs" />
     <Compile Include="Models\PositionModel.cs" />
     <Compile Include="Models\ProjectModel.cs" />
@@ -200,6 +201,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\font-awesome.css" />
     <Content Include="Content\font-awesome.min.css" />
+    <Content Include="Content\images\avatar.png" />
     <Content Include="Content\images\File_Extension\file_extension_csv.png" />
     <Content Include="Content\images\File_Extension\file_extension_excel.png" />
     <Content Include="Content\images\File_Extension\file_extension_gif.png" />
@@ -212,6 +214,7 @@
     <Content Include="Content\images\File_Extension\file_extension_unknown.png" />
     <Content Include="Content\images\File_Extension\file_extension_word.png" />
     <Content Include="Content\images\logo.png" />
+    <Content Include="Content\images\no-image.jpg" />
     <Content Include="Content\images\no-profile-picture.jpg" />
     <Content Include="Content\images\Siemens-logo.png" />
     <Content Include="favicon.ico" />
@@ -2758,8 +2761,6 @@
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
     <Content Include="Views\User\AddRole.cshtml" />
     <Content Include="Views\User\ChangePassword.cshtml" />
     <Content Include="Views\User\ChangePasswordSuccess.cshtml" />

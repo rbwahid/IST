@@ -20,6 +20,11 @@ namespace EIST.Service
             _customerUserProjectUnitOfWork = new CustomerUserProjectUnitOfWork(_context);
         }
 
+        public int GetProjectCount()
+        {
+            return _companyProjectUnitOfWork.CompanyProjectRepository.GetCount();
+        }
+
         public IEnumerable<Project> GetAllCompanyProjects()
         {
             var Company = _companyProjectUnitOfWork.CompanyProjectRepository.GetAll();

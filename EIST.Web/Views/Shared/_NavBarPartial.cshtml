@@ -4,7 +4,7 @@
 @{
     var userName = "Unknown";
     var userFullName = "Unknown";
-    var userImageUrl = "~/Content/images/no-image.jpg";
+    var userImageUrl = "/Content/images/no-image.jpg";
     if (Request.IsAuthenticated && AuthenticatedUser.GetUserFromIdentity() != null)
     {
         userName = AuthenticatedUser.GetUserFromIdentity().Username;
@@ -70,7 +70,7 @@
                         }
                         @if (User.IsInRole("Project_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
-                            <a href="@Url.Action("Index", "Project")" class="dropdown-item"><i class="fa fa-file-contract"></i>Project</a>
+                            <a href="@Url.Action("Index", "Project")" class="dropdown-item"><i class="fa fa-file"></i>Project</a>
                         }
                         @if (User.IsInRole("IssueLabel_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
@@ -88,11 +88,11 @@
                     <div class="dropdown-menu">
                         @if (User.IsInRole("Issue_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
-                        <a href="@Url.Action("Index", "Issue")" class="dropdown-item"><i class="icon-ticket mr-2"></i> Issue</a>
+                            <a href="@Url.Action("Index", "Issue")" class="dropdown-item"><i class="icon-ticket mr-2"></i> Issue</a>
                         }
                         @if (User.IsInRole("Ticket_Assign_Configuration") || User.IsInRole("Global_SupAdmin"))
                         {
-                            <a href="@Url.Action("Index", "TicketAssign")" class="dropdown-item"><i class="icon-book-play mr-2"></i>Ticket Assign</a>
+                            <a href="@Url.Action("Index", "TicketAssign")" class="dropdown-item"><i class="icon-book3 mr-2"></i>Ticket Assign</a>
                         }
                     </div>
                 </li>
@@ -100,13 +100,13 @@
         </ul>
         <ul class="navbar-nav ml-md-auto">
             @*<li class="navbar-brand wmin-0">
-                <a href="@Url.Action("Index","Home")" class="d-inline-block">
-                    <img src="~/Content/images/Siemens-logo.png" class="img-flag mr-2" alt="">
-                </a>
-            </li>*@
+                    <a href="@Url.Action("Index","Home")" class="d-inline-block">
+                        <img src="~/Content/images/Siemens-logo.png" class="img-flag mr-2" alt="">
+                    </a>
+                </li>*@
             <li class="nav-item dropdown dropdown-user">
                 <a href="#" class="navbar-nav-link d-flex align-items-center dropdown-toggle" data-toggle="dropdown">
-                    <img src="@Url.Content(userImageUrl)" class="rounded-circle mr-2" height="34" alt="">
+                    <img src="@Url.Content(userImageUrl)" class="rounded-circle mr-2" height="35" width="35" alt="">
                     <strong>@userFullName</strong>
                 </a>
                 <div class="dropdown-menu dropdown-menu-right">
