@@ -1,4 +1,5 @@
-﻿using System;
+﻿using EIST.Web.Models;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -11,7 +12,7 @@ namespace EIST.Controllers
     {
         public ActionResult Index()
         {
-            return View();
+            return View(new DashboardModel());
         }
 
         public ActionResult About()

@@ -1,4 +1,5 @@
-﻿using EIST.Entities;
+﻿using EIST.Common;
+using EIST.Entities;
 using EIST.Repository;
 using System;
 using System.Collections.Generic;
@@ -51,6 +52,21 @@ namespace EIST.Service
             _ticketUnitOfWork.Save(Ticket.CreatedBy.ToString());
             return newTicket.Id;
         }
+
+        public int GetAvtiveIssueCount()
+        {
+            return _ticketUnitOfWork.TicketRepository.GetCount(x => x.IsDeleted == false && x.IsClosed == false && x.Status == (byte)EnumTicketStatus .Accepted);
+        }
+        public int GetCloseIssueCount()
+        {
+            return _ticketUnitOfWork.TicketRepository.GetCount(x=>x.IsDeleted==false && x.IsClosed==true);
+        }
+
+        public int GetIssueCount()
+        {
+          return  _ticketUnitOfWork.TicketRepository.GetCount();
+        }
+
         public int EditTicket(Issue Ticket)
         {
             var TicketEntry = GetTicketById(Ticket.Id);
