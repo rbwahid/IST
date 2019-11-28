@@ -21,7 +21,7 @@ namespace EIST.Common
         GeneralUser = 1,
         SuperAdministrator = 2,
     }
-    public enum EnumTicketStatus
+    public enum EnumIssueStatus
     {
         Rejected = 0,
         Pending = 1,
@@ -40,7 +40,7 @@ namespace EIST.Common
     }
     public enum EnumWorkflowFormStatus
     {
-        Ticket,
+        Issue,
         TicketAssign,
     }
     public enum EnumUserType : byte

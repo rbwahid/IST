@@ -40,7 +40,7 @@ namespace EIST.Web.Models
         public byte Approve()
         {
             base.ApprovalStatus = "Accepted";
-            base.Status = (byte)EnumTicketStatus.Accepted;
+            base.Status = (byte)EnumIssueStatus.Accepted;
             base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
             var currStep = _workflowService.Approve(this);
             return currStep;
@@ -48,7 +48,7 @@ namespace EIST.Web.Models
         public void Disapprove()
         {
             base.ApprovalStatus = "Rejected";
-            base.Status = (byte)EnumTicketStatus.Rejected;
+            base.Status = (byte)EnumIssueStatus.Rejected;
             base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
             _workflowService.Disapprove(this);
         }

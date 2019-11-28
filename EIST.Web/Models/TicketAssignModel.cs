@@ -12,16 +12,16 @@ using System.Web.Mvc;
 
 namespace EIST.Web.Models
 {
-    [NotMapped]
-    public class UserSelectList
-    {
-        public int[] SelectedId { get; set; }
-        public List<User> SelectedValueList { get; set; }
-    }
+    //[NotMapped]
+    //public class UserSelectList
+    //{
+    //    public int[] SelectedId { get; set; }
+    //    public List<User> SelectedValueList { get; set; }
+    //}
     public class TicketAssignModel : TicketAssign
     {
         private string formName = "TicketAssign";
-        public UserSelectList UserSelectList { get; set; }
+        //public UserSelectList UserSelectList { get; set; }
         private TicketAssignService _ticketAssignService;
         public UserService _userService;
         public IssueService _ticketService;
@@ -42,8 +42,8 @@ namespace EIST.Web.Models
             userList = _userService.GetAllDeveloperRoleUser();
             companyProjectList = _companyProjectService.GetAllCompanyProjects();
 
-            UserSelectList = new UserSelectList();
-            UserSelectList.SelectedValueList = _userService.GetAllDeveloperRoleUser().ToList();
+            //UserSelectList = new UserSelectList();
+            //UserSelectList.SelectedValueList = _userService.GetAllDeveloperRoleUser().ToList();
         }
 
         public TicketAssignModel(int id) : this()
@@ -83,14 +83,14 @@ namespace EIST.Web.Models
             base.Status = (byte)EnumTicketAssignStatus.Pending;
 
             // Multiple User Select //
-            if(UserSelectList.SelectedId != null)
-            {
-                foreach (var userId in UserSelectList.SelectedId)
-                {
-                    base.AssigneeId = userId;
-                    _ticketAssignService.AddTicketAssign(this);
-                }
-            } 
+            //if(UserSelectList.SelectedId != null)
+            //{
+            //    foreach (var userId in UserSelectList.SelectedId)
+            //    {
+            //        base.AssigneeId = userId;
+            //        _ticketAssignService.AddTicketAssign(this);
+            //    }
+            //} 
         }
         public void EditTicketAssign()
         {
@@ -108,7 +108,7 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Accepted;
+            workflowModel.Status = (byte)EnumIssueStatus.Accepted;
             workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Accepted);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
@@ -120,7 +120,7 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Withhold;
+            workflowModel.Status = (byte)EnumIssueStatus.Withhold;
             workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Withhold);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);

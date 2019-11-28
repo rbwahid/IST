@@ -32,7 +32,9 @@
                                     <th>@Html.DisplayNameFor(model => model.Code)</th>
                                     <th>@Html.DisplayNameFor(model => model.ProjectId)</th>
                                     <th>@Html.DisplayNameFor(model => model.IssueTitle)</th>
-                                    @*<th>@Html.DisplayNameFor(model => model.Description)</th>*@
+                                    <th>@Html.DisplayNameFor(model => model.LabelId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.Milestone)</th>
+
                                     <th>@Html.DisplayNameFor(model => model.Priority)</th>
                                     <th>@Html.DisplayNameFor(model => model.Status)</th>
                                     <th></th>
@@ -44,27 +46,27 @@
                                     <tr>
                                         <td class="serial">@(sl++)</td>
                                         <td>
-                                            @Html.DisplayFor(modelItem => item.Code)
+                                            <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Issue Details" class="list-icons-item text-info-600">@Html.DisplayFor(modelItem => item.Code)</a>
+
                                         </td>
                                         <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueTitle)</td>
-                                        @*<td>@Html.DisplayFor(modelItem => item.Description)</td>*@
+                                        <td>@Html.DisplayFor(modelItem => item.IssueLabel.LabelTitle)</td>
+                                        <td>@Html.DisplayFor(modelItem => item.Milestone)</td>
                                         <td>@(item.Priority ? "Yes" : "No")</td>
-                                        <td>@Enum.GetName(typeof(EnumTicketStatus), item.Status)</td>
+                                        <td><label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), item.Status)</label></td>
                                         <td>
                                             <div class="list-icons">
-                                                @if ((item.Status == (byte)EnumTicketStatus.Pending || item.Status == (byte)EnumTicketStatus.Rejected) && item.CreatedBy == authenticatedUserId)
+                                                @if ((item.Status == (byte)EnumIssueStatus.Pending || item.Status == (byte)EnumIssueStatus.Rejected) && item.CreatedBy == authenticatedUserId)
                                                 {
+                                                    <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Issue Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
                                                     <a href="@Url.Action("Edit","Issue", new { id = item.Id })" class="list-icons-item text-primary-600"><i class="icon-pencil7"></i></a>
                                                     <a href="#" onclick="delete_Data('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-trash"></i></a>
                                                 }
                                                 else
                                                 {
                                                     <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
-                                                    if (IsRoleUser && item.Status == (byte)EnumTicketStatus.Accepted)
-                                                    {
-                                                        <a href="#" onclick="ticket_Assign('@item.Id')" class="list-icons-item text-danger-600"><i class="icon-list2"></i></a>
-                                                    }
+                                                    
                                                 }
                                             </div>
                                         </td>
@@ -75,7 +77,6 @@
                     </div>
                 </div>
             </div>
-
         </div>
     </div>
 </div>

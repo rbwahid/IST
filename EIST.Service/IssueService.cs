@@ -14,11 +14,14 @@ namespace EIST.Service
         private EISTDbContext _context;
         private IssueUnitOfWork _ticketUnitOfWork;
         private AttachmentFileUnitOfWork _attachmentFileUnitOfWork;
+        private UserUnitOfWork _userUnitOfWork;
         public IssueService()
         {
             _context = new EISTDbContext();
             _ticketUnitOfWork = new IssueUnitOfWork(_context);
             _attachmentFileUnitOfWork = new AttachmentFileUnitOfWork(_context);
+            _userUnitOfWork = new UserUnitOfWork(_context);
+
         }
 
         public IEnumerable<Issue> GetAllTicket()
@@ -30,28 +33,30 @@ namespace EIST.Service
             return _ticketUnitOfWork.TicketRepository.GetById(id);
         }
 
-        public int AddTicket(Issue Ticket)
+        public int AddTicket(Issue issue)
         {
             var newTicket = new Issue
             {
                 Code = _ticketUnitOfWork.TicketRepository.GenerateTicketCode(),
-                ProjectId = Ticket.ProjectId,
-                IssueTitle = Ticket.IssueTitle,
-                Description = Ticket.Description,
-                Priority = Ticket.Priority,
-                LabelId = Ticket.LabelId,
-                Milestone = Ticket.Milestone,
+                ProjectId = issue.ProjectId,
+                IssueTitle = issue.IssueTitle,
+                Description = issue.Description,
+                
+                Priority = issue.Priority,
+                LabelId = issue.LabelId,
+                Milestone = issue.Milestone,
 
-                AttachmentFileCollection = Ticket.AttachmentFileCollection,
+                AttachmentFileCollection = issue.AttachmentFileCollection,
 
-                Status = Ticket.Status,
-                CreatedAt = Ticket.CreatedAt,
-                CreatedBy = Ticket.CreatedBy
+                Status = issue.Status,
+                CreatedAt = issue.CreatedAt,
+                CreatedBy = issue.CreatedBy
             };
             _ticketUnitOfWork.TicketRepository.Add(newTicket);
-            _ticketUnitOfWork.Save(Ticket.CreatedBy.ToString());
+            _ticketUnitOfWork.Save(issue.CreatedBy.ToString());
             return newTicket.Id;
         }
+
 
         public int GetAvtiveIssueCount()
         {
@@ -67,22 +72,22 @@ namespace EIST.Service
           return  _ticketUnitOfWork.TicketRepository.GetCount();
         }
 
-        public int EditTicket(Issue Ticket)
-        {
-            var TicketEntry = GetTicketById(Ticket.Id);
-            if (TicketEntry != null)
-            {
-                TicketEntry.ProjectId = Ticket.ProjectId;
-                TicketEntry.Code = Ticket.Code;
-                TicketEntry.IssueTitle = Ticket.IssueTitle;
-                TicketEntry.Description = Ticket.Description;
-                TicketEntry.Priority = Ticket.Priority;
-                TicketEntry.LabelId = Ticket.LabelId;
-                TicketEntry.Milestone = Ticket.Milestone;
 
-                //TicketEntry.Status = Ticket.Status;
-                TicketEntry.UpdatedAt = Ticket.UpdatedAt;
-                TicketEntry.UpdatedBy = Ticket.UpdatedBy;
+        public int EditTicket(Issue issue)
+
+        {
+            var IssueEntry = GetTicketById(issue.Id);
+            if (IssueEntry != null)
+            {
+                IssueEntry.ProjectId = issue.ProjectId;                
+                IssueEntry.IssueTitle = issue.IssueTitle;
+                IssueEntry.Description = issue.Description;
+                IssueEntry.Priority = issue.Priority;
+                IssueEntry.LabelId = issue.LabelId;
+                IssueEntry.Milestone = issue.Milestone;
+                IssueEntry.Status = issue.Status;
+                IssueEntry.UpdatedAt = issue.UpdatedAt;
+                IssueEntry.UpdatedBy = issue.UpdatedBy;
 
                 // Attachment File //
                 //if (TicketEntry.AttachmentFileCollection.Any())
@@ -93,10 +98,10 @@ namespace EIST.Service
                 //        _attachmentFileUnitOfWork.Save();
                 //    }
                 //}
-                _ticketUnitOfWork.TicketRepository.Update(TicketEntry);
+                _ticketUnitOfWork.TicketRepository.Update(IssueEntry);
                 _ticketUnitOfWork.Save();
             }
-            return TicketEntry.Id;
+            return IssueEntry.Id;
         }
 
         public void DeleteTicket(int id, string currUserId)
@@ -141,6 +146,16 @@ namespace EIST.Service
             {
                 model.Status = status;
                 model.ApprovedDate = DateTime.Now;
+                _ticketUnitOfWork.Save();
+            }
+        }
+
+        public void TicketAssign(int issueId, ICollection<TicketAssign> ticketAssignCollection)
+        {
+            var IssueEntity = GetTicketById(issueId);
+            if (IssueEntity != null)
+            {
+                IssueEntity.TicketAssignCollection = ticketAssignCollection;
                 _ticketUnitOfWork.Save();
             }
         }

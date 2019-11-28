@@ -13,9 +13,16 @@ using System.Web.Mvc;
 namespace EIST.Web.Models
 {
     [NotMapped]
+    public class TicketAssignSelectedModel
+    {
+        public int[] SelectedId { get; set; }
+        public List<User> SelectedValueList { get; set; }
+        public int IssueId { get; set; }
+        public string TicketDescription { get; set; }
+    }
     public class IssueModel : Issue
     {
-        private string formName = "Ticket";
+        private string formName = "Issue";
         private IssueService _ticketService;
         private AttachmentFileService _attachmentFileService;
         private ProjectService _companyProjectService;
@@ -26,6 +33,8 @@ namespace EIST.Web.Models
         public List<Project> ProjectList { get; set; }
         public List<User> UserList { get; set; }
         public List<IssueLabel> IssueLabelList { get; set; }
+        public TicketAssignSelectedModel TicketAssignSelectedModel { get; set; }
+
         int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
         [Required]
         [Remote("IsTicketNameExist", "Issue", AdditionalFields = "InitialName",
@@ -59,6 +68,9 @@ namespace EIST.Web.Models
 
             IssueLabelList = _issueLabelService.GetAllIssueLabel().ToList();
             UserList = _userService.GetAllDeveloperRoleUser().ToList();
+
+            TicketAssignSelectedModel = new TicketAssignSelectedModel();
+            TicketAssignSelectedModel.SelectedValueList = _userService.GetAllDeveloperRoleUser().ToList();
         }
 
         public IssueModel(int id) : this()
@@ -89,6 +101,28 @@ namespace EIST.Web.Models
             }
 
         }
+
+        public void TicketAssign(TicketAssignSelectedModel model)
+        {
+            // Multiple User Select (Ticket Assign) //
+            List<TicketAssign> ticketAssignList = new List<TicketAssign>();
+            if (model.SelectedId != null)
+            {
+                foreach (var assignSelectedId in model.SelectedId)
+                {
+                    var ticketAssign = new TicketAssign();
+                    ticketAssign.IssueId = model.IssueId;
+                    ticketAssign.AssigneeId = assignSelectedId;
+                    ticketAssign.Description = model.TicketDescription;
+                    ticketAssign.Status = (byte)EnumTicketAssignStatus.Pending;
+
+                    ticketAssignList.Add(ticketAssign);
+                }
+                base.TicketAssignCollection = ticketAssignList;
+                _ticketService.TicketAssign(model.IssueId, base.TicketAssignCollection);
+            }
+        }
+
         public IEnumerable<Issue> GetAllTicket()
         {
             return _ticketService.GetAllTicket();
@@ -99,9 +133,26 @@ namespace EIST.Web.Models
         }
         public int AddTicket()
         {
-            base.Status = (byte)EnumTicketStatus.Pending;
+            base.Status = (byte)EnumIssueStatus.Pending;
             base.CreatedAt = DateTime.Now;
             base.CreatedBy = authenticatedUserId;
+
+            //// Multiple User Select (Ticket Assign) //
+            //List<TicketAssign> ticketAssignList = new List<TicketAssign>();
+            //if (TicketAssignSelectedModel.SelectedId != null)
+            //{
+            //    foreach (var userId in TicketAssignSelectedModel.SelectedId)
+            //    {
+            //        var tickerAssign = new TicketAssign();
+            //        tickerAssign.IssueId = base.Id;
+            //        tickerAssign.AssigneeId = userId;
+            //        tickerAssign.Description = base.Description;
+            //        tickerAssign.Status = (byte)EnumTicketAssignStatus.Pending;
+
+            //        ticketAssignList.Add(tickerAssign);
+            //    }
+            //    base.TicketAssignCollection = ticketAssignList;
+            //}
 
             int ticketId = _ticketService.AddTicket(this);
 
@@ -125,8 +176,9 @@ namespace EIST.Web.Models
         }
         public int EditTicket()
         {
+            base.Status = (byte)EnumIssueStatus.Pending;
             base.UpdatedAt = DateTime.Now;
-            base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
+            base.UpdatedBy = authenticatedUserId;
 
             int ticketId = _ticketService.EditTicket(this);
             // Attachment File //
@@ -155,7 +207,7 @@ namespace EIST.Web.Models
         {
             return _ticketService.IsTicketNameExist(Name, InitialName);
         }
-        public void RemoveAttachmentFileFromDbById(int fileId)
+        public void RemoveAttachmentFileById(int fileId)
         {
             _attachmentFileService.RemoveAttachmentFileFromDbById(fileId);
         }
@@ -165,8 +217,8 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Accepted;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Accepted);
+            workflowModel.Status = (byte)EnumIssueStatus.Accepted;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumIssueStatus), EnumIssueStatus.Accepted);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
             _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);
@@ -177,8 +229,8 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Rejected;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Rejected);
+            workflowModel.Status = (byte)EnumIssueStatus.Rejected;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumIssueStatus), EnumIssueStatus.Rejected);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
             _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);

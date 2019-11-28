@@ -4,6 +4,7 @@
 
 @{
     ViewBag.Title = "Ticket";
+    var rowNo = 1;
 }
 
 <!-- Content area -->
@@ -20,7 +21,7 @@
             </div>
         </div>
         <hr class="hr-mar-reduce" />
-        @using (Html.BeginForm("Add", "Issue", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ticketCreateForm", @class = "form-horizontal" }))
+        @using (Html.BeginForm("Edit", "Issue", FormMethod.Post, new { enctype = "multipart/form-data", @id = "ticketCreateForm", @class = "form-horizontal" }))
         {
             @Html.AntiForgeryToken()
             @Html.ValidationSummary(true);
@@ -43,14 +44,38 @@
                             </div>
                         </div>
                         <div class="form-group row">
-                            @*<label class="col-form-label col-lg-3">Attachments</label>*@
                             <div class="col-lg-12">
                                 @{Html.RenderPartial("~/Views/Shared/_AttachmentFilePartial.cshtml");}
+                                <table class="table table-bordered table-striped table-condensed">
+                                    @if (Model.AttachmentFileCollection.Any())
+                                    {
+                                        foreach (var item in Model.AttachmentFileCollection)
+                                        {
+                                            <tr>
+                                                <td class="serial">
+                                                    @(rowNo++)
+                                                </td>
+                                                <td>
+                                                    <a class="title" target="_blank" href='@Url.Content(String.Format("~{0}", item.FileLocation))'>
+                                                        <img height="25" src="@Url.Content(String.Format("~{0}", FileExtension.GetFileExtensionThumbnail(item.FileExtension)))" />  @item.OriginalName
+                                                    </a>
+                                                </td>
+                                                <td width="3%">
+                                                    <span onclick="removeAttachmentFile('@item.Id',this)" class="btn btn-sm text-danger"><i class="fa fa-times-circle"></i></span>
+                                                </td>
+                                            </tr>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <tr>
+                                            <td colspan="3" class="text-muted">No files found</td>
+                                        </tr>
+                                    }
+                                </table>
                             </div>
                         </div>
                     </div>
-
-
                     <div class="col-md-4">
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.ProjectId)</label>
@@ -77,7 +102,7 @@
                         </div>
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Priority)</label>
-                            <div class="col-md-6">
+                            <div class="col-md-9">
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         @Html.EditorFor(model => model.Priority, new { @type = "checkbox", @class = "form-check-input-styled input-sm", @Value = false })
@@ -86,8 +111,13 @@
                                 </div>
                             </div>
                         </div>
+                        <div class="form-group row cust-details-row">
+                            <label class="col-md-3">@Html.DisplayNameFor(model => model.Status)</label>
+                            <div class="col-md-9">
+                                <label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), Model.Status)</label>
+                            </div>
+                        </div>
                     </div>
-
                 </div>
             </div>
 
@@ -107,11 +137,27 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ckeditor")
-
-    <script src="~/Scripts/select2.min.js"></script>
-
     <script type="text/javascript">
-        $(".select2").select2();
+
+        function removeAttachmentFile(fileId, obj) {
+            var confirmAns = confirm('Are you sure to remove this file?');
+            if (confirmAns == true) {
+                var id = fileId;
+                console.log(id);
+                var paramdata = { id: id };
+                var url = '@Url.Action("RemoveAttachmentFileById", "Issue")';
+                $.ajax({
+                    url: url,
+                    type: "POST",
+                    data: JSON.stringify(paramdata),
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    success: function (data) {
+                        $(obj).parent('td').parent('tr').remove();
+                    }
+                });
+            }
+        }
 
         $(document).ready(function () {
             CKEDITOR.replace('Description', {
