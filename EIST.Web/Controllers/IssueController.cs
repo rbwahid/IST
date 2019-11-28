@@ -105,14 +105,14 @@ namespace EIST.Web.Controllers
             return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
         }
         #endregion
-        #region Approve
+        #region Issue Approve
         public ActionResult Approve(WorkflowProcessModel workflowProcess)
         {
             new IssueModel().Approve(workflowProcess);
             return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
         }
         #endregion
-        #region Disapprove
+        #region Issue Disapprove
         public ActionResult Disapprove(WorkflowProcessModel workflowProcess)
         {
             new IssueModel().Disapprove(workflowProcess);
@@ -120,6 +120,20 @@ namespace EIST.Web.Controllers
         }
         #endregion
 
+        #region Ticket Approve
+        public ActionResult ApproveTicket(WorkflowProcessModel workflowProcess)
+        {
+            new TicketAssignModel().Approve(workflowProcess);
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
+        }
+        #endregion
+        #region Ticket Disapprove
+        public ActionResult DisapproveTicket(WorkflowProcessModel workflowProcess)
+        {
+            new TicketAssignModel().Disapprove(workflowProcess);
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
+        }
+        #endregion
         public ActionResult TicketAssign(TicketAssignSelectedModel model)
         {
             new IssueModel().TicketAssign(model);
