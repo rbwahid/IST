@@ -80,6 +80,9 @@ namespace EIST.Web.Models
         {
             return _userService.GetAllActions();
         }
-
+        public bool CheckCustomerTypeUser(int loginUserId)
+        {
+            return _userService.CheckCustomerTypeUser(loginUserId);
+        }
     }
 }

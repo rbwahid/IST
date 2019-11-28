@@ -18,7 +18,7 @@ namespace EIST.Web.Models
         public int[] SelectedId { get; set; }
         public List<User> SelectedValueList { get; set; }
         public int IssueId { get; set; }
-        public string Description { get; set; }
+        public string TicketDescription { get; set; }
     }
     public class IssueModel : Issue
     {
@@ -101,6 +101,28 @@ namespace EIST.Web.Models
             }
 
         }
+
+        public void TicketAssign(TicketAssignSelectedModel model)
+        {
+            // Multiple User Select (Ticket Assign) //
+            List<TicketAssign> ticketAssignList = new List<TicketAssign>();
+            if (model.SelectedId != null)
+            {
+                foreach (var assignSelectedId in model.SelectedId)
+                {
+                    var ticketAssign = new TicketAssign();
+                    ticketAssign.IssueId = model.IssueId;
+                    ticketAssign.AssigneeId = assignSelectedId;
+                    ticketAssign.Description = model.TicketDescription;
+                    ticketAssign.Status = (byte)EnumTicketAssignStatus.Pending;
+
+                    ticketAssignList.Add(ticketAssign);
+                }
+                base.TicketAssignCollection = ticketAssignList;
+                _ticketService.TicketAssign(model.IssueId, base.TicketAssignCollection);
+            }
+        }
+
         public IEnumerable<Issue> GetAllTicket()
         {
             return _ticketService.GetAllTicket();

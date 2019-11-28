@@ -130,5 +130,15 @@ namespace EIST.Service
                 _ticketUnitOfWork.Save();
             }
         }
+
+        public void TicketAssign(int issueId, ICollection<TicketAssign> ticketAssignCollection)
+        {
+            var IssueEntity = GetTicketById(issueId);
+            if (IssueEntity != null)
+            {
+                IssueEntity.TicketAssignCollection = ticketAssignCollection;
+                _ticketUnitOfWork.Save();
+            }
+        }
     }
 }

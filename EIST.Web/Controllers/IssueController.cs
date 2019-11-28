@@ -120,11 +120,10 @@ namespace EIST.Web.Controllers
         }
         #endregion
 
-        public ActionResult TicketAssign(int id)
+        public ActionResult TicketAssign(TicketAssignSelectedModel model)
         {
-            var model = new TicketAssignModel();
-            model.IssueId = id;
-            return PartialView("_TicketAssign", model);
+            new IssueModel().TicketAssign(model);
+            return RedirectToAction("Details", "Issue", new { id = model.IssueId });
         }
     }
 }

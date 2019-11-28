@@ -7,6 +7,7 @@
     int rowNo = 1;
     int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
     bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
+    bool IsCustomerTypeUser = new UserModel().CheckCustomerTypeUser(authenticatedUserId);
     var workflowItem = new WorkflowModel();
     var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, Enum.GetName(typeof(EnumWorkflowFormStatus), EnumWorkflowFormStatus.Issue)).ToList();
     if (workflowList.Any())
@@ -23,16 +24,6 @@
         workflowItem = null;
     }
 }
-
-<style>
-    /*.cust-details-row {
-        margin: 2px;
-    }*/
-
-    /*.cust-details-row label {
-            font-weight: bold;
-        }*/
-</style>
 
 <!-- Content area -->
 <div class="content">
@@ -126,6 +117,7 @@
                             @Html.DisplayFor(model => model.IssueLabel.LabelTitle)
                         </div>
                     </div>
+
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.Milestone)</label>
                         <div class="col-md-7">
@@ -139,7 +131,7 @@
                         </div>
                     </div>
                     <div class="form-group row cust-details-row">
-                        <label class="col-md-3">@Html.DisplayNameFor(model => model.Status)</label>
+                        <label class="col-md-3">@Html.DisplayName("Issue Status")</label>
                         <div class="col-md-7">
                             <label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), Model.Status)</label>
                         </div>
@@ -154,7 +146,7 @@
                                 <div class="card-body">
                                     @using (Html.BeginForm("Approve", null, FormMethod.Post, new { @class = "approvalForm" }))
                                     {
-                                        
+
                                         @Html.Hidden("RecordId", Model.Id)
                                         @Html.Hidden("ApprovalId", authenticatedUserId)
                                         <div class="row">
@@ -162,9 +154,8 @@
                                                 <div class="form-group row">
                                                     <label class="col-md-3">@Html.DisplayName("Remarks")</label>
                                                     <div class="col-md-9">
-                                                        @Html.TextArea("ApprovalRemarks", new { @class = "form-control", @placeholder = "Remarks", @required = "required" })
+                                                        @Html.TextArea("ApprovalRemarks", workflowItem != null ? workflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
                                                     </div>
-                                                    @*<textarea rows="4" cols="4" class="form-control elastic" placeholder="Textarea" style="overflow: hidden; overflow-wrap: break-word; resize: none; height: 96px;"></textarea>*@
                                                 </div>
                                                 <div class="pull-right" style="float: right;">
                                                     <button type="submit" formaction="@Url.Action("Disapprove", "Issue")" class="btn btn-sm btn-danger pull-right">Rejected</button>
@@ -211,9 +202,79 @@
                             </div>
                         </div>
                     }
+                    @if (!IsCustomerTypeUser)
+                    {
+                        if (IsRoleUser && Model.Status == (byte)EnumIssueStatus.Accepted && !Model.TicketAssignCollection.Any())
+                        {
+                            using (Html.BeginForm("TicketAssign", null, FormMethod.Post, new { @class = "ticketAssignForm" }))
+                            {
+                                @Html.Hidden("IssueId", Model.Id)
+                                @Html.Hidden("ApprovalId", authenticatedUserId)
+                                <div class="form-group row cust-details-row">
+                                    <label class="col-lg-3">@Html.DisplayName("Assignee")</label>
+                                    <div class="col-lg-9">
+                                        @Html.DropDownList("SelectedId", new SelectList(Model.UserList, "Id", "UserName"), new { @class = "form-control input-sm select2", @multiple = "multiple", @required = "required" })
+                                        @Html.ValidationMessageFor(model => model.TicketAssignSelectedModel.SelectedId)
+                                    </div>
+                                </div>
+                                <div class="form-group row cust-details-row">
+                                    <label class="col-lg-3">@Html.DisplayName("Description")</label>
+                                    <div class="col-lg-9">
+                                        @Html.TextArea("TicketDescription", null, new { @class = "form-control", @placeholder = "Ticket Description" })
+                                        @Html.ValidationMessageFor(model => model.TicketAssignSelectedModel.TicketDescription)
+                                    </div>
+                                </div>
+                                <div class="pull-right" style="float: right;">
+                                    <button type="submit" class="btn btn-sm btn-success pull-right">Save</button>
+                                </div>
+                            }
+                        }
+                        else
+                        {
+                            if (Model.TicketAssignCollection.Any())
+                            {
+                                int num = 1;
+                                <div class="form-group row cust-details-row">
+                                    <label class="col-lg-3">@Html.DisplayName("Developer")</label>
+                                    <div class="col-md-9">
+                                        @foreach (var item in Model.TicketAssignCollection)
+                                        {
+                                            <span>@num.&nbsp; @Html.DisplayFor(model => item.Assignee.UserName)</span>
+                                            num++;
+                                        }
+                                    </div>
+                                </div>
+
+                                <div class="form-group row cust-details-row">
+                                    <label class="col-lg-3">@Html.DisplayName("Description")</label>
+                                    <div class="col-md-9">
+                                        @Html.DisplayFor(model => model.TicketAssignCollection.FirstOrDefault().Description)
+                                    </div>
+                                </div>
+                                <div class="form-group row cust-details-row">
+                                    <label class="col-lg-3">@Html.DisplayName("Ticket Status")</label>
+                                    <div class="col-md-9">
+                                        <label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), Model.TicketAssignCollection.FirstOrDefault().Status)</label>
+                                    </div>
+                                </div>
+                            }
+                        }
+                    }
+
                 </div>
             </div>
         </div>
     </div>
 </div>
 <!-- /content area -->
+
+@section scripts{
+    @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/ckeditor")
+    <script src="~/Scripts/select2.min.js"></script>
+
+    <script type="text/javascript">
+        $(".select2").select2();
+    </script>
+
+}

@@ -176,6 +176,10 @@ namespace EIST.Services
         {
             return _userUnitOfWork.UserRepository.CheckUserRole(userId, roleName);
         }
+        public bool CheckCustomerTypeUser(int loginUserId)
+        {
+            return _userUnitOfWork.UserRepository.CheckCustomerTypeUser(loginUserId);
+        }
         public bool CheckUsernameIsValid(string username)
         {
             return _userUnitOfWork.UserRepository.CheckUsernameIsValid(username);

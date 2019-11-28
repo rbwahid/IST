@@ -32,6 +32,10 @@ namespace EIST.Repository
         {
             return _context.Users.Any(u => u.Id == userId && u.UserRole.RoleName == roleName && !u.IsDeleted);
         }
+        public bool CheckCustomerTypeUser(int loginUserId)
+        {
+            return _context.Users.Any(u => u.Id == loginUserId && u.UserType == EnumUserType.Customer.ToString() && !u.IsDeleted);
+        }
         public bool CheckUsernameIsValid(string username)
         {
             return _context.Users.Any(u => u.UserName.ToUpper() == username.ToUpper() && !u.IsDeleted);
