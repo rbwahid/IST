@@ -22,7 +22,7 @@ namespace EIST.Web.Models
     }
     public class IssueModel : Issue
     {
-        private string formName = "Ticket";
+        private string formName = "Issue";
         private IssueService _ticketService;
         private AttachmentFileService _attachmentFileService;
         private ProjectService _companyProjectService;
@@ -111,7 +111,7 @@ namespace EIST.Web.Models
         }
         public int AddTicket()
         {
-            base.Status = (byte)EnumTicketStatus.Pending;
+            base.Status = (byte)EnumIssueStatus.Pending;
             base.CreatedAt = DateTime.Now;
             base.CreatedBy = authenticatedUserId;
 
@@ -154,8 +154,9 @@ namespace EIST.Web.Models
         }
         public int EditTicket()
         {
+            base.Status = (byte)EnumIssueStatus.Pending;
             base.UpdatedAt = DateTime.Now;
-            base.UpdatedBy = AuthenticatedUser.GetUserFromIdentity().UserId;
+            base.UpdatedBy = authenticatedUserId;
 
             int ticketId = _ticketService.EditTicket(this);
             // Attachment File //
@@ -194,8 +195,8 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Accepted;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Accepted);
+            workflowModel.Status = (byte)EnumIssueStatus.Accepted;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumIssueStatus), EnumIssueStatus.Accepted);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
             _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);
@@ -206,8 +207,8 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Rejected;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketStatus), EnumTicketStatus.Rejected);
+            workflowModel.Status = (byte)EnumIssueStatus.Rejected;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumIssueStatus), EnumIssueStatus.Rejected);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
             _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);

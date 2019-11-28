@@ -108,7 +108,7 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Accepted;
+            workflowModel.Status = (byte)EnumIssueStatus.Accepted;
             workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Accepted);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
@@ -120,7 +120,7 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumTicketStatus.Withhold;
+            workflowModel.Status = (byte)EnumIssueStatus.Withhold;
             workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Withhold);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
