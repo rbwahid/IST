@@ -53,13 +53,12 @@ namespace EIST.Service
 
         public int GetAssignTicketCount()
         {
-            return _ticketAssignUnitOfWork.TicketAssignRepository.GetCount(x => x.IssueId != null && x.Status == (byte)EnumIssueStatus.Accepted);
+          return  _ticketAssignUnitOfWork.TicketAssignRepository.GetCount(x=>x.IssueId!=null && x.Status==(byte) EnumIssueStatus.Accepted);
         }
         public int GetUnAssignTicketCount()
         {
             return _ticketAssignUnitOfWork.TicketAssignRepository.GetCount(x => x.IssueId == null && x.Status == (byte)EnumIssueStatus.Pending);
         }
-
         public int GetTicketCount()
         {
             return _ticketAssignUnitOfWork.TicketAssignRepository.GetCount();

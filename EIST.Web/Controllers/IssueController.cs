@@ -1,11 +1,13 @@
 ﻿using EIST.Common;
 using EIST.Web;
 using EIST.Web.Models;
+using PagedList;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+
 
 namespace EIST.Web.Controllers
 {
@@ -14,9 +16,10 @@ namespace EIST.Web.Controllers
     [Roles("Issue_Configuration", "Global_SupAdmin")]
     public class IssueController : Controller
     {
-        public ActionResult Index()
+        public ActionResult Index(IssueSearchModel model)
         {
-            return View(new IssueModel().GetAllTicket());
+            model.IssuePagedList = new IssueModel().GetAllTicketPagedList(model).ToPagedList(model.SPage, model.SPageSize);
+            return View(model);
         }
 
         [Roles("Issue_Configuration", "Global_SupAdmin")]

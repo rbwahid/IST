@@ -68,5 +68,19 @@ namespace EIST.Service
         {
             _issuelabelUnitOfWork.Dispose();
         }
+
+        public List<Issue> GetAllTicketPagedList(string sDateFrom, string sDateTo, string Scode, string SissueTitle, int? SprojectId)
+        {
+            var fromDate = string.IsNullOrEmpty(sDateFrom) ? DateTime.Now.Date : Convert.ToDateTime(sDateFrom);
+            var toDate = (string.IsNullOrEmpty(sDateTo) ? DateTime.Now : Convert.ToDateTime(sDateTo)).AddDays(1);
+
+           var allData= _context.Issues.Where(x => (fromDate == null || x.CreatedAt >= fromDate) &&
+            (toDate == null || x.CreatedAt < toDate) &&
+            (Scode == null || x.Code.Contains(Scode)) &&
+            (SissueTitle== null || x.IssueTitle== SissueTitle)&&
+            (SprojectId==null || x.ProjectId==SprojectId)
+            ).ToList();
+            return allData;
+        }
     }
 }

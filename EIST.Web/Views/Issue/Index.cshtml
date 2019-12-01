@@ -1,14 +1,20 @@
 ﻿@using EIST.Common
 @using System.Collections
+@using PagedList.Mvc
 @using EIST.Web.Models
-@model IEnumerable<EIST.Entities.Issue>
+@model EIST.Web.Models.IssueSearchModel
 
 @{
-    ViewBag.Title = "Ticket";
-    var sl = 1;
+    ViewBag.Title = "Issue";
+    var sl = Model.SPage == 1 ? 1 : (Model.SPage - 1) * (Model.SPageSize + 1);
     var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
     bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
+
+
+    
 }
+
+@Styles.Render("~/Content/PagedList.css")
 
 <div class="content">
     <div class="card border-teal">
@@ -24,30 +30,102 @@
         <div class="card-body">
             <div class="row">
                 <div class="col-md-12">
+                    <!-- Search Panel -->
+                    <div class="panel panel-success">
+                        <div class="panel-body">
+                            @using (Html.BeginForm("Index", "Issue", FormMethod.Post, new { @class = "form-horizontal", @id = "LoanEntrySearchForm" }))
+                            {
+                                <div class="row">
+                                    <div class="col-md-5">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.SDateFrom)</label>
+                                            <div class="col-lg-9 row">
+                                                <div class="col-lg-6">
+                                                    <div class="input-group">
+                                                        @Html.TextBoxFor(model => model.SDateFrom, null, new { @class = "form-control input-xs single-date", autocomplete = "off" })
+                                                        <span class="input-group-prepend single-date-icon">
+                                                            <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                                @*<i class="fa fa-minus fa-fw"></i>*@
+                                                <div class="col-lg-6">
+                                                    <div class="input-group ">
+                                                        @Html.TextBoxFor(model => model.SDateTo, null, new { @class = "form-control input-xs single-date", autocomplete = "off" })
+                                                        <span class="input-group-prepend single-date-icon">
+                                                            <span class="input-group-text"><i class="icon-calendar22"></i></span>
+                                                        </span>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.SCode)</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(model => model.SCode, new { @class = "form-control " })
+                                                @Html.ValidationMessageFor(model => model.SCode)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-5">
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.SProjectId)</label>
+                                            <div class="col-lg-8">
+                                                @Html.DropDownListFor(model => model.SProjectId, Model.ProjectList, "All..", new { @class = "form-control" })
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.SIssueTitle)</label>
+                                            <div class="col-lg-8">
+                                                @Html.TextBoxFor(model => model.SIssueTitle, new { @class = "form-control " })
+                                                @Html.ValidationMessageFor(model => model.SIssueTitle)
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-1">
+                                        <button type="submit" class="btn bg-teal-400 btn-labeled btn-labeled-right rounded-round">Search<b><i class="icon-search4"></i></b></button>
+                                    </div>
+                                </div>
+                            }
+                        </div>
+                    </div>
+                    <!-- /Search Panel -->
                     <div class="table-responsive">
                         <table class="table table-xs table-bordered table-striped table-condensed">
                             <thead>
                                 <tr>
-                                    <th class="serial">#</th>
-                                    <th>@Html.DisplayNameFor(model => model.Code)</th>
-                                    <th>@Html.DisplayNameFor(model => model.ProjectId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.IssueTitle)</th>
-                                    <th>@Html.DisplayNameFor(model => model.LabelId)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Milestone)</th>
-
-                                    <th>@Html.DisplayNameFor(model => model.Priority)</th>
-                                    <th>@Html.DisplayNameFor(model => model.Status)</th>
+                                    <th>#SL</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().Code)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().ProjectId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().IssueTitle)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().LabelId)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().Milestone)</th>
+                                    <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().Priority)</th>
+                                    <th>Issue Status</th>
+                                    <th>Ticket Assigned</th>
+                                    <th>Ticket Status</th>
                                     <th></th>
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach (var item in Model)
+                                @foreach (var item in Model.IssuePagedList)
                                 {
+                                    string strTicketAssigned = "";
+                                    byte ticketStatus = 1;
+                                    if (item.TicketAssignCollection.Any())
+                                    {
+                                        foreach (var ticketItem in item.TicketAssignCollection)
+                                        {
+                                            strTicketAssigned += ticketItem.Assignee.UserName + ", ";
+                                            ticketStatus = ticketItem.Status;
+                                        }
+                                        strTicketAssigned = strTicketAssigned.Trim(',', ' ');
+                                    }
+
                                     <tr>
                                         <td class="serial">@(sl++)</td>
                                         <td>
                                             <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Issue Details" class="list-icons-item text-info-600">@Html.DisplayFor(modelItem => item.Code)</a>
-
                                         </td>
                                         <td>@Html.DisplayFor(modelItem => item.Project.Name)</td>
                                         <td>@Html.DisplayFor(modelItem => item.IssueTitle)</td>
@@ -55,6 +133,8 @@
                                         <td>@Html.DisplayFor(modelItem => item.Milestone)</td>
                                         <td>@(item.Priority ? "Yes" : "No")</td>
                                         <td><label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), item.Status)</label></td>
+                                        <td>@(strTicketAssigned)</td>
+                                        <td><label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), ticketStatus)</label></td>
                                         <td>
                                             <div class="list-icons">
                                                 @if ((item.Status == (byte)EnumIssueStatus.Pending || item.Status == (byte)EnumIssueStatus.Rejected) && item.CreatedBy == authenticatedUserId)
@@ -66,7 +146,7 @@
                                                 else
                                                 {
                                                     <a href="@Url.Action("Details","Issue", new { id = item.Id })" target="_blank" title="Ticket Details" class="list-icons-item text-info-600"><i class="icon-eye"></i></a>
-                                                    
+
                                                 }
                                             </div>
                                         </td>
@@ -77,6 +157,10 @@
                     </div>
                 </div>
             </div>
+        </div>
+        <div class="card-footer pull-right">
+            Page @(Model.IssuePagedList.PageCount < Model.IssuePagedList.PageNumber ? 0 : Model.IssuePagedList.PageNumber) of @Model.IssuePagedList.PageCount
+            @Html.PagedListPager(Model.IssuePagedList, SPage => Url.Action("Index", "Issue", new RouteValueDictionary() { { "SPage", SPage }, { "SPageSize", Model.SPageSize }, { "SDateFrom", Model.SDateFrom }, { "SDateTo", Model.SDateTo }, { "SCode", Model.SCode }, { "SIssueTitle", Model.SIssueTitle }, { "SProjectId", Model.SProjectId } }))
         </div>
     </div>
 </div>
@@ -98,6 +182,8 @@
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/select2")
     @Scripts.Render("~/bundles/ajax-call")
+    @Scripts.Render("~/bundles/daterange-picker")
+
     <script>
         function delete_Data(id) {
             var url = '@Url.Action("Delete", "Issue")';

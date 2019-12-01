@@ -251,5 +251,10 @@ namespace EIST.Web.Models
         {
             _ticketService.Dispose();
         }
+
+        public List<Issue> GetAllTicketPagedList(IssueSearchModel model)
+        {
+           return _issueLabelService.GetAllTicketPagedList(model.SDateFrom,model.SDateTo,model.SCode,model.SIssueTitle,model.SProjectId);
+        }
     }
 }

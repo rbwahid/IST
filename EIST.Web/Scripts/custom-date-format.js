@@ -1,5 +1,4 @@
-﻿
-$('.daterange-singledate').daterangepicker({
+﻿$('.single-date').daterangepicker({
     singleDatePicker: true,
     autoUpdateInput: false,
     showDropdowns: true,
@@ -10,14 +9,19 @@ $('.daterange-singledate').daterangepicker({
     }
 });
 
-$('.daterange-singledate').on('apply.daterangepicker', function (ev, picker) {
+$('.single-date').on('apply.daterangepicker', function (ev, picker) {
     $(this).val(picker.startDate.format('DD-MMM-YYYY'));
 });
 
-$('.daterange-singledate').on('cancel.daterangepicker', function (ev, picker) {
+$('.single-date').on('cancel.daterangepicker', function (ev, picker) {
     $(this).val('');
 });
 
-$(document).on("click", ".daterange-singledate-icon", function () {
-    $(this).parent().find('.daterange-singledate').focus();
+$(document).on("click", ".single-date-icon", function () {
+
+    $(this).parent().find('.single-date').focus();
 });
+//$(document).on("click", ".myTimepickerIcon", function () {
+
+//    $(this).parent().find('.timepicker').focus();
+//});
