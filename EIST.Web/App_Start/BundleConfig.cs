@@ -116,6 +116,9 @@ namespace EIST.Web
             // Common Script---
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                       "~/Scripts/common.js"));
+            // Theme Checkbox Radio //
+            bundles.Add(new ScriptBundle("~/bundles/theme-check-radio").Include(
+                "~/Plugins/global_assets/js/demo_pages/form_checkboxes_radios.js"));
         }
     }
 }

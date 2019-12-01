@@ -103,7 +103,6 @@ namespace EIST.Service
             }
             return IssueEntry.Id;
         }
-
         public void DeleteTicket(int id, string currUserId)
         {
             _ticketUnitOfWork.TicketRepository.Disable(id);

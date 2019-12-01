@@ -235,6 +235,18 @@ namespace EIST.Web.Models
             _workflowService.AddWorkflow(workflowModel);
             _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);
         }
+        public void Withhold(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumIssueStatus.Withheld;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumIssueStatus), EnumIssueStatus.Withheld);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketService.UpdateTicketStatus(workflowModel.RecordId, workflowModel.Status);
+        }
         public void Dispose()
         {
             _ticketService.Dispose();

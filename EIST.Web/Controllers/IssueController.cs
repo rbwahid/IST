@@ -32,7 +32,7 @@ namespace EIST.Web.Controllers
             if (ModelState.IsValid)
             {
                 model.AddTicket();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details","Issue",new { id=model.Id});
             }
             return View(model);
         }
@@ -63,7 +63,7 @@ namespace EIST.Web.Controllers
             if (ModelState.IsValid)
             {
                 model.EditTicket();
-                return RedirectToAction("Index");
+                return RedirectToAction("Details", "Issue", new { id = model.Id });
             }
             return View(model);
         }
@@ -119,7 +119,13 @@ namespace EIST.Web.Controllers
             return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
         }
         #endregion
-
+        #region Issue Withhold
+        public ActionResult Withhold(WorkflowProcessModel workflowProcess)
+        {
+            new IssueModel().Withhold(workflowProcess);
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
+        }
+        #endregion
         #region Ticket Approve
         public ActionResult ApproveTicket(WorkflowProcessModel workflowProcess)
         {
@@ -131,6 +137,20 @@ namespace EIST.Web.Controllers
         public ActionResult DisapproveTicket(WorkflowProcessModel workflowProcess)
         {
             new TicketAssignModel().Disapprove(workflowProcess);
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
+        }
+        #endregion
+        #region Ticket Delegate
+        public ActionResult DelegateTicket(WorkflowProcessModel workflowProcess)
+        {
+            new TicketAssignModel().Delegate(workflowProcess);
+            return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
+        }
+        #endregion
+        #region Ticket Complete
+        public ActionResult CompleteTicket(WorkflowProcessModel workflowProcess)
+        {
+            new TicketAssignModel().Complete(workflowProcess);
             return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
         }
         #endregion

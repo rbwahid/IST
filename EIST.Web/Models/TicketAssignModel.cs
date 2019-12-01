@@ -98,11 +98,11 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumIssueStatus.Accepted;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Accepted);
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Started;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Started);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
-            //_ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
         }
         public void Disapprove(WorkflowProcessModel workflowProcess)
         {
@@ -110,11 +110,35 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumIssueStatus.Rejected;
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Rejected;
             workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Rejected);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
-            //_ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+        }
+        public void Delegate(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Delegated;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Delegated);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+        }
+        public void Complete(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Completed;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Completed);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
         }
         public void Dispose()
         {

@@ -78,6 +78,11 @@
                         <div class="form-group row">
                             <label class="col-form-label col-lg-3">@Html.DisplayNameFor(model => model.Priority)</label>
                             <div class="col-md-6">
+                                @*<div class="form-check">
+                                    <label class="form-check-label">
+                                        @Html.CheckBoxFor(model => model.Priority, new { @class = "form-check-input-styled" })
+                                    </label>
+                                </div>*@
                                 <div class="form-check form-check-inline">
                                     <label class="form-check-label">
                                         @Html.EditorFor(model => model.Priority, new { @type = "checkbox", @class = "form-check-input-styled input-sm", @Value = false })
@@ -87,10 +92,8 @@
                             </div>
                         </div>
                     </div>
-
                 </div>
             </div>
-
 
             <div class="card-footer">
                 <div class="d-flex justify-content-between">
@@ -106,6 +109,7 @@
 
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
+    @Scripts.Render("~/bundles/theme-check-radio")
     @Scripts.Render("~/bundles/ckeditor")
 
     <script src="~/Scripts/select2.min.js"></script>

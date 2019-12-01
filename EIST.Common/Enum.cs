@@ -25,7 +25,7 @@ namespace EIST.Common
     {
         Rejected = 0,
         Pending = 1,
-        Withhold = 2,
+        Withheld = 2,
         Accepted = 3,
         In_Progress = 4,
         Completed = 5,
@@ -34,8 +34,8 @@ namespace EIST.Common
     {
         Rejected = 0,
         Pending = 1,
-        Accepted = 2,
-        In_Progress = 3,
+        Delegated = 2,
+        Started = 3,
         Completed = 4,
     }
     public enum EnumWorkflowFormStatus
