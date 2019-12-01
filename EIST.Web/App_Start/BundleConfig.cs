@@ -116,6 +116,7 @@ namespace EIST.Web
             // Common Script---
             bundles.Add(new ScriptBundle("~/bundles/common").Include(
                       "~/Scripts/common.js"));
+           
         }
     }
 }

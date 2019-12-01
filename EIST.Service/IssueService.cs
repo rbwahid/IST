@@ -60,7 +60,7 @@ namespace EIST.Service
 
         public int GetAvtiveIssueCount()
         {
-            return _ticketUnitOfWork.TicketRepository.GetCount(x => x.IsDeleted == false && x.IsClosed == false && x.Status == (byte)EnumTicketStatus .Accepted);
+            return _ticketUnitOfWork.TicketRepository.GetCount(x => x.IsDeleted == false && x.IsClosed == false && x.Status == (byte)EnumIssueStatus.Accepted);
         }
         public int GetCloseIssueCount()
         {
