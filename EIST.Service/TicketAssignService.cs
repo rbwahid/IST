@@ -13,11 +13,12 @@ namespace EIST.Service
     {
         private EISTDbContext _context;
         private TicketAssignUnitOfWork _ticketAssignUnitOfWork;
-
+        private IssueService _issueService;
         public TicketAssignService()
         {
             _context = new EISTDbContext();
             _ticketAssignUnitOfWork = new TicketAssignUnitOfWork(_context);
+            _issueService = new IssueService();
         }
 
         public IEnumerable<TicketAssign> GetAllTicketAssigns()
@@ -56,12 +57,11 @@ namespace EIST.Service
         }
         public int GetUnAssignTicketCount()
         {
-          return  _ticketAssignUnitOfWork.TicketAssignRepository.GetCount(x=>x.IssueId== null && x.Status == (byte)EnumIssueStatus.Pending);
+            return _ticketAssignUnitOfWork.TicketAssignRepository.GetCount(x => x.IssueId == null && x.Status == (byte)EnumIssueStatus.Pending);
         }
-
         public int GetTicketCount()
         {
-           return _ticketAssignUnitOfWork.TicketAssignRepository.GetCount();
+            return _ticketAssignUnitOfWork.TicketAssignRepository.GetCount();
         }
 
         public int EditTicketAssign(TicketAssign ticketAssign)
@@ -89,13 +89,25 @@ namespace EIST.Service
         }
         public void UpdateTicketAssignStatus(int recordId, byte status)
         {
-            var model = GetTicketAssignById(recordId);
+            var model = GetTicketByIssueId(recordId);
             if (model != null)
             {
                 model.Status = status;
                 //model.ApprovedDate = DateTime.Now;
                 _ticketAssignUnitOfWork.Save();
+                if (status == (byte)EnumTicketAssignStatus.Started)
+                {
+                    _issueService.UpdateTicketStatus(recordId, (byte)EnumIssueStatus.In_Progress);
+                }
+                else if (status == (byte)EnumTicketAssignStatus.Completed)
+                {
+                    _issueService.UpdateTicketStatus(recordId, (byte)EnumIssueStatus.Completed);
+                }
             }
+        }
+        public TicketAssign GetTicketByIssueId(int issueId)
+        {
+            return _ticketAssignUnitOfWork.TicketAssignRepository.GetTicketByIssueId(issueId);
         }
         public void Dispose()
         {

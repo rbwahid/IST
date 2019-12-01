@@ -12,16 +12,9 @@ using System.Web.Mvc;
 
 namespace EIST.Web.Models
 {
-    //[NotMapped]
-    //public class UserSelectList
-    //{
-    //    public int[] SelectedId { get; set; }
-    //    public List<User> SelectedValueList { get; set; }
-    //}
     public class TicketAssignModel : TicketAssign
     {
         private string formName = "TicketAssign";
-        //public UserSelectList UserSelectList { get; set; }
         private TicketAssignService _ticketAssignService;
         public UserService _userService;
         public IssueService _ticketService;
@@ -41,9 +34,6 @@ namespace EIST.Web.Models
             ticketList = _ticketService.GetAllTicket();
             userList = _userService.GetAllDeveloperRoleUser();
             companyProjectList = _companyProjectService.GetAllCompanyProjects();
-
-            //UserSelectList = new UserSelectList();
-            //UserSelectList.SelectedValueList = _userService.GetAllDeveloperRoleUser().ToList();
         }
 
         public TicketAssignModel(int id) : this()
@@ -108,8 +98,8 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumIssueStatus.Accepted;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Accepted);
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Started;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Started);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
             _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
@@ -120,8 +110,32 @@ namespace EIST.Web.Models
             workflowModel.FormName = formName;
             workflowModel.RecordId = workflowProcess.RecordId;
             workflowModel.ApproverId = workflowProcess.ApprovalId;
-            workflowModel.Status = (byte)EnumIssueStatus.Withhold;
-            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Withhold);
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Rejected;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Rejected);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+        }
+        public void Delegate(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Delegated;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Delegated);
+            workflowModel.Remarks = workflowProcess.ApprovalRemarks;
+            _workflowService.AddWorkflow(workflowModel);
+            _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);
+        }
+        public void Complete(WorkflowProcessModel workflowProcess)
+        {
+            var workflowModel = new WorkflowModel();
+            workflowModel.FormName = formName;
+            workflowModel.RecordId = workflowProcess.RecordId;
+            workflowModel.ApproverId = workflowProcess.ApprovalId;
+            workflowModel.Status = (byte)EnumTicketAssignStatus.Completed;
+            workflowModel.ApprovalStatus = Enum.GetName(typeof(EnumTicketAssignStatus), EnumTicketAssignStatus.Completed);
             workflowModel.Remarks = workflowProcess.ApprovalRemarks;
             _workflowService.AddWorkflow(workflowModel);
             _ticketAssignService.UpdateTicketAssignStatus(workflowModel.RecordId, workflowModel.Status);

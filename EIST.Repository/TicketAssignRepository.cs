@@ -15,5 +15,9 @@ namespace EIST.Repository
         {
             _context = context;
         }
+        public TicketAssign GetTicketByIssueId(int issueId)
+        {
+            return _context.TicketAssigns.FirstOrDefault(x => x.IssueId == issueId);
+        }
     }
 }

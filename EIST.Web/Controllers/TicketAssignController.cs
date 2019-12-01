@@ -56,7 +56,7 @@ namespace EIST.Web.Controllers
         {
             var model = new TicketAssignModel(id);
             var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-            if ((model.Status == (byte)EnumTicketAssignStatus.Pending || model.Status == (byte)EnumTicketAssignStatus.Withhold) && model.CreatedBy == authenticatedUserId)
+            if ((model.Status == (byte)EnumTicketAssignStatus.Pending) && model.CreatedBy == authenticatedUserId)
             {
                 return View("Edit", model);
             }
