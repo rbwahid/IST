@@ -6,8 +6,11 @@
     ViewBag.Title = "Details";
     int rowNo = 1;
     int authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
-    bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
+    bool IsUserRoleManager = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
     bool IsCustomerTypeUser = new UserModel().CheckCustomerTypeUser(authenticatedUserId);
+    bool IsUserRoleDeveloper = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Developer));
+
+    // Issue //
     var workflowItem = new WorkflowModel();
     var workflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, Enum.GetName(typeof(EnumWorkflowFormStatus), EnumWorkflowFormStatus.Issue)).ToList();
     if (workflowList.Any())
@@ -23,6 +26,22 @@
     {
         workflowItem = null;
     }
+    // Ticket Assign //
+    var ticketAssignWorkflowItem = new WorkflowModel();
+    var ticketAssignWorkflowList = new WorkflowModel().GetWorkflowsByRecordId(Model.Id, Enum.GetName(typeof(EnumWorkflowFormStatus), EnumWorkflowFormStatus.TicketAssign)).ToList();
+    if (ticketAssignWorkflowList.Any())
+    {
+        foreach (var item in ticketAssignWorkflowList)
+        {
+            ticketAssignWorkflowItem.Approver = item.Approver;
+            ticketAssignWorkflowItem.ApprovalStatus = item.ApprovalStatus;
+            ticketAssignWorkflowItem.Remarks = item.Remarks;
+        }
+    }
+    else
+    {
+        ticketAssignWorkflowItem = null;
+    }
 }
 
 <!-- Content area -->
@@ -34,7 +53,7 @@
             <h5 class="card-title"><strong>Issue</strong></h5>
             <div class="header-elements">
                 <div class="list-icons">
-                    <a href="@Url.Action("Details","Ticket")" title="Back" class="list-icons-item"><i class="icon-arrow-left52"></i></a>
+                    <a href="@Url.Action("Index","Issue")" title="Back" class="list-icons-item"><i class="icon-arrow-left52"></i></a>
                 </div>
             </div>
         </div>
@@ -94,8 +113,6 @@
                             }
                         </tbody>
                     </table>
-
-
                 </div>
                 <div class="col-md-5">
                     <div class="form-group row cust-details-row">
@@ -133,68 +150,64 @@
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayName("Issue Status")</label>
                         <div class="col-md-7">
-                            <label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), Model.Status)</label>
+                            <label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), Model.Status).Replace("_"," ")</label>
                         </div>
                     </div>
-                    @if (IsRoleUser && (Model.Status == (byte)EnumIssueStatus.Pending || Model.Status == (byte)EnumIssueStatus.Withhold))
+                    @if (IsUserRoleManager && (Model.Status == (byte)EnumIssueStatus.Pending || Model.Status == (byte)EnumIssueStatus.Withheld))
                     {
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="custom-header header-elements-inline">
-                                    <h5 class="">Issue Approval</h5>
-                                </div>
-                                <div class="card-body">
-                                    @using (Html.BeginForm("Approve", null, FormMethod.Post, new { @class = "approvalForm" }))
-                                    {
-
-                                        @Html.Hidden("RecordId", Model.Id)
-                                        @Html.Hidden("ApprovalId", authenticatedUserId)
-                                        <div class="row">
-                                            <div class="col-md-12">
-                                                <div class="form-group row">
-                                                    <label class="col-md-3">@Html.DisplayName("Remarks")</label>
-                                                    <div class="col-md-9">
-                                                        @Html.TextArea("ApprovalRemarks", workflowItem != null ? workflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
-                                                    </div>
-                                                </div>
-                                                <div class="pull-right" style="float: right;">
-                                                    <button type="submit" formaction="@Url.Action("Disapprove", "Issue")" class="btn btn-sm btn-danger pull-right">Rejected</button>
-                                                    <button type="submit" class="btn btn-sm btn-success pull-right">Accepted</button>
+                        <div class="card">
+                            <div class="custom-header header-elements-inline">
+                                <h5 class="">Issue Approval</h5>
+                            </div>
+                            <div class="card-body">
+                                @using (Html.BeginForm("Approve", null, FormMethod.Post, new { @class = "approvalForm" }))
+                                {
+                                    @Html.Hidden("RecordId", Model.Id)
+                                    @Html.Hidden("ApprovalId", authenticatedUserId)
+                                    <div class="row">
+                                        <div class="col-md-12">
+                                            <div class="form-group row cust-details-row">
+                                                <label class="col-md-3">@Html.DisplayName("Remarks")</label>
+                                                <div class="col-md-9">
+                                                    @Html.TextArea("ApprovalRemarks", workflowItem != null ? workflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
                                                 </div>
                                             </div>
+                                            <div class="pull-right" style="float: right;">
+                                                <button type="submit" formaction="@Url.Action("Disapprove", "Issue")" class="btn btn-sm btn-danger pull-right">Rejected</button>
+                                                <button type="submit" formaction="@Url.Action("Withhold", "Issue")" class="btn btn-sm btn-warning pull-right">Withheld</button>
+                                                <button type="submit" class="btn btn-sm btn-success pull-right">Accepted</button>
+                                            </div>
                                         </div>
-                                    }
-                                </div>
+                                    </div>
+                                }
                             </div>
                         </div>
                     }
                     else
                     {
-                        <div class="col-md-12">
-                            <div class="card">
-                                <div class="custom-header header-elements-inline">
-                                    <h5 class="">Issue Approval</h5>
-                                </div>
-                                <div class="card-body">
-                                    <div class="row">
-                                        <div class="col-md-12">
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Remarks")</label>
-                                                <div class="col-md-9">
-                                                    @(workflowItem != null ? workflowItem.Remarks : "")
-                                                </div>
+                        <div class="card">
+                            <div class="custom-header header-elements-inline">
+                                <h5 class="">Issue Approval</h5>
+                            </div>
+                            <div class="card-body">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <div class="form-group row cust-details-row">
+                                            <label class="col-md-3">@Html.DisplayName("Remarks")</label>
+                                            <div class="col-md-9">
+                                                @(workflowItem != null ? workflowItem.Remarks : "")
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Approved By")</label>
-                                                <div class="col-md-9">
-                                                    @(workflowItem != null ? workflowItem.Approver.FullName : "")
-                                                </div>
+                                        </div>
+                                        <div class="form-group row cust-details-row">
+                                            <label class="col-md-3">@Html.DisplayName("Approved By")</label>
+                                            <div class="col-md-9">
+                                                @(workflowItem != null ? workflowItem.Approver.FullName : "")
                                             </div>
-                                            <div class="form-group row">
-                                                <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
-                                                <div class="col-md-9">
-                                                    @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
-                                                </div>
+                                        </div>
+                                        <div class="form-group row cust-details-row">
+                                            <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
+                                            <div class="col-md-9">
+                                                @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
                                             </div>
                                         </div>
                                     </div>
@@ -204,7 +217,7 @@
                     }
                     @if (!IsCustomerTypeUser)
                     {
-                        if (IsRoleUser && Model.Status == (byte)EnumIssueStatus.Accepted && !Model.TicketAssignCollection.Any())
+                        if (IsUserRoleManager && Model.Status == (byte)EnumIssueStatus.Accepted && !Model.TicketAssignCollection.Any())
                         {
                             using (Html.BeginForm("TicketAssign", null, FormMethod.Post, new { @class = "ticketAssignForm" }))
                             {
@@ -254,13 +267,65 @@
                                 <div class="form-group row cust-details-row">
                                     <label class="col-lg-3">@Html.DisplayName("Ticket Status")</label>
                                     <div class="col-md-9">
-                                        <label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), Model.TicketAssignCollection.FirstOrDefault().Status)</label>
+                                        <label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), Model.TicketAssignCollection.FirstOrDefault().Status).Replace("_", " ")</label>
                                     </div>
                                 </div>
+                                @*<div class="form-group row cust-details-row">
+                                    <label class="col-md-3">@Html.DisplayName("Developer Status")</label>
+                                    <div class="col-md-9">
+                                        @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Approver.UserName : ""), @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.ApprovalStatus.Replace("_", " ") : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
+                                    </div>
+                                </div>*@
                             }
                         }
+                        if (IsUserRoleDeveloper && Model.TicketAssignCollection.Any() && (Model.TicketAssignCollection.FirstOrDefault().Status == (byte)EnumTicketAssignStatus.Pending || Model.TicketAssignCollection.FirstOrDefault().Status == (byte)EnumTicketAssignStatus.Rejected || Model.TicketAssignCollection.FirstOrDefault().Status != (byte)EnumTicketAssignStatus.Completed))
+                        {
+                            foreach (var item in Model.TicketAssignCollection)
+                            {
+                                if (item.AssigneeId == authenticatedUserId)
+                                {
+                                    using (Html.BeginForm("ApproveTicket", null, FormMethod.Post, new { @class = "approvalForm" }))
+                                    {
+                                        @Html.Hidden("RecordId", Model.Id)
+                                        @Html.Hidden("ApprovalId", authenticatedUserId)
+                                        <div class="form-group row cust-details-row">
+                                            <label class="col-md-3">@Html.DisplayName("Remarks")</label>
+                                            <div class="col-md-9">
+                                                @Html.TextArea("ApprovalRemarks", ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
+                                            </div>
+                                        </div>
+                                        <div class="pull-right" style="float: right;">
+                                            @if (Model.TicketAssignCollection.FirstOrDefault().Status == (byte)EnumTicketAssignStatus.Started)
+                                            {
+                                                <button type="submit" formaction="@Url.Action("CompleteTicket", "Issue")" class="btn btn-sm btn-success pull-right">Completed</button>
+                                            }
+                                            else
+                                            {
+                                                @*<button type="submit" formaction="@Url.Action("DisapproveTicket", "Issue")" class="btn btn-sm btn-danger pull-right">Rejected</button>*@
+                                                <button type="submit" formaction="@Url.Action("DelegateTicket", "Issue")" class="btn btn-sm btn-warning pull-right">Delegated</button>
+                                                <button type="submit" class="btn btn-sm btn-success pull-right">Started</button>
+                                            }
+                                        </div>
+                                    }
+                                }
+                            }
+                        }
+                        else if (ticketAssignWorkflowItem != null)
+                        {
+                            <div class="form-group row cust-details-row">
+                                <label class="col-md-3">@Html.DisplayName("Developer Remarks")</label>
+                                <div class="col-md-9">
+                                    @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Remarks : "")
+                                </div>
+                            </div>
+                            <div class="form-group row cust-details-row">
+                                <label class="col-md-3">@Html.DisplayName("Developer Status")</label>
+                                <div class="col-md-9">
+                                    @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Approver.UserName : ""), @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.ApprovalStatus.Replace("_", " ") : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
+                                </div>
+                            </div>
+                        }
                     }
-
                 </div>
             </div>
         </div>

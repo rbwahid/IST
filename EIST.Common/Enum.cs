@@ -25,27 +25,27 @@ namespace EIST.Common
     {
         Rejected = 0,
         Pending = 1,
-        Withhold = 2,
+        Withheld = 2,
         Accepted = 3,
         In_Progress = 4,
         Completed = 5,
     }
     public enum EnumTicketAssignStatus
     {
+        Rejected = 0,
         Pending = 1,
-        Withhold = 2,
-        Accepted = 3,
-        In_Progress = 4,
-        Completed = 5,
+        Delegated = 2,
+        Started = 3,
+        Completed = 4,
     }
     public enum EnumWorkflowFormStatus
     {
         Issue,
-        TicketAssign,
+        TicketAssign
     }
     public enum EnumUserType : byte
     {
-        Customer ,
-        Developer ,
+        Customer,
+        Developer
     }
 }
