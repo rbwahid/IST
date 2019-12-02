@@ -74,8 +74,8 @@ namespace EIST.Service
             var fromDate = string.IsNullOrEmpty(sDateFrom) ? DateTime.Now.Date : Convert.ToDateTime(sDateFrom);
             var toDate = (string.IsNullOrEmpty(sDateTo) ? DateTime.Now : Convert.ToDateTime(sDateTo)).AddDays(1);
 
-           var allData= _context.Issues.Where(x => (fromDate == null || x.CreatedAt >= fromDate) &&
-            (toDate == null || x.CreatedAt < toDate) &&
+           var allData= _context.Issues.Where(x => (sDateFrom == null || x.CreatedAt >= fromDate) &&
+            (sDateTo == null || x.CreatedAt < toDate) &&
             (Scode == null || x.Code.Contains(Scode)) &&
             (SissueTitle== null || x.IssueTitle== SissueTitle)&&
             (SprojectId==null || x.ProjectId==SprojectId)
