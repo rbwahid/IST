@@ -34,8 +34,8 @@ namespace EIST.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.AddTicket();
-                return RedirectToAction("Details","Issue",new { id=model.Id});
+                var IssueId= model.AddTicket();
+                return RedirectToAction("Details","Issue",new { id= IssueId });
             }
             return View(model);
         }
@@ -65,8 +65,8 @@ namespace EIST.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                model.EditTicket();
-                return RedirectToAction("Details", "Issue", new { id = model.Id });
+                var IssueId = model.EditTicket();
+                return RedirectToAction("Details", "Issue", new { id = IssueId });
             }
             return View(model);
         }
