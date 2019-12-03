@@ -9,9 +9,9 @@
     var sl = Model.SPage == 1 ? 1 : (Model.SPage - 1) * (Model.SPageSize + 1);
     var authenticatedUserId = AuthenticatedUser.GetUserFromIdentity().UserId;
     bool IsRoleUser = new UserModel().CheckUserRole(authenticatedUserId, Enum.GetName(typeof(EnumUserRoleStatus), EnumUserRoleStatus.Manager));
+    bool IsCustomerTypeUser = new UserModel().CheckCustomerTypeUser(authenticatedUserId);
 
 
-    
 }
 
 @Styles.Render("~/Content/PagedList.css")
@@ -89,7 +89,7 @@
                             }
                         </div>
                     </div>
-                    <!-- /Search Panel -->
+                    <!-- /Search Panel End-->
                     <div class="table-responsive">
                         <table class="table table-xs table-bordered table-striped table-condensed">
                             <thead>
@@ -102,8 +102,12 @@
                                     <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().Milestone)</th>
                                     <th>@Html.DisplayNameFor(model => model.IssuePagedList.FirstOrDefault().Priority)</th>
                                     <th>Issue Status</th>
-                                    <th>Ticket Assigned</th>
-                                    <th>Ticket Status</th>
+                                    <th>Is Issue</th>
+                                    @if (!IsCustomerTypeUser)
+                                    {
+                                        <th>Ticket Assigned</th>
+                                        <th>Ticket Status</th>
+                                    }
                                     <th></th>
                                 </tr>
                             </thead>
@@ -111,17 +115,14 @@
                                 @foreach (var item in Model.IssuePagedList)
                                 {
                                     string strTicketAssigned = "";
-                                    byte ticketStatus = 1;
                                     if (item.TicketAssignCollection.Any())
                                     {
-                                        foreach (var ticketItem in item.TicketAssignCollection)
+                                        foreach (var ticketItem in item.TicketAssignCollection.ToList())
                                         {
                                             strTicketAssigned += ticketItem.Assignee.UserName + ", ";
-                                            ticketStatus = ticketItem.Status;
                                         }
                                         strTicketAssigned = strTicketAssigned.Trim(',', ' ');
                                     }
-
                                     <tr>
                                         <td class="serial">@(sl++)</td>
                                         <td>
@@ -132,9 +133,25 @@
                                         <td>@Html.DisplayFor(modelItem => item.IssueLabel.LabelTitle)</td>
                                         <td>@Html.DisplayFor(modelItem => item.Milestone)</td>
                                         <td>@(item.Priority ? "Yes" : "No")</td>
-                                        <td><label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), item.Status)</label></td>
-                                        <td>@(strTicketAssigned)</td>
-                                        <td><label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), ticketStatus)</label></td>
+                                        <td><label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), item.Status).Replace("_", " ")</label></td>
+                                        <td><label class="badge @(item.IsClosed == true ? "badge-danger"  : "badge-success")">@(item.IsClosed == true ? "Closed" : "Open")</label></td>
+                                        @if (!IsCustomerTypeUser)
+                                        {
+                                            if (item.TicketAssignCollection.Any())
+                                            {
+                                                <td>@(strTicketAssigned)</td>
+                                                <td>
+                                                    <label class="badge badge-info">
+                                                        @Enum.GetName(typeof(EnumTicketAssignStatus), item.TicketAssignCollection.FirstOrDefault().Status)
+                                                    </label>
+                                                </td>
+                                            }
+                                            else
+                                            {
+                                                <td></td>
+                                                <td></td>
+                                            }
+                                        }
                                         <td>
                                             <div class="list-icons">
                                                 @if ((item.Status == (byte)EnumIssueStatus.Pending || item.Status == (byte)EnumIssueStatus.Rejected) && item.CreatedBy == authenticatedUserId)
@@ -155,6 +172,8 @@
                             </tbody>
                         </table>
                     </div>
+
+
                 </div>
             </div>
         </div>
