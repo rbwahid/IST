@@ -15,7 +15,7 @@ namespace EIST.Web.Models
     [NotMapped]
     public class TicketAssignSelectedModel
     {
-        public int[] SelectedId { get; set; }
+        public List<int> SelectedId { get; set; }
         public List<User> SelectedValueList { get; set; }
         public int IssueId { get; set; }
         public string TicketDescription { get; set; }
@@ -88,6 +88,7 @@ namespace EIST.Web.Models
                 IssueLabel = TicketEntry.IssueLabel;
                 LabelId = TicketEntry.LabelId;
                 Milestone = TicketEntry.Milestone;
+                IsClosed = TicketEntry.IsClosed;
                 AttachmentFileCollection = TicketEntry.AttachmentFileCollection;
                 TicketAssignCollection = TicketEntry.TicketAssignCollection;
 
@@ -98,6 +99,11 @@ namespace EIST.Web.Models
                 UpdatedAt = TicketEntry.UpdatedAt;
                 UpdatedBy = TicketEntry.UpdatedBy;
                 UpdatedByUser = TicketEntry.UpdatedByUser;
+                if (TicketAssignCollection.Any())
+                {
+                    TicketAssignSelectedModel.SelectedId = TicketEntry.TicketAssignCollection.Select(x => x.AssigneeId).ToList();
+                    TicketAssignSelectedModel.TicketDescription = TicketEntry.TicketAssignCollection.FirstOrDefault().Description;
+                }
             }
 
         }
@@ -136,7 +142,7 @@ namespace EIST.Web.Models
             base.Status = (byte)EnumIssueStatus.Pending;
             base.CreatedAt = DateTime.Now;
             base.CreatedBy = authenticatedUserId;
-
+            base.IsClosed = false;
             //// Multiple User Select (Ticket Assign) //
             //List<TicketAssign> ticketAssignList = new List<TicketAssign>();
             //if (TicketAssignSelectedModel.SelectedId != null)
@@ -174,6 +180,12 @@ namespace EIST.Web.Models
 
             return ticketId;
         }
+
+        public void IssueClosed(int id)
+        {
+            _ticketService.IssueClosed(id);
+        }
+
         public int EditTicket()
         {
             base.Status = (byte)EnumIssueStatus.Pending;

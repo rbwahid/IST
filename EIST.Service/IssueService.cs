@@ -15,13 +15,14 @@ namespace EIST.Service
         private IssueUnitOfWork _ticketUnitOfWork;
         private AttachmentFileUnitOfWork _attachmentFileUnitOfWork;
         private UserUnitOfWork _userUnitOfWork;
+        private TicketAssignUnitOfWork _ticketAssignUnitOfWork;
         public IssueService()
         {
             _context = new EISTDbContext();
             _ticketUnitOfWork = new IssueUnitOfWork(_context);
             _attachmentFileUnitOfWork = new AttachmentFileUnitOfWork(_context);
             _userUnitOfWork = new UserUnitOfWork(_context);
-
+            _ticketAssignUnitOfWork = new TicketAssignUnitOfWork(_context);
         }
 
         public IEnumerable<Issue> GetAllTicket()
@@ -45,6 +46,7 @@ namespace EIST.Service
                 Priority = issue.Priority,
                 LabelId = issue.LabelId,
                 Milestone = issue.Milestone,
+                IsClosed=issue.IsClosed,
 
                 AttachmentFileCollection = issue.AttachmentFileCollection,
 
@@ -151,10 +153,35 @@ namespace EIST.Service
 
         public void TicketAssign(int issueId, ICollection<TicketAssign> ticketAssignCollection)
         {
-            var IssueEntity = GetTicketById(issueId);
-            if (IssueEntity != null)
+            var IssueEntry = GetTicketById(issueId);
+            if (IssueEntry != null)
             {
-                IssueEntity.TicketAssignCollection = ticketAssignCollection;
+                if (IssueEntry.TicketAssignCollection.Any())
+                {
+                    foreach (var ticketAssign in IssueEntry.TicketAssignCollection.ToList())
+                    {
+                        _ticketAssignUnitOfWork.TicketAssignRepository.DeleteFromDb(ticketAssign);
+                        _ticketAssignUnitOfWork.Save();
+                    }
+                    if (ticketAssignCollection.Any())
+                    {
+                        IssueEntry.TicketAssignCollection = ticketAssignCollection;
+                    }
+                }
+                else
+                {
+                    IssueEntry.TicketAssignCollection = ticketAssignCollection;
+                }
+                _ticketUnitOfWork.Save();
+            }
+        }
+
+        public void IssueClosed(int id)
+        {
+            var IssueEntry = GetTicketById(id);
+            if (IssueEntry != null)
+            {
+                IssueEntry.IsClosed = true;
                 _ticketUnitOfWork.Save();
             }
         }

@@ -42,6 +42,11 @@
     {
         ticketAssignWorkflowItem = null;
     }
+    var ticketPendingStatus = 0;
+    if (Model.TicketAssignCollection.Any())
+    {
+        ticketPendingStatus = Model.TicketAssignCollection.FirstOrDefault().Status;
+    }
 }
 
 <!-- Content area -->
@@ -64,18 +69,18 @@
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.IssueTitle)</label>
                         <div class="col-md-7">
-                            @Html.DisplayFor(model => model.IssueTitle)
+                            <b>:</b> @Html.DisplayFor(model => model.IssueTitle)
                         </div>
                     </div>
-                    @if (!string.IsNullOrEmpty(Model.Description))
-                    {
-                        <div class="form-group row cust-details-row">
-                            <label class="col-md-3">@Html.DisplayNameFor(model => model.Description)</label>
-                            <div class="col-md-7">
+                    <div class="form-group row cust-details-row">
+                        <label class="col-md-3">@Html.DisplayNameFor(model => model.Description)</label>
+                        <div class="col-md-7">
+                            <b>:</b> @if (!string.IsNullOrEmpty(Model.Description))
+                            {
                                 @Html.Raw(Model.Description)
-                            </div>
+                            }
                         </div>
-                    }
+                    </div>
                     <table class="table table-bordered table-striped table-condensed">
                         <thead>
                             <tr>
@@ -113,6 +118,7 @@
                         </tbody>
                     </table>
                     <br />
+                    @*---Comment Section---*@
                     <div class="card">
                         <div class="card-header header-elements-inline">
                             <h6 class="card-title font-weight-semibold">Discussion</h6>
@@ -185,44 +191,51 @@
                             </div>
                         </div>
                     </div>
+                    @*---Comment Section End---*@
                 </div>
                 <div class="col-md-5">
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.Code)</label>
                         <div class="col-md-7">
-                            @Html.DisplayFor(model => model.Code)
+                            <b>:</b> @Html.DisplayFor(model => model.Code)
                         </div>
                     </div>
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.ProjectId)</label>
                         <div class="col-md-7">
-                            @Html.DisplayFor(model => model.Project.Name)
+                            <b>:</b>  @Html.DisplayFor(model => model.Project.Name)
                         </div>
                     </div>
 
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.LabelId)</label>
                         <div class="col-md-7">
-                            @Html.DisplayFor(model => model.IssueLabel.LabelTitle)
+                            <b>:</b>  @Html.DisplayFor(model => model.IssueLabel.LabelTitle)
                         </div>
                     </div>
 
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.Milestone)</label>
                         <div class="col-md-7">
-                            @Html.DisplayFor(model => model.Milestone)
+                            <b>:</b>  @Html.DisplayFor(model => model.Milestone)
                         </div>
                     </div>
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayNameFor(model => model.Priority)</label>
                         <div class="col-md-7">
-                            @(Model.Priority ? "Yes" : "No")
+                            <b>:</b>  @(Model.Priority ? "Yes" : "No")
                         </div>
                     </div>
                     <div class="form-group row cust-details-row">
                         <label class="col-md-3">@Html.DisplayName("Issue Status")</label>
                         <div class="col-md-7">
-                            <label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), Model.Status).Replace("_", " ")</label>
+                            <b>:</b>   <label class="badge badge-info">@Enum.GetName(typeof(EnumIssueStatus), Model.Status).Replace("_", " ")</label>
+                        </div>
+                    </div>
+                    <div class="form-group row cust-details-row">
+                        <label class="col-lg-3">@Html.DisplayName("Is Issue")</label>
+                        <div class="col-md-9">
+                            <b>:</b>  <label class="badge @(Model.IsClosed == false ?  "badge-success"  : "badge-danger")">@(Model.IsClosed == false ? "Open" : "Closed")</label>
                         </div>
                     </div>
                     @if (IsUserRoleManager && (Model.Status == (byte)EnumIssueStatus.Pending || Model.Status == (byte)EnumIssueStatus.Withheld))
@@ -241,7 +254,7 @@
                                             <div class="form-group row cust-details-row">
                                                 <label class="col-md-3">@Html.DisplayName("Remarks")</label>
                                                 <div class="col-md-9">
-                                                    @Html.TextArea("ApprovalRemarks", workflowItem != null ? workflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
+                                                    <b>:</b> @Html.TextArea("ApprovalRemarks", workflowItem != null ? workflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
                                                 </div>
                                             </div>
                                             <div class="pull-right" style="float: right;">
@@ -267,19 +280,19 @@
                                         <div class="form-group row cust-details-row">
                                             <label class="col-md-3">@Html.DisplayName("Remarks")</label>
                                             <div class="col-md-9">
-                                                @(workflowItem != null ? workflowItem.Remarks : "")
+                                                <b>:</b> @(workflowItem != null ? workflowItem.Remarks : "")
                                             </div>
                                         </div>
                                         <div class="form-group row cust-details-row">
                                             <label class="col-md-3">@Html.DisplayName("Approved By")</label>
                                             <div class="col-md-9">
-                                                @(workflowItem != null ? workflowItem.Approver.FullName : "")
+                                                <b>:</b> @(workflowItem != null ? workflowItem.Approver.FullName : "")
                                             </div>
                                         </div>
                                         <div class="form-group row cust-details-row">
                                             <label class="col-md-3">@Html.DisplayName("Approved Status")</label>
                                             <div class="col-md-9">
-                                                @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
+                                                <b>:</b> @(workflowItem != null ? workflowItem.ApprovalStatus : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
                                             </div>
                                         </div>
                                     </div>
@@ -289,23 +302,23 @@
                     }
                     @if (!IsCustomerTypeUser)
                     {
-                        if (IsUserRoleManager && Model.Status == (byte)EnumIssueStatus.Accepted && !Model.TicketAssignCollection.Any())
+                        if (IsUserRoleManager && Model.Status == (byte)EnumIssueStatus.Accepted && (!Model.TicketAssignCollection.Any() || ticketPendingStatus == (byte)EnumTicketAssignStatus.Pending))
                         {
                             using (Html.BeginForm("TicketAssign", null, FormMethod.Post, new { @class = "ticketAssignForm" }))
                             {
-                                @Html.Hidden("IssueId", Model.Id)
-                                @Html.Hidden("ApprovalId", authenticatedUserId)
+                                @Html.HiddenFor(model => model.TicketAssignSelectedModel.IssueId, new { @Value = Model.Id })
+                                @*@Html.Hidden("ApprovalId", authenticatedUserId)*@
                                 <div class="form-group row cust-details-row">
                                     <label class="col-lg-3">@Html.DisplayName("Assignee")</label>
                                     <div class="col-lg-9">
-                                        @Html.DropDownList("SelectedId", new SelectList(Model.UserList, "Id", "UserName"), new { @class = "form-control input-sm select2", @multiple = "multiple", @required = "required" })
+                                        <b>:</b>  @Html.ListBoxFor(model => model.TicketAssignSelectedModel.SelectedId, new SelectList(Model.UserList, "Id", "UserName"), new { @class = "form-control input-sm select2", @multiple = "multiple", @required = "required" })
                                         @Html.ValidationMessageFor(model => model.TicketAssignSelectedModel.SelectedId)
                                     </div>
                                 </div>
                                 <div class="form-group row cust-details-row">
                                     <label class="col-lg-3">@Html.DisplayName("Description")</label>
                                     <div class="col-lg-9">
-                                        @Html.TextArea("TicketDescription", null, new { @class = "form-control", @placeholder = "Ticket Description" })
+                                        <b>:</b>  @Html.TextAreaFor(model => model.TicketAssignSelectedModel.TicketDescription, new { @class = "form-control", @placeholder = "Ticket Description" })
                                         @Html.ValidationMessageFor(model => model.TicketAssignSelectedModel.TicketDescription)
                                     </div>
                                 </div>
@@ -322,24 +335,24 @@
                                 <div class="form-group row cust-details-row">
                                     <label class="col-lg-3">@Html.DisplayName("Developer")</label>
                                     <div class="col-md-9">
-                                        @foreach (var item in Model.TicketAssignCollection)
+                                        <b>:</b> @foreach (var item in Model.TicketAssignCollection)
                                         {
-                                            <span>@num.&nbsp; @Html.DisplayFor(model => item.Assignee.UserName)</span>
+                                            <span>@num)&nbsp; @Html.DisplayFor(model => item.Assignee.UserName)</span>
                                             num++;
                                         }
                                     </div>
                                 </div>
 
                                 <div class="form-group row cust-details-row">
-                                    <label class="col-lg-3">@Html.DisplayName("Description")</label>
+                                    <label class="col-lg-3">@Html.DisplayName("Ticket Description")</label>
                                     <div class="col-md-9">
-                                        @Html.DisplayFor(model => model.TicketAssignCollection.FirstOrDefault().Description)
+                                        <b>:</b>  @Html.DisplayFor(model => model.TicketAssignCollection.FirstOrDefault().Description)
                                     </div>
                                 </div>
                                 <div class="form-group row cust-details-row">
                                     <label class="col-lg-3">@Html.DisplayName("Ticket Status")</label>
                                     <div class="col-md-9">
-                                        <label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), Model.TicketAssignCollection.FirstOrDefault().Status).Replace("_", " ")</label>
+                                        <b>:</b>   <label class="badge badge-info">@Enum.GetName(typeof(EnumTicketAssignStatus), Model.TicketAssignCollection.FirstOrDefault().Status).Replace("_", " ")</label>
                                     </div>
                                 </div>
                                 @*<div class="form-group row cust-details-row">
@@ -350,6 +363,7 @@
                                     </div>*@
                             }
                         }
+
                         if (IsUserRoleDeveloper && Model.TicketAssignCollection.Any() && (Model.TicketAssignCollection.FirstOrDefault().Status == (byte)EnumTicketAssignStatus.Pending || Model.TicketAssignCollection.FirstOrDefault().Status == (byte)EnumTicketAssignStatus.Rejected || Model.TicketAssignCollection.FirstOrDefault().Status != (byte)EnumTicketAssignStatus.Completed))
                         {
                             foreach (var item in Model.TicketAssignCollection)
@@ -363,7 +377,7 @@
                                         <div class="form-group row cust-details-row">
                                             <label class="col-md-3">@Html.DisplayName("Remarks")</label>
                                             <div class="col-md-9">
-                                                @Html.TextArea("ApprovalRemarks", ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
+                                                <b>:</b>  @Html.TextArea("ApprovalRemarks", ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Remarks : "", new { @class = "form-control", @required = "required" })
                                             </div>
                                         </div>
                                         <div class="pull-right" style="float: right;">
@@ -373,7 +387,6 @@
                                             }
                                             else
                                             {
-                                                @*<button type="submit" formaction="@Url.Action("DisapproveTicket", "Issue")" class="btn btn-sm btn-danger pull-right">Rejected</button>*@
                                                 <button type="submit" formaction="@Url.Action("DelegateTicket", "Issue")" class="btn btn-sm btn-warning pull-right">Delegated</button>
                                                 <button type="submit" class="btn btn-sm btn-success pull-right">Started</button>
                                             }
@@ -387,14 +400,22 @@
                             <div class="form-group row cust-details-row">
                                 <label class="col-md-3">@Html.DisplayName("Developer Remarks")</label>
                                 <div class="col-md-9">
-                                    @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Remarks : "")
+                                    <b>:</b>  @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Remarks : "")
                                 </div>
                             </div>
                             <div class="form-group row cust-details-row">
                                 <label class="col-md-3">@Html.DisplayName("Developer Status")</label>
                                 <div class="col-md-9">
-                                    @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Approver.UserName : ""), @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.ApprovalStatus.Replace("_", " ") : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
+                                    <b>:</b>   @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.Approver.UserName : ""), @(ticketAssignWorkflowItem != null ? ticketAssignWorkflowItem.ApprovalStatus.Replace("_", " ") : "") - @(workflowItem != null ? string.Format("{0:dd-MMM-yyyy hh:mm tt}", workflowItem.UpdatedAt) : "")
                                 </div>
+                            </div>
+                        }
+
+                        if (IsUserRoleManager && Model.Status == (byte)EnumIssueStatus.Completed && Model.IsClosed == false)
+                        {
+                            <div class="pull-right" style="float: right;">
+
+                                <span class="btn btn-sm btn-danger pull-right" onclick="IssueCloseFunc('@Model.Id')">Issue Closed</span>
                             </div>
                         }
                     }
@@ -408,10 +429,17 @@
 @section scripts{
     @Scripts.Render("~/bundles/jqueryval")
     @Scripts.Render("~/bundles/ckeditor")
+    @Scripts.Render("~/bundles/ajax-call")
     <script src="~/Scripts/select2.min.js"></script>
 
     <script type="text/javascript">
 
+        function IssueCloseFunc(id) {
+            var url = '@Url.Action("IssueClosed", "Issue")';
+            console.log(id);
+                var paramData = { id: id };
+                ajaxCall(url, paramData,"renderIssueClosed");
+        }
         function replyFunc(obj) {
             $(".replyArea").removeClass("display-hidden");
             $(".editArea").addClass("display-hidden");

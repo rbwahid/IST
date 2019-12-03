@@ -31,6 +31,9 @@ function ajaxCall(url, paramData, callback, method, obj) {
             } else if (callback == 'renderIssueLabelEntryLoad') {
                 renderIssueLabelEntryLoad(response);
             }
+            else if (callback == 'renderIssueClosed') {
+                renderCloseConfirmMsg(response);
+            }
         },
         error: function (XMLHttpRequest, textStatus, errorThrown) {
             alert(textStatus + "! please try again", '<i class="fa fa-exclamation-circle" aria-hidden="true"> Alert</i>');
@@ -89,5 +92,18 @@ function renderResetPassword(data) {
         //if (result.value) {
         location.reload();
         //}
+    });
+}
+
+function renderCloseConfirmMsg(data) {
+    swalInit({
+        title: 'Are you sure to close this issue???',
+        type: 'warning',
+        showCancelButton: true,
+        confirmButtonText: 'Confirm'
+    }).then(function (result) {
+        if (result.value) {
+          location.reload();
+        }
     });
 }

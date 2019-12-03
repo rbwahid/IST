@@ -157,10 +157,15 @@ namespace EIST.Web.Controllers
             return RedirectToAction("Details", "Issue", new { id = workflowProcess.RecordId });
         }
         #endregion
-        public ActionResult TicketAssign(TicketAssignSelectedModel model)
+        public ActionResult TicketAssign(IssueModel model)
         {
-            new IssueModel().TicketAssign(model);
-            return RedirectToAction("Details", "Issue", new { id = model.IssueId });
+            new IssueModel().TicketAssign(model.TicketAssignSelectedModel);
+            return RedirectToAction("Details", "Issue", new { id = model.TicketAssignSelectedModel.IssueId });
+        }
+        public JsonResult IssueClosed(int id)
+        {
+            new IssueModel().IssueClosed(id);
+            return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
         }
     }
 }
