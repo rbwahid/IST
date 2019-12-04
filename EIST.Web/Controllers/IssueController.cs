@@ -167,5 +167,24 @@ namespace EIST.Web.Controllers
             new IssueModel().IssueClosed(id);
             return Json(new { msg = "Success" }, JsonRequestBehavior.AllowGet);
         }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult RequestToIssueApproval(int id)
+        { var mailUrlWithIssueId = Url.Action("Details", "Issue", new { id = id }, Request.Url.Scheme);
+            bool isMailSend = false;
+            var issueId = new IssueModel().RequestToIssueApproval(id, mailUrlWithIssueId, out isMailSend);
+            if (isMailSend) { TempData["SuccessNotify"] = "Mail has been successfully send to Encoders."; }
+            else { TempData["ErrorNotify"] = "Error occured, Unable to send mail to Encoders."; }
+            return RedirectToAction("Details", "Issue", new { id = id });
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult IssueRequestApproval(int Id, int IssueAcceptRejectStatus, string Remarks)
+        { var mailUrlWithIssueId = Url.Action("Details", "Issue", new { id = Id }, Request.Url.Scheme);
+            bool isMailSend = false;
+            var issueId = new IssueModel().IssueRequestApproval(Id, IssueAcceptRejectStatus, Remarks, mailUrlWithIssueId, out isMailSend);
+            if (isMailSend) { TempData["SuccessNotify"] = "Mail has been successfully send to customer."; }
+            else { TempData["ErrorNotify"] = "Error occured, Unable to send mail to customer."; }
+            return RedirectToAction("Details", "Issue", new { id = issueId }); }
     }
 }

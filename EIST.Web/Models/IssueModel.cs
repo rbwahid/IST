@@ -268,5 +268,15 @@ namespace EIST.Web.Models
         {
            return _issueLabelService.GetAllTicketPagedList(model.SDateFrom,model.SDateTo,model.SCode,model.SIssueTitle,model.SProjectId);
         }
+        #region Mail
+        public int RequestToIssueApproval(int issueId, string mailUrlWithIssueId, out bool isMailSend)
+        {
+            return _ticketService.RequestToIssueApproval(issueId, mailUrlWithIssueId, authenticatedUserId, out isMailSend);
+        }
+        public int IssueRequestApproval(int issueId, int issueStatus, string remarks, string mailUrlWithIssueId, out bool isMailSend)
+        {
+            return _ticketService.IssueRequestApproval(issueId, issueStatus, remarks, mailUrlWithIssueId, authenticatedUserId, out isMailSend);
+        }
+        #endregion
     }
 }
