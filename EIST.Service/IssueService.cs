@@ -1,6 +1,7 @@
 ﻿using EIST.Common;
 using EIST.Entities;
 using EIST.Repository;
+using EIST.Services;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -42,11 +43,11 @@ namespace EIST.Service
                 ProjectId = issue.ProjectId,
                 IssueTitle = issue.IssueTitle,
                 Description = issue.Description,
-                
+
                 Priority = issue.Priority,
                 LabelId = issue.LabelId,
                 Milestone = issue.Milestone,
-                IsClosed=issue.IsClosed,
+                IsClosed = issue.IsClosed,
 
                 AttachmentFileCollection = issue.AttachmentFileCollection,
 
@@ -66,12 +67,12 @@ namespace EIST.Service
         }
         public int GetCloseIssueCount()
         {
-            return _ticketUnitOfWork.TicketRepository.GetCount(x=>x.IsDeleted==false && x.IsClosed==true);
+            return _ticketUnitOfWork.TicketRepository.GetCount(x => x.IsDeleted == false && x.IsClosed == true);
         }
 
         public int GetIssueCount()
         {
-          return  _ticketUnitOfWork.TicketRepository.GetCount();
+            return _ticketUnitOfWork.TicketRepository.GetCount();
         }
 
 
@@ -81,7 +82,7 @@ namespace EIST.Service
             var IssueEntry = GetTicketById(issue.Id);
             if (IssueEntry != null)
             {
-                IssueEntry.ProjectId = issue.ProjectId;                
+                IssueEntry.ProjectId = issue.ProjectId;
                 IssueEntry.IssueTitle = issue.IssueTitle;
                 IssueEntry.Description = issue.Description;
                 IssueEntry.Priority = issue.Priority;
@@ -122,9 +123,9 @@ namespace EIST.Service
 
         public void AddAttachmentForTicket(List<AttachmentFile> attachmentList)
         {
-            if(attachmentList != null)
+            if (attachmentList != null)
             {
-                foreach(var item in attachmentList)
+                foreach (var item in attachmentList)
                 {
                     _attachmentFileUnitOfWork.AttachmentFileRepository.Add(item);
                     _attachmentFileUnitOfWork.Save();
@@ -143,7 +144,7 @@ namespace EIST.Service
         public void UpdateTicketStatus(int recordId, byte status)
         {
             var model = GetTicketById(recordId);
-            if(model != null)
+            if (model != null)
             {
                 model.Status = status;
                 model.ApprovedDate = DateTime.Now;
@@ -184,6 +185,41 @@ namespace EIST.Service
                 IssueEntry.IsClosed = true;
                 _ticketUnitOfWork.Save();
             }
+        }
+        public int RequestToIssueApproval(int issueId, string mailUrlWithIssueId, int currentUserId, out bool isMailSend)
+        {
+            var issueEntry = _ticketUnitOfWork.TicketRepository.GetById(issueId);
+            //issueEntry.Status = (int)EnumIssueStatus.Pending;
+            //issueEntry.UpdatedAt = DateTime.Now;
+            //issueEntry.UpdatedBy = currentUserId;
+            //_ticketUnitOfWork.Save(currentUserId.ToString());
+            var toMailAddress = issueEntry.Project.SuperVisor.Email;
+            var toMaillFullName = issueEntry.Project.SuperVisor.FullName;
+            isMailSend = false;
+            try
+            {
+                isMailSend = new MailerService().SendIssueApprovalMail(toMailAddress, "EIST -Issue Approval –Code #" + issueEntry.Code, "", mailUrlWithIssueId, toMaillFullName);
+            }
+            catch (Exception ex)
+            { isMailSend = false; }
+            return issueEntry.Id;
+        }
+        public int IssueRequestApproval(int issueId, int issueStatus, string remarks, string mailUrlWithIssueId, int currentUserId, out bool isMailSend)
+        {
+            var issueEntry = _ticketUnitOfWork.TicketRepository.GetById(issueId);
+            //issueEntry.Status = (byte)issueStatus;
+            //issueEntry.Description = remarks;
+            //_ticketUnitOfWork.Save(currentUserId.ToString());
+            var approveOrReject = issueEntry.Status == (int)EnumIssueStatus.Accepted ? "Approved" : "Rejected";
+            var mailRecipient = "";/*_ticketUnitOfWork.TicketRepository.GetMailRecipientByCustomerId(issueEntry.CreatedByUser.Id);*/
+            // Send mail to customer for approval...isMailSend = false;
+            try
+            {
+                isMailSend = new MailerService().SendIssueAcceptRejectMailFromManager(mailRecipient, mailRecipient, "EIST -Issue " + approveOrReject + " –Code #" + issueEntry.Code, "", mailUrlWithIssueId, issueEntry.Status, issueEntry.CreatedByUser.FullName, issueEntry.Description);
+            }
+            catch (Exception ex)
+            { isMailSend = false; }
+            return issueEntry.Id;
         }
     }
 }
