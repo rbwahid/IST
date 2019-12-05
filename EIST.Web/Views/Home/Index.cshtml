@@ -180,593 +180,1460 @@
 <!-- /dashboard content -->
 
 <div class="row">
-    <div class="col-md-6">
-        <div class="card border-teal">
-            <div class="card-header header-elements-sm-inline">
-                <h6 class="card-title">ISSUE</h6>
+    <div class="col-md-12">
+        <!-- Task manager table -->
+        <div class="card">
+            <div class="card-header bg-transparent header-elements-inline">
+                <h6 class="card-title">Task manager</h6>
                 <div class="header-elements">
-                    <span class="badge bg-success badge-pill">Recent Activities</span>
-                    @*<div class="list-icons ml-3">
-                            <div class="list-icons-item dropdown">
-                                <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                <div class="dropdown-menu">
-                                    <a href="@Url.Action("Add","Issue")" class="dropdown-item"><i class="icon-list-unordered"></i> Add</a>
-                                    <a href="@Url.Action("Index","Issue")" class="dropdown-item"><i class="icon-pie5"></i> Report</a>
-                                </div>
-                            </div>
-                        </div>*@
+                    <div class="list-icons">
+                        <a class="list-icons-item" data-action="collapse"></a>
+                        <a class="list-icons-item" data-action="reload"></a>
+                        <a class="list-icons-item" data-action="remove"></a>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-12" style="margin-bottom: 10px;">
-                <div class="table-responsive">
-                    <table class="table table-xs table-bordered table-striped table-condensed text-nowrap">
+
+            <div id="DataTables_Table_0_wrapper" class="dataTables_wrapper no-footer">
+                <div class="datatable-header"><div id="DataTables_Table_0_filter" class="dataTables_filter"><label><span>Filter:</span> <input type="search" class="" placeholder="Type to filter..." aria-controls="DataTables_Table_0"></label></div><div class="dataTables_length" id="DataTables_Table_0_length"><label><span>Show:</span> <select name="DataTables_Table_0_length" aria-controls="DataTables_Table_0" class="select2-hidden-accessible" tabindex="-1" aria-hidden="true" data-select2-id="308"><option value="15">15</option><option value="25" data-select2-id="310">25</option><option value="50">50</option><option value="75">75</option><option value="100">100</option></select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="309" style="width: auto;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-DataTables_Table_0_length-iq-container"><span class="select2-selection__rendered" id="select2-DataTables_Table_0_length-iq-container" role="textbox" aria-readonly="true" title="25">25</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span></label></div></div><div class="datatable-scroll-lg">
+                    <table class="table tasks-list table-lg dataTable no-footer" id="DataTables_Table_0" role="grid" aria-describedby="DataTables_Table_0_info">
                         <thead>
-                            <tr>
-                                <th style="width: 50px">Due</th>
-                                <th style="width: 300px;">User</th>
-                                <th>Description</th>
-                                <th class="text-center" style="width: 20px;"><i class="icon-arrow-down12"></i></th>
-                            </tr>
+                            <tr role="row"><th class="sorting_desc" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-sort="descending" aria-label="#: activate to sort column ascending" style="width: 20px;">#</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Task Description: activate to sort column ascending" style="width: 40%;">Task Description</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Priority: activate to sort column ascending" style="width: 10%;">Priority</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Latest update: activate to sort column ascending" style="width: 15%;">Latest update</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Status: activate to sort column ascending" style="width: 15%;">Status</th><th class="sorting" tabindex="0" aria-controls="DataTables_Table_0" rowspan="1" colspan="1" aria-label="Assigned users: activate to sort column ascending" style="width: 15%;">Assigned users</th><th class="text-center text-muted sorting_disabled" style="width: 100px;" rowspan="1" colspan="1" aria-label=""><i class="icon-checkmark3"></i></th></tr>
                         </thead>
                         <tbody>
-                            <tr class="table-active table-border-double">
-                                <td colspan="3">ACTIVE ISSUE</td>
-                                <td class="text-right">
-                                    <span class="badge bg-blue badge-pill">24</span>
-                                </td>
-                            </tr>
+                            <tr class="table-active table-border-double"><td colspan="8" class="font-weight-semibold">Today</td></tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#25</td>
 
-                            <tr>
-                                <td class="text-center">
-                                    <h6 class="mb-0">12</h6>
-                                    <div class="font-size-sm text-muted line-height-1">hours</div>
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">New blog layout</a></div>
+                                    <div class="text-muted">Grumbled ripely eternal sniffed the when hello less much..</div>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#" class="btn bg-teal-400 rounded-round btn-icon btn-sm">
-                                                <span class="letter-icon">A</span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold letter-icon-title">Annabelle Doney</a>
-                                            <div class="text-muted font-size-sm"><span class="badge badge-mark border-blue mr-1"></span> Active</div>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-default">
-                                        <div class="font-weight-semibold">[#1183] Workaround for OS X selects printing bug</div>
-                                        <span class="text-muted">Chrome fixed the bug several versions ago, thus rendering this...</span>
-                                    </a>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="22 January, 15" id="dp1575461884979">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="85">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved" selected="selected" data-select2-id="87">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="86" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-6o-container"><span class="select2-selection__rendered" id="select2-status-6o-container" role="textbox" aria-readonly="true" title="Resolved">Resolved</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face12.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face25.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-undo"></i> Quick reply</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-history"></i> Full history</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-checkmark3 text-success"></i> Resolve issue</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2 text-danger"></i> Close issue</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#24</td>
 
-                            <tr>
-                                <td class="text-center">
-                                    <h6 class="mb-0">16</h6>
-                                    <div class="font-size-sm text-muted line-height-1">hours</div>
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Create UI design model</a></div>
+                                    <div class="text-muted">One morning, when Gregor Samsa woke from troubled..</div>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/demo/users/face15.jpg" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Chris Macintyre</a>
-                                            <div class="text-muted font-size-sm"><span class="badge badge-mark border-blue mr-1"></span> Active</div>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-default">
-                                        <div class="font-weight-semibold">[#1249] Vertically center carousel controls</div>
-                                        <span class="text-muted">Try any carousel control and reduce the screen width below...</span>
-                                    </a>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="22 January, 15" id="dp1575461884980">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="94">
+                                        <option value="open" data-select2-id="96">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="95" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-gy-container"><span class="select2-selection__rendered" id="select2-status-gy-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face1.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face2.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face3.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-undo"></i> Quick reply</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-history"></i> Full history</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-checkmark3 text-success"></i> Resolve issue</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2 text-danger"></i> Close issue</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#23</td>
 
-                            <tr>
-                                <td class="text-center">
-                                    <h6 class="mb-0">20</h6>
-                                    <div class="font-size-sm text-muted line-height-1">hours</div>
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">New icons set for an iOS app</a></div>
+                                    <div class="text-muted">A collection of textile samples lay spread out on the table..</div>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#" class="btn bg-blue rounded-round btn-icon btn-sm">
-                                                <span class="letter-icon">R</span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold letter-icon-title">Robert Hauber</a>
-                                            <div class="text-muted font-size-sm"><span class="badge badge-mark border-blue mr-1"></span> Active</div>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-default">
-                                        <div class="font-weight-semibold">[#1254] Inaccurate small pagination height</div>
-                                        <span class="text-muted">The height of pagination elements is not consistent with...</span>
-                                    </a>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="22 January, 15" id="dp1575461884981">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="103">
+                                        <option value="open">Open</option>
+                                        <option value="hold" selected="selected" data-select2-id="105">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="104" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-fk-container"><span class="select2-selection__rendered" id="select2-status-fk-container" role="textbox" aria-readonly="true" title="On hold">On hold</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face13.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face2.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-undo"></i> Quick reply</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-history"></i> Full history</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-checkmark3 text-success"></i> Resolve issue</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2 text-danger"></i> Close issue</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#22</td>
 
-                            <tr>
-                                <td class="text-center">
-                                    <h6 class="mb-0">40</h6>
-                                    <div class="font-size-sm text-muted line-height-1">hours</div>
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Create ad campaign banners set</a></div>
+                                    <div class="text-muted">That he had recently cut out of an illustrated magazine..</div>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#" class="btn bg-warning-400 rounded-round btn-icon btn-sm">
-                                                <span class="letter-icon">R</span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold letter-icon-title">Robert Hauber</a>
-                                            <div class="text-muted font-size-sm"><span class="badge badge-mark border-blue mr-1"></span> Active</div>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-default">
-                                        <div class="font-weight-semibold">[#1184] Round grid column gutter operations</div>
-                                        <span class="text-muted">Left rounds up, right rounds down. should keep everything...</span>
-                                    </a>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="22 January, 15" id="dp1575461884982">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="112">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved" selected="selected" data-select2-id="114">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="113" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-ag-container"><span class="select2-selection__rendered" id="select2-status-ag-container" role="textbox" aria-readonly="true" title="Resolved">Resolved</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face5.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face2.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face6.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-undo"></i> Quick reply</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-history"></i> Full history</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-checkmark3 text-success"></i> Resolve issue</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-cross2 text-danger"></i> Close issue</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <tr class="table-active table-border-double"><td colspan="8" class="font-weight-semibold">Yesterday</td></tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#21</td>
 
-                            <tr class="table-active table-border-double">
-                                <td colspan="3">CLOSED ISSUE</td>
-                                <td class="text-right">
-                                    <span class="badge bg-danger badge-pill">37</span>
-                                </td>
-                            </tr>
-
-                            <tr>
-                                <td class="text-center">
-                                    <i class="icon-cross2 text-danger-400"></i>
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Edit the draft for the icons</a></div>
+                                    <div class="text-muted">You've got to get enough sleep. Other travelling salesmen..</div>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/demo/users/face8.jpg" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Mitchell Sitkin</a>
-                                            <div class="text-muted font-size-sm"><span class="badge badge-mark border-danger mr-1"></span> Closed</div>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-orange dropdown-toggle" data-toggle="dropdown">High</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-default">
-                                        <div>[#1040] Account for static form controls in form group</div>
-                                        <span class="text-muted">Resizes control label's font-size and account for the standard...</span>
-                                    </a>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="21 January, 15" id="dp1575461884983">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="121">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid" selected="selected" data-select2-id="123">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="122" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-ai-container"><span class="select2-selection__rendered" id="select2-status-ai-container" role="textbox" aria-readonly="true" title="Invalid">Invalid</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face18.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face20.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-undo"></i> Quick reply</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-history"></i> Full history</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-plus3 text-blue"></i> Unresolve issue</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-spinner11 text-grey"></i> Reopen issue</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
                                             </div>
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#20</td>
 
-                            <tr>
-                                <td class="text-center">
-                                    <i class="icon-cross2 text-danger"></i>
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Fix validation issues and commit</a></div>
+                                    <div class="text-muted">But who knows, maybe that would be the best thing for me..</div>
                                 </td>
                                 <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#" class="btn bg-brown-400 rounded-round btn-icon btn-sm">
-                                                <span class="letter-icon">K</span>
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold letter-icon-title">Katleen Jensen</a>
-                                            <div class="text-muted font-size-sm"><span class="badge badge-mark border-danger mr-1"></span> Closed</div>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
                                         </div>
                                     </div>
                                 </td>
                                 <td>
-                                    <a href="#" class="text-default">
-                                        <div>[#1038] Proper sizing of form control feedback</div>
-                                        <span class="text-muted">Feedback icon sizing inside a larger/smaller form-group...</span>
-                                    </a>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="22 January, 15" id="dp1575461884984">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="130">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved" selected="selected" data-select2-id="132">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="131" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-ou-container"><span class="select2-selection__rendered" id="select2-status-ou-container" role="textbox" aria-readonly="true" title="Resolved">Resolved</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face25.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
                                 </td>
                                 <td class="text-center">
                                     <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
                                             <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-undo"></i> Quick reply</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-history"></i> Full history</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
                                                 <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-plus3 text-blue"></i> Unresolve issue</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-spinner11 text-grey"></i> Reopen issue</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
                                             </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#19</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Support tickets list doesn't support commas</a></div>
+                                    <div class="text-muted">I'd have gone up to the boss and told him just what i think..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="21 January, 15" id="dp1575461884985">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="139">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed" selected="selected" data-select2-id="141">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="140" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-05-container"><span class="select2-selection__rendered" id="select2-status-05-container" role="textbox" aria-readonly="true" title="Closed">Closed</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face12.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face13.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face23.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#18</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Help Web devs with HTML integration</a></div>
+                                    <div class="text-muted">Samsa was a travelling salesman - and above it there hung..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-success dropdown-toggle" data-toggle="dropdown">Low</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="21 January, 15" id="dp1575461884986">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="148">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved" selected="selected" data-select2-id="150">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="149" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-4k-container"><span class="select2-selection__rendered" id="select2-status-4k-container" role="textbox" aria-readonly="true" title="Resolved">Resolved</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face24.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face1.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-active table-border-double"><td colspan="8" class="font-weight-semibold">2 days ago</td></tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#17</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Another icon set</a></div>
+                                    <div class="text-muted">A wonderful serenity has taken possession of my entire soul..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-success dropdown-toggle" data-toggle="dropdown">Low</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="20 January, 15" id="dp1575461884987">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="157">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid" selected="selected" data-select2-id="159">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="158" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-lp-container"><span class="select2-selection__rendered" id="select2-status-lp-container" role="textbox" aria-readonly="true" title="Invalid">Invalid</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face1.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#16</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">iOS application design mockups</a></div>
+                                    <div class="text-muted">Sweet mornings of spring which I enjoy with my whole heart..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="21 January, 15" id="dp1575461884988">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="166">
+                                        <option value="open" data-select2-id="168">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="167" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-fm-container"><span class="select2-selection__rendered" id="select2-status-fm-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face12.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face24.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#15</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">UI/UX design review</a></div>
+                                    <div class="text-muted">I am alone, and feel the charm of existence in this spot..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="20 January, 15" id="dp1575461884989">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="175">
+                                        <option value="open">Open</option>
+                                        <option value="hold" selected="selected" data-select2-id="177">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="176" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-yu-container"><span class="select2-selection__rendered" id="select2-status-yu-container" role="textbox" aria-readonly="true" title="On hold">On hold</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face19.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#14</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Marketing campaign review</a></div>
+                                    <div class="text-muted">Which was created for the bliss of souls like mine..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-success dropdown-toggle" data-toggle="dropdown">Low</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="20 January, 15" id="dp1575461884990">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="184">
+                                        <option value="open" data-select2-id="186">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="185" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-84-container"><span class="select2-selection__rendered" id="select2-status-84-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face3.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face20.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#13</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Fix website issues on mobile</a></div>
+                                    <div class="text-muted">I am so happy, my dear friend, so absorbed in the exquisite..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-orange dropdown-toggle" data-toggle="dropdown">High</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="21 January, 15" id="dp1575461884991">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="193">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid" selected="selected" data-select2-id="195">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="194" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-ng-container"><span class="select2-selection__rendered" id="select2-status-ng-container" role="textbox" aria-readonly="true" title="Invalid">Invalid</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face18.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face17.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face11.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr class="table-active table-border-double"><td colspan="8" class="font-weight-semibold">Last week</td></tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#12</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Add updated responsive styles</a></div>
+                                    <div class="text-muted">I should be incapable of drawing a single stroke at the present..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="17 January, 15" id="dp1575461884992">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="202">
+                                        <option value="open" data-select2-id="204">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="203" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-vp-container"><span class="select2-selection__rendered" id="select2-status-vp-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face11.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face24.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#11</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Merge latest changes</a></div>
+                                    <div class="text-muted">When, while the lovely valley teems with vapour around me..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="16 January, 15" id="dp1575461884993">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="211">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix" selected="selected" data-select2-id="213">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="212" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-fz-container"><span class="select2-selection__rendered" id="select2-status-fz-container" role="textbox" aria-readonly="true" title="Wontfix">Wontfix</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face21.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face22.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face18.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#10</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Create landing page for a new app</a></div>
+                                    <div class="text-muted">A few stray gleams steal into the inner sanctuary, I throw..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-orange dropdown-toggle" data-toggle="dropdown">High</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="17 January, 15" id="dp1575461884994">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="220">
+                                        <option value="open" data-select2-id="222">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="221" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-2h-container"><span class="select2-selection__rendered" id="select2-status-2h-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face1.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#9</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Update JS code in app.js file</a></div>
+                                    <div class="text-muted">When I hear the buzz of the little world among the stalks..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-orange dropdown-toggle" data-toggle="dropdown">High</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="15 January, 15" id="dp1575461884995">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="229">
+                                        <option value="open">Open</option>
+                                        <option value="hold" selected="selected" data-select2-id="231">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="230" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-wf-container"><span class="select2-selection__rendered" id="select2-status-wf-container" role="textbox" aria-readonly="true" title="On hold">On hold</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face24.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#8</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Combine .js files in /app/js/</a></div>
+                                    <div class="text-muted">Insects and flies, then I feel the presence of the Almighty..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="14 January, 15" id="dp1575461884996">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="238">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved" selected="selected" data-select2-id="240">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="239" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-tj-container"><span class="select2-selection__rendered" id="select2-status-tj-container" role="textbox" aria-readonly="true" title="Resolved">Resolved</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face1.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face12.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#7</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Create application Photoshop draft</a></div>
+                                    <div class="text-muted">Who formed us in his own image, and the breath of that universal..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="20 January, 15" id="dp1575461884997">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="247">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid" selected="selected" data-select2-id="249">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="248" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-wb-container"><span class="select2-selection__rendered" id="select2-status-wb-container" role="textbox" aria-readonly="true" title="Invalid">Invalid</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face7.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#6</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Cartoon characters for app ads</a></div>
+                                    <div class="text-muted">My friend, when darkness overspreads my eyes, and heaven..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="17 January, 15" id="dp1575461884998">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="256">
+                                        <option value="open">Open</option>
+                                        <option value="hold" selected="selected" data-select2-id="258">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="257" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-kn-container"><span class="select2-selection__rendered" id="select2-status-kn-container" role="textbox" aria-readonly="true" title="On hold">On hold</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face10.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face20.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face3.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#5</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Google AdWords campain graphics</a></div>
+                                    <div class="text-muted">Seem to dwell in my soul and absorb its power, like the form..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-success dropdown-toggle" data-toggle="dropdown">Low</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="18 January, 15" id="dp1575461884999">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="265">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid" selected="selected" data-select2-id="267">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="266" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-vh-container"><span class="select2-selection__rendered" id="select2-status-vh-container" role="textbox" aria-readonly="true" title="Invalid">Invalid</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face18.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face23.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#4</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Monthly statistics report</a></div>
+                                    <div class="text-muted">I sink under the weight of the splendour of these visions..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-danger dropdown-toggle" data-toggle="dropdown">Blocker</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="19 January, 15" id="dp1575461885000">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="274">
+                                        <option value="open" data-select2-id="276">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="275" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-gc-container"><span class="select2-selection__rendered" id="select2-status-gc-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face24.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face3.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#3</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Create invoice template</a></div>
+                                    <div class="text-muted">Far far away, behind the word mountains, far from the..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-orange dropdown-toggle" data-toggle="dropdown">High</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="20 January, 15" id="dp1575461885001">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="283">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved" selected="selected" data-select2-id="285">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="284" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-9n-container"><span class="select2-selection__rendered" id="select2-status-9n-container" role="textbox" aria-readonly="true" title="Resolved">Resolved</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face5.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="even">
+                                <td class="sorting_1">#2</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Add images to the product gallery</a></div>
+                                    <div class="text-muted">Countries Vokalia and Consonantia, there live the blind..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-primary dropdown-toggle" data-toggle="dropdown">Normal</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="21 January, 15" id="dp1575461885002">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="292">
+                                        <option value="open">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed" selected="selected" data-select2-id="294">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="293" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-e8-container"><span class="select2-selection__rendered" id="select2-status-e8-container" role="textbox" aria-readonly="true" title="Closed">Closed</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face13.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
+                                        </div>
+                                    </div>
+                                </td>
+                            </tr>
+                            <tr role="row" class="odd">
+                                <td class="sorting_1">#1</td>
+
+                                <td>
+                                    <div class="font-weight-semibold"><a href="task_manager_detailed.html">Update User profile page</a></div>
+                                    <div class="text-muted">A small river named Duden flows by their place and supplies it..</div>
+                                </td>
+                                <td>
+                                    <div class="btn-group">
+                                        <a href="#" class="badge bg-success dropdown-toggle" data-toggle="dropdown">Low</a>
+                                        <div class="dropdown-menu dropdown-menu-right">
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-danger border-danger"></span> Blocker</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-orange border-orange"></span> High priority</a>
+                                            <a href="#" class="dropdown-item"><span class="badge badge-mark mr-2 bg-primary border-primary"></span> Normal priority</a>
+                                            <a href="#" class="dropdown-item active"><span class="badge badge-mark mr-2 bg-success border-success"></span> Low priority</a>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td>
+                                    <div class="d-inline-flex align-items-center">
+                                        <i class="icon-calendar2 mr-2"></i>
+                                        <input type="text" class="form-control datepicker p-0 border-0 bg-transparent hasDatepicker" value="19 January, 15" id="dp1575461885003">
+                                    </div>
+                                </td>
+                                <td>
+                                    <select name="status" class="form-control form-control-select2 select2-hidden-accessible" data-placeholder="Select status" data-fouc="" tabindex="-1" aria-hidden="true" data-select2-id="301">
+                                        <option value="open" data-select2-id="303">Open</option>
+                                        <option value="hold">On hold</option>
+                                        <option value="resolved">Resolved</option>
+                                        <option value="dublicate">Dublicate</option>
+                                        <option value="invalid">Invalid</option>
+                                        <option value="wontfix">Wontfix</option>
+                                        <option value="closed">Closed</option>
+                                    </select><span class="select2 select2-container select2-container--default" dir="ltr" data-select2-id="302" style="width: 100%;"><span class="selection"><span class="select2-selection select2-selection--single" role="combobox" aria-haspopup="true" aria-expanded="false" tabindex="0" aria-disabled="false" aria-labelledby="select2-status-ry-container"><span class="select2-selection__rendered" id="select2-status-ry-container" role="textbox" aria-readonly="true" title="Open">Open</span><span class="select2-selection__arrow" role="presentation"><b role="presentation"></b></span></span></span><span class="dropdown-wrapper" aria-hidden="true"></span></span>
+                                </td>
+                                <td>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face20.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#"><img src="../../../../global_assets/images/demo/users/face24.jpg" class="rounded-circle" width="32" height="32" alt=""></a>
+                                    <a href="#" class="btn btn-icon bg-transparent btn-sm border-slate-300 text-slate rounded-round border-dashed"><i class="icon-plus22"></i></a>
+                                </td>
+                                <td class="text-center">
+                                    <div class="list-icons">
+                                        <div class="dropdown">
+                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu9"></i></a>
+                                            <div class="dropdown-menu dropdown-menu-right">
+                                                <a href="#" class="dropdown-item"><i class="icon-alarm-add"></i> Check in</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-attachment"></i> Attach screenshot</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-rotate-ccw2"></i> Reassign</a>
+                                                <div class="dropdown-divider"></div>
+                                                <a href="#" class="dropdown-item"><i class="icon-pencil7"></i> Edit task</a>
+                                                <a href="#" class="dropdown-item"><i class="icon-cross2"></i> Remove</a>
+                                            </div>
+
                                         </div>
                                     </div>
                                 </td>
                             </tr>
                         </tbody>
                     </table>
-                </div>
+                </div><div class="datatable-footer"><div class="dataTables_info" id="DataTables_Table_0_info" role="status" aria-live="polite">Showing 1 to 25 of 25 entries</div><div class="dataTables_paginate paging_simple_numbers" id="DataTables_Table_0_paginate"><a class="paginate_button previous disabled" aria-controls="DataTables_Table_0" data-dt-idx="0" tabindex="0" id="DataTables_Table_0_previous">←</a><span><a class="paginate_button current" aria-controls="DataTables_Table_0" data-dt-idx="1" tabindex="0">1</a></span><a class="paginate_button next disabled" aria-controls="DataTables_Table_0" data-dt-idx="2" tabindex="0" id="DataTables_Table_0_next">→</a></div></div>
             </div>
         </div>
-    </div>
-    <div class="col-md-6">
-        <div class="card border-teal">
-            <div class="card-header header-elements-sm-inline">
-                <h6 class="card-title">TICKET ASSIGNED</h6>
-                <div class="header-elements">
-                    <span class="badge bg-success badge-pill">Recent Activities</span>
-                    @*<div class="list-icons ml-3">
-                            <div class="list-icons-item dropdown">
-                                <a href="#" class="list-icons-item dropdown-toggle" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                <div class="dropdown-menu">
-                                    <a href="@Url.Action("Add","TicketAssign")" class="dropdown-item"><i class="icon-list-unordered"></i> Add</a>
-                                    <a href="@Url.Action("Index","TicketAssign")" class="dropdown-item"><i class="icon-pie5"></i> Report</a>
-                                </div>
-                            </div>
-                        </div>*@
-                </div>
-            </div>
-            <div class="col-md-12" style="margin-bottom: 10px;">
-                <div class="table-responsive">
-                    <table class="table table-xs table-bordered table-striped table-condensed text-nowrap">
-                        <thead>
-                            <tr>
-                                <th>Campaign</th>
-                                <th>Client</th>
-                                <th>Changes</th>
-                                <th>Budget</th>
-                                <th>Status</th>
-                                <th class="text-center" style="width: 20px;"><i class="icon-arrow-down12"></i></th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <tr class="table-active table-border-double">
-                                <td colspan="5">TODAY ACTIVE</td>
-                                <td class="text-right">
-                                    <span class="progress-meter" id="today-progress" data-progress="30"><svg width="20" height="20"><g transform="translate(10,10)"><g class="progress-meter"><path d="M0,8A8,8 0 1,1 0,-8A8,8 0 1,1 0,8Z" style="fill: rgb(255, 255, 255); stroke: rgb(121, 134, 203); stroke-width: 1.5;"></path><path style="fill: rgb(121, 134, 203);" d="M4.898587196589413e-16,-8A8,8 0 0,1 7.608452130361228,2.472135954999579L0,0Z"></path></g></g></svg></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/facebook.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Facebook</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-blue mr-1"></span>
-                                                02:00 - 03:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Mintlime</span></td>
-                                <td><span class="text-success-600"><i class="icon-stats-growth2 mr-2"></i> 2.43%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$5,489</h6></td>
-                                <td><span class="badge bg-blue">Active</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/youtube.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Youtube videos</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-danger mr-1"></span>
-                                                13:00 - 14:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">CDsoft</span></td>
-                                <td><span class="text-success-600"><i class="icon-stats-growth2 mr-2"></i> 3.12%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$2,592</h6></td>
-                                <td><span class="badge bg-danger">Closed</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/spotify.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Spotify ads</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-grey-400 mr-1"></span>
-                                                10:00 - 11:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Diligence</span></td>
-                                <td><span class="text-danger"><i class="icon-stats-decline2 mr-2"></i> - 8.02%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$1,268</h6></td>
-                                <td><span class="badge bg-grey-400">On hold</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/twitter.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Twitter ads</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-grey-400 mr-1"></span>
-                                                04:00 - 05:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Deluxe</span></td>
-                                <td><span class="text-success-600"><i class="icon-stats-growth2 mr-2"></i> 2.78%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$7,467</h6></td>
-                                <td><span class="badge bg-grey-400">On hold</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-
-                            <tr class="table-active table-border-double">
-                                <td colspan="5">YESTERDAY CLOSED</td>
-                                <td class="text-right">
-                                    <span class="progress-meter" id="yesterday-progress" data-progress="65"><svg width="20" height="20"><g transform="translate(10,10)"><g class="progress-meter"><path d="M0,8A8,8 0 1,1 0,-8A8,8 0 1,1 0,8Z" style="fill: rgb(255, 255, 255); stroke: rgb(121, 134, 203); stroke-width: 1.5;"></path><path style="fill: rgb(121, 134, 203);" d="M4.898587196589413e-16,-8A8,8 0 1,1 -6.472135954999579,4.702282018339786L0,0Z"></path></g></g></svg></span>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/bing.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Bing campaign</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-success mr-1"></span>
-                                                15:00 - 16:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Metrics</span></td>
-                                <td><span class="text-danger"><i class="icon-stats-decline2 mr-2"></i> - 5.78%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$970</h6></td>
-                                <td><span class="badge bg-success-400">Pending</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/amazon.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Amazon ads</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-danger mr-1"></span>
-                                                18:00 - 19:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Blueish</span></td>
-                                <td><span class="text-success-600"><i class="icon-stats-growth2 mr-2"></i> 6.79%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$1,540</h6></td>
-                                <td><span class="badge bg-blue">Active</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td>
-                                    <div class="d-flex align-items-center">
-                                        <div class="mr-3">
-                                            <a href="#">
-                                                <img src="../../../../global_assets/images/brands/dribbble.png" class="rounded-circle" width="32" height="32" alt="">
-                                            </a>
-                                        </div>
-                                        <div>
-                                            <a href="#" class="text-default font-weight-semibold">Dribbble ads</a>
-                                            <div class="text-muted font-size-sm">
-                                                <span class="badge badge-mark border-blue mr-1"></span>
-                                                20:00 - 21:00
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td><span class="text-muted">Teamable</span></td>
-                                <td><span class="text-danger"><i class="icon-stats-decline2 mr-2"></i> 9.83%</span></td>
-                                <td><h6 class="font-weight-semibold mb-0">$8,350</h6></td>
-                                <td><span class="badge bg-danger">Closed</span></td>
-                                <td class="text-center">
-                                    <div class="list-icons">
-                                        <div class="list-icons-item dropdown">
-                                            <a href="#" class="list-icons-item dropdown-toggle caret-0" data-toggle="dropdown"><i class="icon-menu7"></i></a>
-                                            <div class="dropdown-menu dropdown-menu-right">
-                                                <a href="#" class="dropdown-item"><i class="icon-file-stats"></i> View statement</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-text2"></i> Edit campaign</a>
-                                                <a href="#" class="dropdown-item"><i class="icon-file-locked"></i> Disable campaign</a>
-                                                <div class="dropdown-divider"></div>
-                                                <a href="#" class="dropdown-item"><i class="icon-gear"></i> Settings</a>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </td>
-                            </tr>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </div>
+        <!-- /task manager table -->
     </div>
 </div>
 
